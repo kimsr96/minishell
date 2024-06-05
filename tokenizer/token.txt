@@ -1,0 +1,21 @@
+META CHARACTER
+
+REDIRECT
+<
+>
+DLESS <<
+DGREAT >>
+PIPE
+CMD
+SINGLE QUOTE '
+DOUBLE QUOTE "
+$ 
+
+BUILT IN FUNCTION
+echo
+cd
+pwd
+export
+unset
+env
+exit
