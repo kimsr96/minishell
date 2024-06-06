@@ -6,7 +6,7 @@
 /*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 14:43:27 by seungryk          #+#    #+#             */
-/*   Updated: 2024/06/05 14:36:09 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/06/06 12:14:41 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,8 @@ t_token	*tokenizer(char *s)
 {
 	int			i;
 	int			len;
-	t_token	*token;
-	t_token	*head;
+	t_token		*token;
+	t_token		*head;
 
 	i = 0;
 	head = NULL;

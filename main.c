@@ -6,7 +6,7 @@
 /*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 10:00:10 by seungryk          #+#    #+#             */
-/*   Updated: 2024/06/05 14:36:09 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/06/06 12:24:17 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	start_shell(char **argv, t_parser *parser)
 {
 	int			i;
 	char		*str;
-	t_token	*tokens;
+	t_token		*tokens;
 
 	i = 0;
 	argv = NULL;
@@ -34,7 +34,7 @@ void	start_shell(char **argv, t_parser *parser)
 		{
 			tokens = tokenizer(str);
 			parsing_token(tokens);
-			execute_cmd(tokens);
+			//execute_cmd(tokens);
 			print_token(tokens);
 			free_token(tokens);
 		}

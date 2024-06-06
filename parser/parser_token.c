@@ -1,26 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse_token.c                                      :+:      :+:    :+:   */
+/*   parser_token.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 09:05:12 by seungryk          #+#    #+#             */
-/*   Updated: 2024/06/05 15:16:23 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/06/06 12:52:18 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
 
-t_parser	*pipe_parser(t_token *token)
+static t_parser	*pipe_parser(void)
 {
 	t_parser	*parser;
 
 	parser = new_parser(PIPE);
 	ft_memset(parser, 0, sizeof(parser));
+	return (parser);
 }
 
-t_parser	*redirect_parser(t_token *token, t_tokentype type)
+static t_parser	*redirect_parser(t_token *token, t_tokentype type)
 {
 	t_parser	*parser;
 	t_redirect	*redirect;
@@ -33,9 +34,10 @@ t_parser	*redirect_parser(t_token *token, t_tokentype type)
 	redirect->io_type = type;
 	redirect->file_name = token->next->data;
 	parser->redirection = redirect;
+	return (parser);
 }
 
-t_token	*command_parser(t_parser **head, t_token *curr)
+static t_token	*command_parser(t_parser **head, t_token *curr)
 {
 	t_parser	*parser;
 	t_command	*command;
@@ -47,7 +49,7 @@ t_token	*command_parser(t_parser **head, t_token *curr)
 	if (!command)
 		exit(1);
 	while (curr && curr->type != PIPE && \
-		curr->type != IN_REDIRECT && curr != OUT_REDIRECT)
+		curr->type != IN_REDIRECT && curr->type != OUT_REDIRECT)
 	{	
 		if (curr->type == CMD)
 			command->cmd = curr->data;
@@ -74,7 +76,7 @@ void	parsing_token(t_token *tokens)
 	{
 		if (curr->type == PIPE)
 		{
-			parser = pipe_parser(curr);
+			parser = pipe_parser();
 			add_back_parser(&head, parser);
 		}
 		else if (curr->type == IN_REDIRECT || curr->type == OUT_REDIRECT)
@@ -85,7 +87,7 @@ void	parsing_token(t_token *tokens)
 		}
 		else
 			curr = command_parser(&head, curr);
-		if (!curr)
+		if (curr)
 			curr = curr->next;
 	}
 }

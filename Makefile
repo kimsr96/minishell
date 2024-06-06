@@ -1,11 +1,19 @@
 CC = cc
 CFLAGS = -Wall -Wextra -Werror -g
 LIBFT = -Llibft -lft
-SRCS = tokenizer/tokenizer.c tokenizer/token_utils.c \
-		tokenizer/quote_parser.c tokenizer/quote_parser_utils.c \
-		tokenizer/env_parser.c \
-		built_in/cd.c built_in/pwd.c built_in/echo.c \
- 		main.c command.c
+SRCS =  main.c \
+		tokenizer/tokenizer.c \
+		tokenizer/command_token.c \
+		tokenizer/token_utils.c \
+		tokenizer/quote_token.c \
+		tokenizer/quote_token_utils.c \
+		tokenizer/env_token.c \
+		built_in/cd.c \
+		built_in/pwd.c \
+		built_in/echo.c \
+		parser/parser_token.c \
+		parser/parser_free.c \
+		parser/parser_utils.c 
 OBJ_DIR = obj
 OBJECTS = $(addprefix $(OBJ_DIR)/, $(SRCS:.c=.o))
 INC = minishell.h
@@ -19,8 +27,9 @@ $(NAME) : $(OBJECTS) $(INC)
 
 $(OBJ_DIR) :
 	mkdir -p $(OBJ_DIR)
-	mkdir -p $(OBJ_DIR)/parser
+	mkdir -p $(OBJ_DIR)/tokenizer
 	mkdir -p $(OBJ_DIR)/built_in
+	mkdir -p $(OBJ_DIR)/parser
 
 $(OBJ_DIR)/%.o : %.c | $(OBJ_DIR)
 	$(CC) $(CFLAGS) -c $< -o $@

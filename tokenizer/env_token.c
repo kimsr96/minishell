@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env_parser.c                                       :+:      :+:    :+:   */
+/*   env_token.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/30 10:42:02 by seungryk          #+#    #+#             */
-/*   Updated: 2024/06/05 14:36:09 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/06/06 12:41:06 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "tokenizer.h"
 
-char	*get_env_var_name(char *s, int len)
+static char	*get_env_var_name(char *s, int len)
 {
 	int		i;
 	char	*env_s;
@@ -37,7 +37,7 @@ char	*get_env_var_name(char *s, int len)
 	return (env_s);
 }
 
-char	*join_str(char *s, size_t s_len, char *env)
+static char	*join_env_str(char *s, size_t s_len, char *env)
 {
 	int		e_idx;
 	char	*r;
@@ -66,7 +66,7 @@ char	*join_str(char *s, size_t s_len, char *env)
 	return (r);
 }
 
-void	get_env_string(t_token *token, char *s)
+static void	get_env_string(t_token *token, char *s)
 {
 	size_t	i;
 	size_t	j;
@@ -89,7 +89,7 @@ void	get_env_string(t_token *token, char *s)
 	}
 	if (i == ft_strlen(s))
 		return ;
-	token->data = join_str(s, i, env);
+	token->data = join_env_str(s, i, env);
 }
 
 void	parse_env(t_token *tokens)
