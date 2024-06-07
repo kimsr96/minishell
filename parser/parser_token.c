@@ -6,7 +6,7 @@
 /*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 09:05:12 by seungryk          #+#    #+#             */
-/*   Updated: 2024/06/06 12:52:18 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/06/07 15:02:28 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,18 +45,14 @@ static t_token	*command_parser(t_parser **head, t_token *curr)
 	parser = new_parser(CMD);
 	ft_memset(parser, 0, sizeof(parser));
 	command = malloc(sizeof(t_command));
+	ft_memset(command, 0, sizeof(command));
 	command->target = NULL;
 	if (!command)
 		exit(1);
 	while (curr && curr->type != PIPE && \
 		curr->type != IN_REDIRECT && curr->type != OUT_REDIRECT)
 	{	
-		if (curr->type == CMD)
-			command->cmd = curr->data;
-		else if (curr->type == FLAG)
-			command->flag = curr->data;
-		else
-			command->target = join_str(command->target, curr->data);
+		command->target = join_str(command->target, curr->data);
 		curr = curr->next;
 	}
 	parser->command = command;
@@ -64,29 +60,28 @@ static t_token	*command_parser(t_parser **head, t_token *curr)
 	return (curr);
 }
 
-void	parsing_token(t_token *tokens)
+void	parsing_token(t_parser **head, t_token *tokens)
 {
 	t_token		*curr;
 	t_parser	*parser;
-	t_parser	*head;
 
 	curr = tokens;
-	head = NULL;
+	*head = NULL;
 	while (curr)
 	{
 		if (curr->type == PIPE)
 		{
 			parser = pipe_parser();
-			add_back_parser(&head, parser);
+			add_back_parser(head, parser);
 		}
 		else if (curr->type == IN_REDIRECT || curr->type == OUT_REDIRECT)
 		{
 			parser = redirect_parser(curr, curr->type);
 			curr = curr->next;
-			add_back_parser(&head, parser);
+			add_back_parser(head, parser);
 		}
 		else
-			curr = command_parser(&head, curr);
+			curr = command_parser(head, curr);
 		if (curr)
 			curr = curr->next;
 	}

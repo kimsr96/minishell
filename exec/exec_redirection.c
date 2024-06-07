@@ -6,7 +6,7 @@
 /*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 14:51:51 by seungryk          #+#    #+#             */
-/*   Updated: 2024/06/05 07:55:32 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/06/07 12:28:19 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,4 +34,3 @@ void	output_redirection(char *file_name)
 	dup2(fd, STDIN_FILENO);
 	close(fd);
 }
-

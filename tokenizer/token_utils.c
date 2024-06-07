@@ -6,7 +6,7 @@
 /*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 11:02:39 by seungryk          #+#    #+#             */
-/*   Updated: 2024/06/05 14:36:09 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/06/07 12:28:39 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	token_type(t_token *token, char *s, int quote)
 t_token	*new_token(char *s, int len, int quote)
 {
 	int			i;
-	t_token	*token;
+	t_token		*token;
 
 	i = 0;
 	token = malloc(sizeof(t_token));

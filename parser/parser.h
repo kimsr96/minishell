@@ -6,7 +6,7 @@
 /*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 08:36:13 by seungryk          #+#    #+#             */
-/*   Updated: 2024/06/06 12:43:05 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/06/07 14:23:03 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 typedef struct s_command
 {
 	char	*cmd;
+	char	*cmd_path;
 	char	*flag;
 	char	**target;
 }t_command;
@@ -37,7 +38,7 @@ typedef struct s_parser
 }t_parser;
 
 /* parse_token.c */
-void		parsing_token(t_token *tokens);
+void		parsing_token(t_parser **head, t_token *tokens);
 
 /* parser_utils.c */
 char		**join_str(char **s1, char *s2);
@@ -46,5 +47,5 @@ void		add_back_parser(t_parser **head, t_parser *new_parser);
 
 /* parser_free.c */
 char		**free_str(char **s);
-
+void		free_parser(t_parser	*parser);
 #endif

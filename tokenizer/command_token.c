@@ -6,7 +6,7 @@
 /*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 10:29:24 by seungryk          #+#    #+#             */
-/*   Updated: 2024/06/06 12:25:44 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/06/07 15:01:18 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	find_cmd(t_token *token)
 	if (!ft_strncmp(token->data, "echo", 4))
 	{
 		token->type = CMD;
-		ft_echo(token->data, 1, 0);
+		//ft_echo(token->data, 1, 0);
 	}
 	else if (!ft_strncmp(token->data, "cd", 2))
 	{

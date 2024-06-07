@@ -6,37 +6,61 @@
 /*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 10:00:10 by seungryk          #+#    #+#             */
-/*   Updated: 2024/06/06 12:24:17 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/06/07 14:56:24 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	init_t_cmd(t_parser *parser)
+t_parser	*init_parser(void)
 {
+	t_parser	*parser;
+
 	parser = (t_parser *)malloc(sizeof(parser));
 	ft_memset(parser, 0, sizeof(parser));
+	return (parser);
 }
 
-void	start_shell(char **argv, t_parser *parser)
+void	print_parser(t_parser *parser)
 {
-	int			i;
-	char		*str;
-	t_token		*tokens;
+	int	i;
 
 	i = 0;
-	argv = NULL;
-	parser = NULL;
+	while (parser)
+	{
+		//printf("%d\n", parser->type);
+		if (parser->command->target)
+		{
+			while (parser->command->target[i])
+			{
+				printf("%s \n", parser->command->target[i]);
+				i++;
+			}
+			printf("\n");
+		}
+		parser = parser->next;
+	}
+}
+
+void	start_shell(void)
+{
+	char		*str;
+	t_token		*tokens;
+	t_parser	*parser;
+
 	while (1)
 	{
 		str = readline("minishell$ ");
 		if (str)
 		{
+			parser = init_parser();
 			tokens = tokenizer(str);
-			parsing_token(tokens);
+			parsing_token(&parser, tokens);
+			print_parser(parser);
 			//execute_cmd(tokens);
-			print_token(tokens);
+			//print_token(tokens);
 			free_token(tokens);
+			free_parser(parser);
 		}
 		add_history(str);
 	}
@@ -44,12 +68,9 @@ void	start_shell(char **argv, t_parser *parser)
 
 int	main(int argc, char **argv)
 {
-	t_parser	parser;
-
 	if (argc != 1)
 		return (0);
-	init_t_cmd(&parser);
-	start_shell(argv, &parser);
-	free(&parser);
+	argv = NULL;
+	start_shell();
 	return (0);
 }
