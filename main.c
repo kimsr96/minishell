@@ -6,7 +6,7 @@
 /*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 10:00:10 by seungryk          #+#    #+#             */
-/*   Updated: 2024/06/07 14:56:24 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/06/08 13:44:10 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,8 @@ void	print_parser(t_parser *parser)
 			}
 			printf("\n");
 		}
+		if (parser->command->cmd_path)
+			printf("path : %s\n", parser->command->cmd_path);
 		parser = parser->next;
 	}
 }
@@ -56,9 +58,9 @@ void	start_shell(void)
 			parser = init_parser();
 			tokens = tokenizer(str);
 			parsing_token(&parser, tokens);
-			print_parser(parser);
-			//execute_cmd(tokens);
+			execute_cmd(parser);
 			//print_token(tokens);
+			//print_parser(parser);
 			free_token(tokens);
 			free_parser(parser);
 		}

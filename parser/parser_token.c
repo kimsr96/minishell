@@ -6,7 +6,7 @@
 /*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 09:05:12 by seungryk          #+#    #+#             */
-/*   Updated: 2024/06/07 15:02:28 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/06/08 09:26:20 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ static t_token	*command_parser(t_parser **head, t_token *curr)
 		command->target = join_str(command->target, curr->data);
 		curr = curr->next;
 	}
+	add_cmd_path(command);
 	parser->command = command;
 	add_back_parser(head, parser);
 	return (curr);

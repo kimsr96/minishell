@@ -6,7 +6,7 @@
 /*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 08:36:13 by seungryk          #+#    #+#             */
-/*   Updated: 2024/06/07 14:23:03 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/06/08 09:35:55 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,4 +48,7 @@ void		add_back_parser(t_parser **head, t_parser *new_parser);
 /* parser_free.c */
 char		**free_str(char **s);
 void		free_parser(t_parser	*parser);
+
+/* command_path.c */
+void		add_cmd_path(t_command *command);
 #endif
