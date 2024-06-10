@@ -10,6 +10,7 @@ SRCS =  main.c \
 		parser/parser_free.c \
 		parser/parser_utils.c \
 		parser/command_path.c \
+		signal/ft_signal.c \
 		tokenizer/tokenizer.c \
 		tokenizer/command_token.c \
 		tokenizer/token_utils.c \
@@ -31,6 +32,7 @@ $(OBJ_DIR) :
 	mkdir -p $(OBJ_DIR)
 	mkdir -p $(OBJ_DIR)/exec
 	mkdir -p $(OBJ_DIR)/tokenizer
+	mkdir -p $(OBJ_DIR)/signal
 	mkdir -p $(OBJ_DIR)/built_in
 	mkdir -p $(OBJ_DIR)/parser
 

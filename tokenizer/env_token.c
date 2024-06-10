@@ -6,90 +6,108 @@
 /*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/30 10:42:02 by seungryk          #+#    #+#             */
-/*   Updated: 2024/06/06 12:41:06 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/06/10 15:37:20 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "tokenizer.h"
 
+static int	env_len(char *s)
+{
+	int	i;
+	int	len;
+
+	i = 0;
+	len = 0;
+	while (s[i])
+	{
+		if (s[i] != '\'' && s[i] != '"')
+			len++;
+		i++;
+	}
+	return (len);
+}
+
 static char	*get_env_var_name(char *s, int len)
 {
 	int		i;
+	int		j;
 	char	*env_s;
 
 	i = 0;
+	j = 0;
 	env_s = malloc(sizeof(char) * (len + 1));
 	if (!env_s)
 		return (NULL);
 	env_s[len] = '\0';
-	len = 0;
 	while (s[i])
 	{
-		if (s[i] == '$')
-			i++;
-		else
-		{
-			env_s[len] = s[i];
-			i++;
-			len++;
-		}
+		if (s[i] != '\'' && s[i] != '"')
+			env_s[j++] = s[i];
+		i++;
 	}
 	return (env_s);
 }
 
-static char	*join_env_str(char *s, size_t s_len, char *env)
+static char	*join_env_str(char *s, char *env)
 {
-	int		e_idx;
-	char	*r;
-	size_t	len;
-	size_t	idx;
+	int		i;
+	int		j;
+	int		idx;
+	size_t	s_len;
+	size_t	e_len;
+	char	*ret;
 
-	idx = -1;
-	e_idx = 0;
-	if (!env)
-		len = s_len;
-	else
-		len = s_len + ft_strlen(env);
-	r = malloc(sizeof(char) * (len + 1));
-	if (!r)
+	i = 0;
+	j = 0;
+	idx = 0;
+	s_len = ft_strlen(s) - env_len(s);
+	e_len = ft_strlen(env);
+	ret = malloc(sizeof(char) * (s_len + e_len + 1));
+	if (!ret)
 		exit(1);
-	r[len] = '\0';
-	while (++idx < s_len)
-		r[idx] = s[idx];
-	while (idx < len)
+	while (s[i])
 	{
-		r[idx] = env[e_idx];
-		idx++;
-		e_idx++;
+		if (s[i] == '$')
+		{
+			while (env[j])
+			{
+				ret[idx++] = env[j];
+				j++;
+			}
+			i += env_len(s);
+		}
+		else
+		{
+			ret[idx++] = s[i];
+			i++;
+		}
 	}
-	free(s);
-	return (r);
+	return (ret);
 }
 
 static void	get_env_string(t_token *token, char *s)
 {
 	size_t	i;
-	size_t	j;
-	char	*var_name;
+	char	*ret;
 	char	*env;
 
 	i = 0;
-	j = 0;
 	env = NULL;
 	while (s[i])
 	{
 		if (s[i] == '$')
 		{
-			j = i + 1;
-			var_name = get_env_var_name(&s[j], ft_strlen(&s[j]));
-			env = getenv(var_name);
+			env = getenv(get_env_var_name(&s[i + 1], env_len(&s[i + 1])));
 			break ;
 		}
 		i++;
 	}
 	if (i == ft_strlen(s))
 		return ;
-	token->data = join_env_str(s, i, env);
+	ret = join_env_str(token->data, env);
+	free(token->data);
+	token->data = ret;
 }
 
 void	parse_env(t_token *tokens)
@@ -99,8 +117,7 @@ void	parse_env(t_token *tokens)
 	curr = tokens;
 	while (curr)
 	{
-		if (curr->type != QUOTED_WORD)
-			get_env_string(curr, curr->data);
+		get_env_string(curr, curr->data);
 		curr = curr->next;
 	}
 }

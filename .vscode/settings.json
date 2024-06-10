@@ -61,6 +61,8 @@
     "readline.h": "c",
     "stdlib.h": "c",
     "built_in.h": "c",
-    "libft.h": "c"
+    "libft.h": "c",
+    "signal.h": "c",
+    "ft_signal.h": "c"
   }
 }

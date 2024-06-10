@@ -6,7 +6,7 @@
 /*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 15:00:19 by seungryk          #+#    #+#             */
-/*   Updated: 2024/06/06 13:17:00 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/06/10 14:47:02 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,13 @@
 # include <stdlib.h>
 # include "../libft/libft.h"
 # include "../built_in/built_in.h"
+
+typedef enum e_quotetype
+{
+	DEFAULT = 0,
+	S_QUOTE,
+	D_QUOTE
+}			t_quotetype;
 
 typedef enum e_tokentype
 {
@@ -33,6 +40,7 @@ typedef enum e_tokentype
 typedef struct s_token
 {
 	int					type;
+	int					quote_type;
 	char				*data;
 	struct s_token		*next;
 }						t_token;
@@ -44,7 +52,8 @@ void		check_cmd(t_token *token);
 void		parse_env(t_token *tokens);
 
 /* quote_parser_utils.c */
-int			quote_len(char *s, char x);
+int			quote_len(t_token *token);
+int			get_quote_type(t_token *token, char c);
 int			double_quote_exception(char a, char b);
 char		*realloc_without_quote(char *s, char x, size_t len);
 

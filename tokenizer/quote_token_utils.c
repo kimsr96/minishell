@@ -1,32 +1,61 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   quote_parser_utils.c                               :+:      :+:    :+:   */
+/*   quote_token_utils.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/02 10:27:21 by seungryk          #+#    #+#             */
-/*   Updated: 2024/06/02 10:41:57 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/06/10 14:51:25 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "tokenizer.h"
 
-int	quote_len(char *s, char x)
+int	quote_len(t_token *token)
 {
 	int	i;
 	int	len;
 
 	i = 0;
 	len = 0;
-	while (s[i])
+	while (token->data[i])
 	{
-		if (s[i] != x)
+		if (get_quote_type(token, token->data[i]))
 			len++;
 		i++;
 	}
 	return (len);
 }
+
+int	get_quote_type(t_token *token, char c)
+{
+	if (token->quote_type == D_QUOTE)
+	{
+		if (c == '"')
+			token->quote_type = DEFAULT;
+		else
+			return (1);
+	}
+	else if (token->quote_type == S_QUOTE)
+	{
+		if (c == '\'')
+			token->quote_type = DEFAULT;
+		else
+			return (1);
+	}
+	else
+	{
+		if (c == '"')
+			token->quote_type = D_QUOTE;
+		else if (c == '\'')
+			token->quote_type = S_QUOTE;
+		else
+			return (1);
+	}
+	return (0);
+}
+
 
 int	double_quote_exception(char a, char b)
 {
@@ -35,33 +64,4 @@ int	double_quote_exception(char a, char b)
 		return (1);
 	else
 		return (0);
-}
-
-char	*realloc_without_quote(char *s, char x, size_t len)
-{
-	int		i;
-	char	*r;
-
-	i = 0;
-	r = malloc(sizeof(char) * (len + 1));
-	if (!r)
-		exit(1);
-	r[len] = '\0';
-	len = 0;
-	while (s[i])
-	{
-		if (x == '"' && double_quote_exception(s[i], s[i + 1]))
-		{
-			i++;
-			continue ;
-		}
-		if (s[i] != x)
-		{
-			r[len] = s[i];
-			len++;
-		}
-		i++;
-	}
-	free(s);
-	return (r);
 }
