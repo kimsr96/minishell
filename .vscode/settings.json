@@ -63,6 +63,8 @@
     "built_in.h": "c",
     "libft.h": "c",
     "signal.h": "c",
-    "ft_signal.h": "c"
+    "ft_signal.h": "c",
+    "command.h": "c",
+    "minishell.h": "c"
   }
 }

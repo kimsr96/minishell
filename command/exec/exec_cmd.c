@@ -1,25 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cd.c                                               :+:      :+:    :+:   */
+/*   exec_cmd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/03 14:16:09 by seungryk          #+#    #+#             */
-/*   Updated: 2024/06/02 15:50:35 by seungryk         ###   ########.fr       */
+/*   Created: 2024/06/04 14:50:12 by seungryk          #+#    #+#             */
+/*   Updated: 2024/06/11 15:12:20 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "built_in.h"
+#include "../command.h"
 
-void	ft_cd(char *path)
+void	execute_cmd(t_parser *parser)
 {
-	int	ret;
+	int			status;
+	pid_t		pid;
+	t_command	*cmd;
 
-	ret = chdir(path);
-	if (ret == -1)
+	check_cmd(parser);
+	cmd = parser->command;
+	pid = fork();
+	if (pid == -1)
+		perror("fork");
+	else if (pid == 0)
 	{
-		printf("bash: cd: %s: No such file or dircetory\n", path);
-		return ;
+		if (execve(cmd->cmd_path, cmd->target, NULL) == -1)
+			perror("execve");
 	}
+	else
+		waitpid(pid, &status, 0);
 }

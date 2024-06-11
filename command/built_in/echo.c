@@ -1,32 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exec_cmd.c                                         :+:      :+:    :+:   */
+/*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/04 14:50:12 by seungryk          #+#    #+#             */
-/*   Updated: 2024/06/08 13:51:01 by seungryk         ###   ########.fr       */
+/*   Created: 2024/05/31 14:47:14 by seungryk          #+#    #+#             */
+/*   Updated: 2024/06/11 15:11:32 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "exec.h"
+#include "../command.h"
 
-void	execute_cmd(t_parser *parser)
+void	ft_echo(char *str, int flag, int fd)
 {
-	int			status;
-	pid_t		pid;
-	t_command	*cmd;
-
-	cmd = parser->command;
-	pid = fork();
-	if (pid == -1)
-		perror("fork");
-	else if (pid == 0)
-	{
-		if (execve(cmd->cmd_path, cmd->target, NULL) == -1)
-			perror("execve");
-	}
+	if (flag)
+		ft_putstr_fd(str, fd);
 	else
-		waitpid(pid, &status, 0);
+	{
+		ft_putstr_fd(str, fd);
+		ft_putchar_fd('\n', fd);
+	}
 }

@@ -1,5 +1,5 @@
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -g
+CFLAGS = -Wall -Wextra -Werror -fsanitize=address -g3
 LIBFT = -Llibft -lft
 SRCS =  main.c \
 		exec/exec_cmd.c \

@@ -1,23 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exec.h                                             :+:      :+:    :+:   */
+/*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/08 13:32:28 by seungryk          #+#    #+#             */
-/*   Updated: 2024/06/08 13:51:01 by seungryk         ###   ########.fr       */
+/*   Created: 2024/04/03 12:13:51 by seungryk          #+#    #+#             */
+/*   Updated: 2024/06/11 15:12:01 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef EXEC_H
-# define EXEC_H
+#include "../command.h"
 
-# include "../parser/parser.h"
-# include <unistd.h>
-# include <sys/wait.h>
+void	ft_pwd(void)
+{
+	char	cwd[1024];
 
-/* exec_cmd */
-void	execute_cmd(t_parser *parser);
-
-#endif
+	if (getcwd(cwd, sizeof(cwd)) != NULL)
+		printf("%s\n", cwd);
+}

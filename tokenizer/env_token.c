@@ -6,27 +6,11 @@
 /*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/30 10:42:02 by seungryk          #+#    #+#             */
-/*   Updated: 2024/06/10 15:37:20 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/06/11 14:39:25 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "tokenizer.h"
-
-static int	env_len(char *s)
-{
-	int	i;
-	int	len;
-
-	i = 0;
-	len = 0;
-	while (s[i])
-	{
-		if (s[i] != '\'' && s[i] != '"')
-			len++;
-		i++;
-	}
-	return (len);
-}
 
 static char	*get_env_var_name(char *s, int len)
 {
@@ -49,33 +33,41 @@ static char	*get_env_var_name(char *s, int len)
 	return (env_s);
 }
 
+static char	*get_return_string(char *s, char *env)
+{
+	char	*ret;
+	size_t	s_len;
+	size_t	e_len;
+
+	s_len = 0;
+	while (s[s_len] && s[s_len] != '$')
+		s_len++;
+	e_len = ft_strlen(env);
+	ret = malloc(sizeof(char) * (s_len + e_len + 1));
+	if (!ret)
+		exit(1);
+	ret[s_len + e_len] = '\0';
+	return (ret);
+}
+
 static char	*join_env_str(char *s, char *env)
 {
 	int		i;
 	int		j;
 	int		idx;
-	size_t	s_len;
-	size_t	e_len;
 	char	*ret;
 
 	i = 0;
-	j = 0;
+	j = -1;
 	idx = 0;
-	s_len = ft_strlen(s) - env_len(s);
-	e_len = ft_strlen(env);
-	ret = malloc(sizeof(char) * (s_len + e_len + 1));
-	if (!ret)
-		exit(1);
+	ret = get_return_string(s, env);
 	while (s[i])
 	{
 		if (s[i] == '$')
 		{
-			while (env[j])
-			{
+			while (env[++j])
 				ret[idx++] = env[j];
-				j++;
-			}
-			i += env_len(s);
+			i += get_env_len(&s[i]);
 		}
 		else
 		{
@@ -93,12 +85,17 @@ static void	get_env_string(t_token *token, char *s)
 	char	*env;
 
 	i = 0;
-	env = NULL;
 	while (s[i])
 	{
 		if (s[i] == '$')
 		{
-			env = getenv(get_env_var_name(&s[i + 1], env_len(&s[i + 1])));
+			env = getenv(get_env_var_name(&s[i + 1], get_env_len(&s[i + 1])));
+			if (!env)
+			{
+				free(token->data);
+				token->data = NULL;
+				return ;
+			}
 			break ;
 		}
 		i++;
@@ -110,7 +107,7 @@ static void	get_env_string(t_token *token, char *s)
 	token->data = ret;
 }
 
-void	parse_env(t_token *tokens)
+void	env_token(t_token *tokens)
 {
 	t_token	*curr;
 

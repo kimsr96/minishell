@@ -6,11 +6,55 @@
 /*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 11:02:39 by seungryk          #+#    #+#             */
-/*   Updated: 2024/06/07 12:28:39 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/06/11 13:55:03 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "tokenizer.h"
+
+int	get_env_len(char *s)
+{
+	int	i;
+	int	len;
+
+	i = 0;
+	len = 0;
+	while (s[i])
+	{
+		if (s[i] != '\'' && s[i] != '"')
+			len++;
+		i++;
+	}
+	return (len);
+}
+
+void	add_back_token(t_token **head, t_token *new)
+{
+	t_token	*curr;
+
+	curr = *head;
+	if (!curr)
+		*head = new;
+	else
+	{
+		while (curr->next)
+			curr = curr->next;
+		curr->next = new;
+	}
+}
+
+void	free_token(t_token	*token)
+{
+	t_token	*next;
+
+	while (token)
+	{
+		next = token->next;
+		free(token->data);
+		free(token);
+		token = next;
+	}
+}
 
 void	token_type(t_token *token, char *s, int quote)
 {
@@ -47,32 +91,4 @@ t_token	*new_token(char *s, int len, int quote)
 	}
 	token_type(token, token->data, quote);
 	return (token);
-}
-
-void	add_back_token(t_token **head, t_token *new)
-{
-	t_token	*curr;
-
-	curr = *head;
-	if (!curr)
-		*head = new;
-	else
-	{
-		while (curr->next)
-			curr = curr->next;
-		curr->next = new;
-	}
-}
-
-void	free_token(t_token	*token)
-{
-	t_token	*next;
-
-	while (token)
-	{
-		next = token->next;
-		free(token->data);
-		free(token);
-		token = next;
-	}
 }

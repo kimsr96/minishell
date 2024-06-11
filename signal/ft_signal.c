@@ -6,7 +6,7 @@
 /*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/09 10:24:17 by seungryk          #+#    #+#             */
-/*   Updated: 2024/06/10 13:15:26 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/06/11 13:55:30 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	enable_raw_mode(void)
 	struct termios	raw;
 
 	tcgetattr(STDIN_FILENO, &g_termios);
-    atexit(disable_raw_mode);
+	atexit(disable_raw_mode);
 	raw = g_termios;
 	tcgetattr(STDIN_FILENO, &g_termios);
 	atexit(disable_raw_mode);
