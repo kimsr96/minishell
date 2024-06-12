@@ -6,7 +6,7 @@
 /*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 08:36:13 by seungryk          #+#    #+#             */
-/*   Updated: 2024/06/08 09:35:55 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/06/12 17:35:34 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ typedef struct s_command
 {
 	char	*cmd;
 	char	*cmd_path;
-	char	*flag;
 	char	**target;
 }t_command;
 

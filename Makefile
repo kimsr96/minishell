@@ -2,17 +2,17 @@ CC = cc
 CFLAGS = -Wall -Wextra -Werror -fsanitize=address -g3
 LIBFT = -Llibft -lft
 SRCS =  main.c \
-		exec/exec_cmd.c \
-		built_in/cd.c \
-		built_in/pwd.c \
-		built_in/echo.c \
+		command/command.c \
+		command/built_in/cd.c \
+		command/built_in/pwd.c \
+		command/built_in/echo.c \
+		command/built_in/check_cmd.c \
 		parser/parser_token.c \
 		parser/parser_free.c \
 		parser/parser_utils.c \
 		parser/command_path.c \
 		signal/ft_signal.c \
 		tokenizer/tokenizer.c \
-		tokenizer/command_token.c \
 		tokenizer/token_utils.c \
 		tokenizer/quote_token.c \
 		tokenizer/quote_token_utils.c \
@@ -30,7 +30,9 @@ $(NAME) : $(OBJECTS) $(INC)
 
 $(OBJ_DIR) :
 	mkdir -p $(OBJ_DIR)
-	mkdir -p $(OBJ_DIR)/exec
+	mkdir -p $(OBJ_DIR)/command
+	mkdir -p $(OBJ_DIR)/command/exec
+	mkdir -p $(OBJ_DIR)/command/built_in
 	mkdir -p $(OBJ_DIR)/tokenizer
 	mkdir -p $(OBJ_DIR)/signal
 	mkdir -p $(OBJ_DIR)/built_in

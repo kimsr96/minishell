@@ -56,7 +56,7 @@ void	find_cmd(t_parser *parser)
 		find_cmd2(parser);
 }
 
-int	check_cmd(t_parser *parser)
+void	check_cmd(t_parser *parser)
 {
 	t_parser	*curr;
 
@@ -68,3 +68,4 @@ int	check_cmd(t_parser *parser)
 		curr = curr->next;
 	}
 }
+

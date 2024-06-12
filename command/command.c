@@ -1,33 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   built_in.h                                         :+:      :+:    :+:   */
+/*   command.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/08 13:32:28 by seungryk          #+#    #+#             */
-/*   Updated: 2024/06/12 17:33:38 by seungryk         ###   ########.fr       */
+/*   Created: 2024/06/12 17:25:17 by seungryk          #+#    #+#             */
+/*   Updated: 2024/06/12 17:27:06 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef BUILT_IN_H
-# define BUILT_IN_H
+#include "command.h"
 
-# include "../../libft/libft.h"
-# include "../../parser/parser.h"
-# include <unistd.h>
-# include <sys/wait.h>
-# include <stdio.h>
+void	execute_cmd(t_parser *parser)
+{
+	int			status;
+	pid_t		pid;
+	t_command	*cmd;
 
-/* check_cmd */
-void	check_cmd(t_parser *parser);
-
-/* echo.c */
-void	ft_echo(char *str, int flag, int fd);
-
-/* cd.c */
-void	ft_cd(char *path);
-
-/* pwd.c */
-void	ft_pwd(void);
-#endif
+	check_cmd(parser);
+	cmd = parser->command;
+	pid = fork();
+	if (pid == -1)
+		perror("fork");
+	else if (pid == 0)
+	{
+		if (execve(cmd->cmd_path, cmd->target, NULL) == -1)
+			perror("execve");
+	}
+	else
+		waitpid(pid, &status, 0);
+}

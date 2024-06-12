@@ -6,11 +6,10 @@
 /*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 14:51:51 by seungryk          #+#    #+#             */
-/*   Updated: 2024/06/11 15:12:34 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/06/12 17:26:49 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../minishell.h"
 #include <fcntl.h>
 
 void	input_redirection(char *file_name)

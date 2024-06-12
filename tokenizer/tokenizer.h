@@ -6,7 +6,7 @@
 /*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 15:00:19 by seungryk          #+#    #+#             */
-/*   Updated: 2024/06/11 15:07:07 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/06/12 17:16:28 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,6 @@ typedef struct s_token
 	char				*data;
 	struct s_token		*next;
 }						t_token;
-
-/* command_token.c */
-void		check_cmd(t_token *token);
 
 /* env_parser.c */
 void		env_token(t_token *tokens);
