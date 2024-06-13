@@ -5,7 +5,9 @@ SRCS =  main.c \
 		command/command.c \
 		command/built_in/cd.c \
 		command/built_in/pwd.c \
+		command/built_in/env.c \
 		command/built_in/echo.c \
+		command/built_in/exit.c \
 		command/built_in/check_cmd.c \
 		parser/parser_token.c \
 		parser/parser_free.c \

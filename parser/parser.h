@@ -6,7 +6,7 @@
 /*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 08:36:13 by seungryk          #+#    #+#             */
-/*   Updated: 2024/06/12 17:35:34 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/06/13 16:59:12 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ typedef struct s_redirect
 typedef struct s_parser
 {
 	int				type;
+	char			**envp;
 	t_command		*command;
 	t_redirect		*redirection;
 	struct s_parser	*next;

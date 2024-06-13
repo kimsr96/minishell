@@ -6,16 +6,16 @@
 /*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 12:13:51 by seungryk          #+#    #+#             */
-/*   Updated: 2024/06/11 15:12:01 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/06/13 16:28:43 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../command.h"
+#include "built_in.h"
 
 void	ft_pwd(void)
 {
 	char	cwd[1024];
 
-	if (getcwd(cwd, sizeof(cwd)) != NULL)
+	if (getcwd(cwd, sizeof(cwd)))
 		printf("%s\n", cwd);
 }

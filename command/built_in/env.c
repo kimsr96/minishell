@@ -1,37 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   command.c                                          :+:      :+:    :+:   */
+/*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/12 17:25:17 by seungryk          #+#    #+#             */
-/*   Updated: 2024/06/13 16:37:08 by seungryk         ###   ########.fr       */
+/*   Created: 2024/06/13 16:39:03 by seungryk          #+#    #+#             */
+/*   Updated: 2024/06/13 16:55:43 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "command.h"
+#include "built_in.h"
 
-void	execute_cmd(t_parser *parser)
+void	ft_env(char **envp, int fd)
 {
-	int			status;
-	pid_t		pid;
-	t_command	*cmd;
+	int		i;
+	char	*path;
 
-	if (check_cmd(parser))
-		return ;
-	else
+	i = 0;
+	while (envp[i])
 	{
-		cmd = parser->command;
-		pid = fork();
-		if (pid == -1)
-			perror("fork");
-		else if (pid == 0)
-		{
-			if (execve(cmd->cmd_path, cmd->target, NULL) == -1)
-				perror(*parser->command->target);
-		}
-		else
-			waitpid(pid, &status, 0);
+		path = getenv(envp[i]);
+		ft_putstr_fd(path, fd);
+		ft_putchar_fd('\n', fd);
 	}
 }

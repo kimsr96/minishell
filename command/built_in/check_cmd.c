@@ -10,62 +10,68 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../command.h"
+#include "built_in.h"
 
-void	find_cmd2(t_parser *parser)
+static int	find_cmd2(t_parser *parser, char *cmd)
 {
-	if (!ft_strncmp(parser->command->cmd, "export", 6))
+	(void)parser;
+	if (!ft_strncmp(cmd, "export", 6))
 	{
-		parser->type = CMD;
+		//ft_export();
+		return (1);
 	}
-	else if (!ft_strncmp(parser->command->cmd, "unset", 5))
+	else if (!ft_strncmp(cmd, "unset", 5))
 	{
-		parser->type = CMD;
+		//ft_unset();
+		return (1);
 	}
-	else if (!ft_strncmp(parser->command->cmd, "env", 3))
+	else if (!ft_strncmp(cmd, "env", 3))
 	{
-		parser->type = CMD;
+		ft_env(parser->envp, STDOUT_FILENO);
+		return (1);
 	}
 	else
-		return ;
+		return (0);
 }
 
-void	find_cmd(t_parser *parser)
+static int	find_cmd(t_parser *parser, char *cmd)
 {
-	if (!ft_strncmp(parser->command->cmd, "echo", 4))
+	if (!ft_strncmp(cmd, "echo", 4))
 	{
-		parser->type = CMD;
-		//ft_echo(parser->command->cmd, 1, 0);
+		ft_echo(parser->command->target, STDOUT_FILENO);
+		return (1);
 	}
-	else if (!ft_strncmp(parser->command->cmd, "cd", 2))
+	else if (!ft_strncmp(cmd, "cd", 2))
 	{
-		parser->type = CMD;
-		ft_cd(parser->next->command->cmd);
+		ft_cd(parser);
+		return (1);
 	}
-	else if (!ft_strncmp(parser->command->cmd, "pwd", 3))
+	else if (!ft_strncmp(cmd, "pwd", 3))
 	{
-		parser->type = CMD;
 		ft_pwd();
+		return (1);
 	}
-	else if (!ft_strncmp(parser->command->cmd, "exit", 4))
+	else if (!ft_strncmp(cmd, "exit", 4))
 	{
-		parser->type = CMD;
-		exit(1);
+		ft_exit();
+		return (1);
 	}
 	else
-		find_cmd2(parser);
+		return (find_cmd2(parser, cmd));
 }
 
-void	check_cmd(t_parser *parser)
+int	check_cmd(t_parser *parser)
 {
 	t_parser	*curr;
 
 	curr = parser;
 	while (curr)
 	{
-		if (curr->command->cmd)
-			find_cmd(curr);
+		if (*curr->command->target)
+			if (find_cmd(parser, *curr->command->target))
+				return (1);
 		curr = curr->next;
 	}
+	return (0);
 }
 

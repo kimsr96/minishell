@@ -6,7 +6,7 @@
 /*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/08 13:32:28 by seungryk          #+#    #+#             */
-/*   Updated: 2024/06/12 17:33:38 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/06/13 16:55:15 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,19 @@
 # include <stdio.h>
 
 /* check_cmd */
-void	check_cmd(t_parser *parser);
-
-/* echo.c */
-void	ft_echo(char *str, int flag, int fd);
+int     check_cmd(t_parser *parser);
 
 /* cd.c */
-void	ft_cd(char *path);
+void	ft_cd(t_parser *parser);
+
+/* echo.c */
+void	ft_echo(char **str, int fd);
+
+/* env.c */
+void	ft_env(char **envp, int fd);
+
+/* exit.c */
+void    ft_exit(void);
 
 /* pwd.c */
 void	ft_pwd(void);

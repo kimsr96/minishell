@@ -6,7 +6,7 @@
 /*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 10:00:10 by seungryk          #+#    #+#             */
-/*   Updated: 2024/06/11 15:09:14 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/06/13 17:03:35 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,13 @@
 
 t_parser	*init_parser(void)
 {
+	int			len;
 	t_parser	*parser;
 
+	len = 0;
 	parser = (t_parser *)malloc(sizeof(parser));
+	if (!parser)
+		exit(1);
 	ft_memset(parser, 0, sizeof(parser));
 	return (parser);
 }
@@ -70,11 +74,20 @@ void	start_shell(void)
 	}
 }
 
-int	main(int argc, char **argv)
+int	main(int argc, char **argv, char **envp)
 {
+	int	i;
+
+	i = 0;
 	if (argc != 1)
 		return (0);
 	argv = NULL;
+	while (envp[i])
+	{
+		ft_putstr_fd(envp[i], STDOUT_FILENO);
+		ft_putchar_fd('\n', STDOUT_FILENO);
+		i++;
+	}
 	set_signal();
 	start_shell();
 	return (0);
