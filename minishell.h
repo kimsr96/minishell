@@ -6,7 +6,7 @@
 /*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 10:00:06 by seungryk          #+#    #+#             */
-/*   Updated: 2024/06/12 17:27:47 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/06/15 14:31:35 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define MINISHELL_H
 
 # include "./libft/libft.h"
+# include "./env/env.h"
 # include "./command/command.h"
 # include "./tokenizer/tokenizer.h"
 # include "./parser/parser.h"

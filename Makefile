@@ -3,14 +3,17 @@ CFLAGS = -Wall -Wextra -Werror -fsanitize=address -g3
 LIBFT = -Llibft -lft
 SRCS =  main.c \
 		command/command.c \
-		command/built_in/cd.c \
-		command/built_in/pwd.c \
-		command/built_in/env.c \
-		command/built_in/echo.c \
-		command/built_in/exit.c \
+		command/built_in/ft_cd.c \
+		command/built_in/ft_pwd.c \
+		command/built_in/ft_env.c \
+		command/built_in/ft_echo.c \
+		command/built_in/ft_exit.c \
 		command/built_in/check_cmd.c \
+		env/env.c \
+		env/env_utils.c \
+		env/find_env.c \
 		parser/parser_token.c \
-		parser/parser_free.c \
+		parser/parser_init_free.c \
 		parser/parser_utils.c \
 		parser/command_path.c \
 		signal/ft_signal.c \
@@ -35,6 +38,7 @@ $(OBJ_DIR) :
 	mkdir -p $(OBJ_DIR)/command
 	mkdir -p $(OBJ_DIR)/command/exec
 	mkdir -p $(OBJ_DIR)/command/built_in
+	mkdir -p $(OBJ_DIR)/env
 	mkdir -p $(OBJ_DIR)/tokenizer
 	mkdir -p $(OBJ_DIR)/signal
 	mkdir -p $(OBJ_DIR)/built_in

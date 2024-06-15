@@ -6,19 +6,19 @@
 /*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 17:25:17 by seungryk          #+#    #+#             */
-/*   Updated: 2024/06/13 16:37:08 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/06/15 15:39:12 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "command.h"
 
-void	execute_cmd(t_parser *parser)
+void	execute_cmd(t_parser *parser, t_env_list *env)
 {
 	int			status;
 	pid_t		pid;
 	t_command	*cmd;
 
-	if (check_cmd(parser))
+	if (check_cmd(parser, env))
 		return ;
 	else
 	{

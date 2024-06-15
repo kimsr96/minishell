@@ -1,27 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env.c                                              :+:      :+:    :+:   */
+/*   find_env.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/13 16:39:03 by seungryk          #+#    #+#             */
-/*   Updated: 2024/06/13 16:55:43 by seungryk         ###   ########.fr       */
+/*   Created: 2024/06/15 16:00:44 by seungryk          #+#    #+#             */
+/*   Updated: 2024/06/15 16:39:26 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "built_in.h"
+#include "env.h"
 
-void	ft_env(char **envp, int fd)
+void	change_value(t_env_list *env, char *key, char *value)
 {
-	int		i;
-	char	*path;
+	t_env_list	*target;
 
-	i = 0;
-	while (envp[i])
+	target = find_key_node(env, key);
+	if (!target)
+		return ;
+	free(target->value);
+	target->value = value;
+}
+
+t_env_list	*find_key_node(t_env_list *env, char *find_key)
+{
+	while (env)
 	{
-		path = getenv(envp[i]);
-		ft_putstr_fd(path, fd);
-		ft_putchar_fd('\n', fd);
+		if (env->key)
+			if (!ft_strncmp(env->key, find_key, ft_strlen(env->key)))
+				return (env);
+		env = env->next;
 	}
+	return (NULL);
 }

@@ -6,7 +6,7 @@
 /*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 08:36:13 by seungryk          #+#    #+#             */
-/*   Updated: 2024/06/13 16:59:12 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/06/15 15:34:23 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ typedef struct s_redirect
 typedef struct s_parser
 {
 	int				type;
-	char			**envp;
 	t_command		*command;
 	t_redirect		*redirection;
 	struct s_parser	*next;
@@ -46,6 +45,7 @@ t_parser	*new_parser(t_tokentype type);
 void		add_back_parser(t_parser **head, t_parser *new_parser);
 
 /* parser_free.c */
+t_parser	*init_parser(void);
 char		**free_str(char **s);
 void		free_parser(t_parser	*parser);
 
