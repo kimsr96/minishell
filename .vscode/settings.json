@@ -66,6 +66,7 @@
     "ft_signal.h": "c",
     "command.h": "c",
     "minishell.h": "c",
-    "parser.h": "c"
+    "parser.h": "c",
+    "env.h": "c"
   }
 }

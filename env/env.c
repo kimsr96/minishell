@@ -6,7 +6,7 @@
 /*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/15 13:51:01 by seungryk          #+#    #+#             */
-/*   Updated: 2024/06/15 15:55:27 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/06/19 14:17:10 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ char	*get_key(char *envp, int len)
 	return (key);
 }
 
-char	*get_value_len(char *envp, int len)
+char	*get_value(char *envp, int len)
 {
 	int		i;
 	char	*value;
@@ -84,7 +84,7 @@ t_env_list	*get_env(t_env_list *head, char **envp)
 		key_len = get_key_len(*envp);
 		value_len = ft_strlen(*envp) - (key_len + 1);
 		new_env = new_env_list(get_key(*envp, key_len), \
-						get_value_len(*envp, value_len));
+						get_value(*envp, value_len));
 		add_back_env(&head, new_env);
 		envp++;
 	}

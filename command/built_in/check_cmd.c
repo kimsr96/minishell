@@ -14,15 +14,14 @@
 
 static int	find_cmd2(t_parser *parser, char *cmd, t_env_list *env)
 {
-	(void)parser;
 	if (!ft_strncmp(cmd, "export", 6))
 	{
-		//ft_export();
+		ft_export(env, parser->command->target); 
 		return (1);
 	}
 	else if (!ft_strncmp(cmd, "unset", 5))
 	{
-		//ft_unset();
+		ft_unset(env, parser->command->target);
 		return (1);
 	}
 	else if (!ft_strncmp(cmd, "env", 3))

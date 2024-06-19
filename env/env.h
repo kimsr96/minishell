@@ -6,7 +6,7 @@
 /*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/15 13:51:07 by seungryk          #+#    #+#             */
-/*   Updated: 2024/06/15 16:24:10 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/06/19 14:23:11 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,9 @@ typedef struct s_env_list
 }t_env_list;
 
 /* env.c */
+int			get_key_len(char *envp);
+char		*get_key(char *envp, int len);
+char		*get_value(char *envp, int len);
 t_env_list	*get_env(t_env_list *head, char **envp);
 
 /* env_utils.c */

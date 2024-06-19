@@ -6,7 +6,7 @@
 /*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 15:00:19 by seungryk          #+#    #+#             */
-/*   Updated: 2024/06/12 17:16:28 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/06/19 15:52:52 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,14 +47,14 @@ typedef struct s_token
 /* env_parser.c */
 void		env_token(t_token *tokens);
 
-/* quote_parser_utils.c */
+/* quote_token_utils.c */
 int			quote_len(t_token *token);
 int			get_quote_type(t_token *token, char c);
 int			double_quote_exception(char a, char b);
 char		*realloc_without_quote(char *s, char x, size_t len);
 
-/* quote_parser.c */
-void		parse_quote(t_token *tokens);
+/* quote_token.c */
+void		quote_token(t_token *tokens);
 
 /* tokenizer.c */
 t_token		*tokenizer(char *s);
@@ -65,6 +65,4 @@ void		add_back_token(t_token **head, t_token *new);
 void		free_token(t_token	*token);
 t_token		*new_token(char *s, int len, int quote);
 
-/* tokenizer.c */
-void		print_token(t_token	*token);
 #endif

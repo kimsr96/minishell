@@ -6,13 +6,13 @@
 /*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 14:46:50 by seungryk          #+#    #+#             */
-/*   Updated: 2024/06/10 15:38:29 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/06/19 16:03:29 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "tokenizer.h"
 
-int	is_quote(char *s)
+static int	is_quote_token(char *s)
 {
 	int	i;
 
@@ -26,7 +26,7 @@ int	is_quote(char *s)
 	return (0);
 }
 
-void	remove_quote(t_token *token)
+static void	remove_quote(t_token *token)
 {
 	int		i;
 	int		idx;
@@ -50,17 +50,15 @@ void	remove_quote(t_token *token)
 	token->data = ret;
 }
 
-void	parse_quote(t_token *tokens)
+void	quote_token(t_token *tokens)
 {
-	int		i;
 	t_token	*curr;
 
-	i = 0;
 	curr = tokens;
 	while (curr)
 	{
 		curr->quote_type = DEFAULT;
-		if (is_quote(curr->data))
+		if (is_quote_token(curr->data))
 			remove_quote(curr);
 		curr = curr->next;
 	}
