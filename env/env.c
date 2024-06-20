@@ -6,7 +6,7 @@
 /*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/15 13:51:01 by seungryk          #+#    #+#             */
-/*   Updated: 2024/06/19 14:17:10 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/06/20 17:03:04 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	get_key_len(char *envp)
 	len = 0;
 	while (envp[len])
 	{
-		if (envp[len] == '=')
+		if (envp[len] == '=' || envp[len] == '+')
 			break ;
 		len++;
 	}
@@ -53,20 +53,13 @@ char	*get_value(char *envp, int len)
 	value = ft_calloc(len + 1, sizeof(char));
 	if (!value)
 		exit(1);
-	while (*envp)
-	{
-		if (*envp == '=')
-		{
-			envp++;
-			break ;
-		}
-		envp++;
-	}
-	while (i < len && *envp)
+	envp = ft_strchr(envp, '=');
+	if (!envp)
+		return (NULL);
+	while (i < len && *++envp)
 	{
 		value[i] = *envp;
 		i++;
-		envp++;
 	}
 	value[i] = '\0';
 	return (value);

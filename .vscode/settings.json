@@ -67,6 +67,8 @@
     "command.h": "c",
     "minishell.h": "c",
     "parser.h": "c",
-    "env.h": "c"
+    "env.h": "c",
+    "iterator": "c",
+    "__node_handle": "c"
   }
 }

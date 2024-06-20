@@ -6,7 +6,7 @@
 /*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 10:00:10 by seungryk          #+#    #+#             */
-/*   Updated: 2024/06/15 15:55:25 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/06/20 12:18:39 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ void	print_parser(t_parser *parser)
 	i = 0;
 	while (parser)
 	{
-		//printf("%d\n", parser->type);
 		if (parser->command->target)
 		{
 			while (parser->command->target[i])
