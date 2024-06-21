@@ -6,7 +6,7 @@
 /*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 16:53:38 by seungryk          #+#    #+#             */
-/*   Updated: 2024/06/20 16:54:19 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/06/21 13:43:52 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,12 +55,39 @@ void	sort_env(t_env_list *head)
 	}
 }
 
+t_env_list	*copy_env(t_env_list *head)
+{
+	t_env_list	*curr;
+	t_env_list	*new_head;
+	t_env_list	*new_node;
+
+	if (!head)
+		return (NULL);
+	curr = head;
+	new_head = NULL;
+	new_node = NULL;
+	while (curr)
+	{
+		new_node = new_env_list(curr->key, curr->value);
+		if (!new_head)
+			new_head = new_node;
+		else
+			add_back_env(&new_head, new_node);
+		curr = curr->next;
+	}
+	return (new_head);
+}
+
 void	sort_print_env(t_env_list *head)
 {
-	sort_env(head);
-	while (head)
+	t_env_list	*new_head;
+
+	new_head = copy_env(head);
+	sort_env(new_head);
+	while (new_head)
 	{
-		printf("declare -x %s=\"%s\"\n", head->key, head->value);
-		head = head->next;
+		printf("declare -x %s=\"%s\"\n", new_head->key, new_head->value);
+		new_head = new_head->next;
 	}
+	free_env(new_head);
 }

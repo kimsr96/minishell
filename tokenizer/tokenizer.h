@@ -6,7 +6,7 @@
 /*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 15:00:19 by seungryk          #+#    #+#             */
-/*   Updated: 2024/06/19 15:52:52 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/06/21 14:06:28 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,13 +27,10 @@ typedef enum e_quotetype
 typedef enum e_tokentype
 {
 	WORD = 0,
-	QUOTED_WORD,
 	PIPE,
 	IN_REDIRECT,
 	OUT_REDIRECT,
-	ENV,
-	CMD,
-	FLAG
+	CMD
 }				t_tokentype;
 
 typedef struct s_token

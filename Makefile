@@ -44,7 +44,6 @@ $(OBJ_DIR) :
 	mkdir -p $(OBJ_DIR)/env
 	mkdir -p $(OBJ_DIR)/tokenizer
 	mkdir -p $(OBJ_DIR)/signal
-	mkdir -p $(OBJ_DIR)/built_in
 	mkdir -p $(OBJ_DIR)/parser
 
 $(OBJ_DIR)/%.o : %.c | $(OBJ_DIR)

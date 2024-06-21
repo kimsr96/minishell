@@ -6,7 +6,7 @@
 /*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 08:36:13 by seungryk          #+#    #+#             */
-/*   Updated: 2024/06/15 15:34:23 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/06/21 15:08:07 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@
 
 typedef struct s_command
 {
-	char	*cmd;
 	char	*cmd_path;
 	char	**target;
 }t_command;
@@ -50,5 +49,5 @@ char		**free_str(char **s);
 void		free_parser(t_parser	*parser);
 
 /* command_path.c */
-void		add_cmd_path(t_command *command);
+void		add_cmd_path(t_command *command, char *cmd);
 #endif

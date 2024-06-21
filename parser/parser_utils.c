@@ -6,7 +6,7 @@
 /*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 09:24:40 by seungryk          #+#    #+#             */
-/*   Updated: 2024/06/07 12:29:18 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/06/21 15:07:39 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,9 +69,11 @@ t_parser	*new_parser(t_tokentype type)
 	t_parser	*parser;
 
 	i = 0;
-	parser = malloc(sizeof(t_parser));
+	parser = ft_calloc(1, sizeof(t_parser));
 	if (!parser)
 		exit(1);
+	parser->command = NULL;
+	parser->redirection = NULL;
 	parser->next = NULL;
 	parser->type = type;
 	return (parser);

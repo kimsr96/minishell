@@ -6,7 +6,7 @@
 /*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 10:00:10 by seungryk          #+#    #+#             */
-/*   Updated: 2024/06/20 12:18:39 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/06/21 15:08:06 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,17 +16,17 @@ void	print_parser(t_parser *parser)
 {
 	int	i;
 
-	i = 0;
 	while (parser)
 	{
+		printf("type: %d\n", parser->type);
 		if (parser->command->target)
 		{
+			i = 0;
 			while (parser->command->target[i])
 			{
 				printf("%s \n", parser->command->target[i]);
 				i++;
 			}
-			printf("\n");
 		}
 		if (parser->command->cmd_path)
 			printf("path : %s\n", parser->command->cmd_path);
@@ -48,6 +48,7 @@ void	start_shell(t_env_list *env)
 			parser = init_parser();
 			tokens = tokenizer(str);
 			parsing_token(&parser, tokens);
+			//print_parser(parser);
 			if (parser)
 				execute_cmd(parser, env);
 			free_token(tokens);

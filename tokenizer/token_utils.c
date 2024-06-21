@@ -6,7 +6,7 @@
 /*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 11:02:39 by seungryk          #+#    #+#             */
-/*   Updated: 2024/06/15 14:18:19 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/06/21 14:17:47 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,11 +76,11 @@ t_token	*new_token(char *s, int len, int quote)
 	t_token		*token;
 
 	i = 0;
-	token = malloc(sizeof(t_token));
+	token = ft_calloc(1, sizeof(t_token));
 	if (!token)
 		exit(1);
 	token->next = NULL;
-	token->data = malloc(sizeof(char) * (len + 1));
+	token->data = ft_calloc(len + 1, sizeof(char));
 	if (!(token->data))
 		exit(1);
 	token->data[len] = '\0';
