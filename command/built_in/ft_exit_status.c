@@ -1,36 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   command.c                                          :+:      :+:    :+:   */
+/*   ft_exit_status.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/12 17:25:17 by seungryk          #+#    #+#             */
-/*   Updated: 2024/06/24 15:35:09 by seungryk         ###   ########.fr       */
+/*   Created: 2024/06/24 15:34:09 by seungryk          #+#    #+#             */
+/*   Updated: 2024/06/24 16:33:14 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "command.h"
+#include "built_in.h"
 
-void	execute_cmd(t_parser *parser, t_env_list *env)
+void    ft_exit_status(void)
 {
-	pid_t		pid;
-	t_command	*cmd;
-
-	if (check_cmd(parser, env))
-		return ;
-	else
-	{
-		cmd = parser->command;
-		pid = fork();
-		if (pid == -1)
-			perror("fork");
-		else if (pid == 0)
-		{
-			if (execve(cmd->cmd_path, cmd->target, NULL) == -1)
-				perror(*parser->command->target);
-		}
-		else
-			waitpid(pid, &status, 0);
-	}
+    printf("minishell: %d: command not found\n", status);
+    status = 127;
 }

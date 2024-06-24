@@ -6,7 +6,7 @@
 /*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/30 10:42:02 by seungryk          #+#    #+#             */
-/*   Updated: 2024/06/11 14:39:25 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/06/24 15:32:08 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,12 @@ void	env_token(t_token *tokens)
 	curr = tokens;
 	while (curr)
 	{
-		get_env_string(curr, curr->data);
-		curr = curr->next;
+		if (ft_strncmp(curr->data, "$?", 2) == 0)
+			curr = curr->next;
+		else
+		{
+			get_env_string(curr, curr->data);
+			curr = curr->next;
+		}
 	}
 }

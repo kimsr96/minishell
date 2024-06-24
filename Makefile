@@ -8,9 +8,10 @@ SRCS =  main.c \
 		command/built_in/ft_env.c \
 		command/built_in/ft_echo.c \
 		command/built_in/ft_exit.c \
-		command/built_in/ft_export.c \
-		command/built_in/ft_export_no_option.c \
 		command/built_in/ft_unset.c \
+		command/built_in/ft_export.c \
+		command/built_in/ft_exit_status.c \
+		command/built_in/ft_export_no_option.c \
 		command/built_in/check_cmd.c \
 		env/env.c \
 		env/env_utils.c \

@@ -6,7 +6,7 @@
 /*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 10:00:06 by seungryk          #+#    #+#             */
-/*   Updated: 2024/06/15 14:31:35 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/06/24 15:36:57 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,5 +25,7 @@
 # include <stdlib.h>
 # include <readline/readline.h>
 # include <readline/history.h>
+
+int status;
 
 #endif

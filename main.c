@@ -6,7 +6,7 @@
 /*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 10:00:10 by seungryk          #+#    #+#             */
-/*   Updated: 2024/06/21 15:08:06 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/06/24 17:02:45 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,19 +43,20 @@ void	start_shell(t_env_list *env)
 	while (1)
 	{
 		str = readline("minishell$ ");
-		if (str)
+		if (!str)
 		{
-			parser = init_parser();
-			tokens = tokenizer(str);
-			parsing_token(&parser, tokens);
-			//print_parser(parser);
-			if (parser)
-				execute_cmd(parser, env);
-			free_token(tokens);
-			free_parser(parser);
-		}
-		else
+            printf("\e7\e[A\e[11Cexit\n");  
+			// 커서 위치 저장, 커서를 한 줄 위로 이동,  커서를 11칸 오른쪽으로 이동
 			break ;
+		}
+		parser = init_parser();
+		tokens = tokenizer(str);
+		parsing_token(&parser, tokens);
+		//print_parser(parser);
+		if (parser)
+			execute_cmd(parser, env);
+		free_token(tokens);
+		free_parser(parser);
 		add_history(str);
 		free(str);
 	}

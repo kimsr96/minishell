@@ -29,6 +29,11 @@ static int	find_cmd2(t_parser *parser, char *cmd, t_env_list *env)
 		ft_env(env, STDOUT_FILENO);
 		return (1);
 	}
+	else if (!ft_strncmp(cmd, "$?", 2))
+	{
+		ft_exit_status();
+		return (1);
+	}
 	else
 		return (0);
 }
@@ -66,9 +71,13 @@ int	check_cmd(t_parser *parser, t_env_list *env)
 	curr = parser;
 	while (curr)
 	{
-		if (*curr->command->target)
-			if (find_cmd(parser, *curr->command->target, env))
-				return (1);
+		if (curr->command)
+			if (*curr->command->target)
+				if (find_cmd(parser, *curr->command->target, env))
+				{
+					status = 0;
+					return (1);
+				}
 		curr = curr->next;
 	}
 	return (0);

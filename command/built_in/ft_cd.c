@@ -6,7 +6,7 @@
 /*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 14:16:09 by seungryk          #+#    #+#             */
-/*   Updated: 2024/06/20 12:53:05 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/06/24 12:56:11 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	ft_cd(t_parser *parser, t_env_list *env)
 
 	old_pwd = ft_pwd(1);
 	path = parser->command->target[1];
-	if (path == NULL)
+	if (path == NULL || ft_strncmp(path, "~", 1) == 0)
 		chdir(getenv("HOME"));
 	else
 	{
