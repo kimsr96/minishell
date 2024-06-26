@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hyeonble <hyeonble@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 08:36:13 by seungryk          #+#    #+#             */
-/*   Updated: 2024/06/21 15:08:07 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/06/26 22:33:59 by hyeonble         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,26 +27,26 @@ typedef struct s_redirect
 	char	*file_name;	
 }t_redirect;
 
-typedef struct s_parser
+typedef struct s_block
 {
 	int				type;
 	t_command		*command;
 	t_redirect		*redirection;
-	struct s_parser	*next;
-}t_parser;
+	struct s_block	*next;
+}t_block;
 
 /* parse_token.c */
-void		parsing_token(t_parser **head, t_token *tokens);
+void		parsing_token(t_block **head, t_token *tokens);
 
 /* parser_utils.c */
 char		**join_str(char **s1, char *s2);
-t_parser	*new_parser(t_tokentype type);
-void		add_back_parser(t_parser **head, t_parser *new_parser);
+t_block		*new_block(t_tokentype type);
+void		add_back_block(t_block **head, t_block *new_block);
 
 /* parser_free.c */
-t_parser	*init_parser(void);
+t_block		*init_block(void);
 char		**free_str(char **s);
-void		free_parser(t_parser	*parser);
+void		free_block(t_block	*block);
 
 /* command_path.c */
 void		add_cmd_path(t_command *command, char *cmd);

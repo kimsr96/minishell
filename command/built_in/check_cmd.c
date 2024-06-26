@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   check_cmd.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hyeonble <hyeonble@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 17:34:51 by seungryk          #+#    #+#             */
-/*   Updated: 2024/06/26 17:41:05 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/06/26 22:19:22 by hyeonble         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "built_in.h"
 
-static int	find_cmd2(t_parser *parser, char *cmd, t_env_list *env)
+static int	find_cmd2(t_block *parser, char *cmd, t_env_list *env)
 {
 	if (!ft_strncmp(cmd, "export", 6))
 	{
@@ -38,7 +38,7 @@ static int	find_cmd2(t_parser *parser, char *cmd, t_env_list *env)
 		return (0);
 }
 
-static int	find_cmd(t_parser *parser, char *cmd, t_env_list *env)
+static int	find_cmd(t_block *parser, char *cmd, t_env_list *env)
 {
 	if (!ft_strncmp(cmd, "echo", 4))
 	{
@@ -64,9 +64,9 @@ static int	find_cmd(t_parser *parser, char *cmd, t_env_list *env)
 		return (find_cmd2(parser, cmd, env));
 }
 
-int	check_cmd(t_parser *parser, t_env_list *env)
+int	check_cmd(t_block *parser, t_env_list *env)
 {
-	t_parser	*curr;
+	t_block	*curr;
 
 	curr = parser;
 	while (curr)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   command.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hyeonble <hyeonble@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/08 13:32:28 by seungryk          #+#    #+#             */
-/*   Updated: 2024/06/26 17:41:40 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/06/26 22:22:22 by hyeonble         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 # include "../env/env.h"
 
 /* command.c */
-void	execute_cmd(t_parser *parser, t_env_list *env);
+void	execute_cmd(t_block *block, t_env_list *env);
 
 int     g_status;
 #endif

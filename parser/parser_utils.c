@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hyeonble <hyeonble@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 09:24:40 by seungryk          #+#    #+#             */
-/*   Updated: 2024/06/21 15:07:39 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/06/26 22:31:54 by hyeonble         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,33 +63,33 @@ char	**join_str(char **s1, char *s2)
 	return (ret);
 }
 
-t_parser	*new_parser(t_tokentype type)
+t_block	*new_block(t_tokentype type)
 {
-	int			i;
-	t_parser	*parser;
+	int		i;
+	t_block	*block;
 
 	i = 0;
-	parser = ft_calloc(1, sizeof(t_parser));
-	if (!parser)
+	block = ft_calloc(1, sizeof(t_block));
+	if (!block)
 		exit(1);
-	parser->command = NULL;
-	parser->redirection = NULL;
-	parser->next = NULL;
-	parser->type = type;
-	return (parser);
+	block->command = NULL;
+	block->redirection = NULL;
+	block->next = NULL;
+	block->type = type;
+	return (block);
 }
 
-void	add_back_parser(t_parser **head, t_parser *new_parser)
+void	add_back_block(t_block **head, t_block *new_block)
 {
-	t_parser	*curr;
+	t_block	*curr;
 
 	curr = *head;
 	if (!curr)
-		*head = new_parser;
+		*head = new_block;
 	else
 	{
 		while (curr->next)
 			curr = curr->next;
-		curr->next = new_parser;
+		curr->next = new_block;
 	}
 }

@@ -3,39 +3,39 @@
 /*                                                        :::      ::::::::   */
 /*   parser_token.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hyeonble <hyeonble@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 09:05:12 by seungryk          #+#    #+#             */
-/*   Updated: 2024/06/26 16:51:28 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/06/26 22:39:19 by hyeonble         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
 
-static t_parser	*redirect_parser(t_token *token, t_tokentype type)
+static t_block	*redirect_block(t_token *token, t_tokentype type)
 {
-	t_parser	*parser;
+	t_block		*block;
 	t_redirect	*redirect;
 
-	parser = new_parser(type);
-	if (!parser)
+	block = new_block(type);
+	if (!block)
 		exit(1);
 	redirect = ft_calloc(1, sizeof(t_redirect));
 	if (!redirect)
 		exit(1);
 	redirect->io_type = type;
 	redirect->file_name = token->next->data;
-	parser->redirection = redirect;
-	return (parser);
+	block->redirection = redirect;
+	return (block);
 }
 
-static t_token	*command_parser(t_parser **head, t_token *curr)
+static t_token	*command_parser(t_block **head, t_token *curr)
 {
-	t_parser	*parser;
+	t_block		*block;
 	t_command	*command;
 
-	parser = new_parser(CMD);
-	if (!parser)
+	block = new_block(CMD);
+	if (!block)
 		exit(1);
 	command = ft_calloc(1, sizeof(t_command));
 	if (!command)
@@ -52,15 +52,15 @@ static t_token	*command_parser(t_parser **head, t_token *curr)
 				break ;
 		curr = curr->next;
 	}
-	parser->command = command;
-	add_back_parser(head, parser);
+	block->command = command;
+	add_back_block(head, block);
 	return (curr);
 }
 
-void	parsing_token(t_parser **head, t_token *tokens)
+void	parsing_token(t_block **head, t_token *tokens)
 {
 	t_token		*curr;
-	t_parser	*parser;
+	t_block		*block;
 
 	curr = tokens;
 	*head = NULL;
@@ -68,15 +68,15 @@ void	parsing_token(t_parser **head, t_token *tokens)
 	{
 		if (curr->type == PIPE)
 		{
-			parser = new_parser(PIPE);
-			add_back_parser(head, parser);
+			block = new_block(PIPE);
+			add_back_block(head, block);
 		}
 		else if (curr->type == IN_REDIRECT || curr->type == OUT_REDIRECT || \
 				curr->type == HEREDOC_REDIRECT || curr->type == APPEND_REDIRECT)
 		{
-			parser = redirect_parser(curr, curr->type);
+			block = redirect_block(curr, curr->type);
 			curr = curr->next;
-			add_back_parser(head, parser);
+			add_back_block(head, block);
 		}
 		else
 			curr = command_parser(head, curr);

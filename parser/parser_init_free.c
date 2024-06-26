@@ -1,28 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser_init_free.c                                 :+:      :+:    :+:   */
+/*   block_init_free.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hyeonble <hyeonble@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 15:08:30 by seungryk          #+#    #+#             */
-/*   Updated: 2024/06/26 16:54:14 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/06/26 22:20:35 by hyeonble         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
 
-t_parser	*init_parser(void)
+t_block	*init_block(void)
 {
 	int			len;
-	t_parser	*parser;
+	t_block		*block;
 
 	len = 0;
-	parser = (t_parser *)malloc(sizeof(parser));
-	if (!parser)
+	block = (t_block *)malloc(sizeof(block));
+	if (!block)
 		exit(1);
-	ft_memset(parser, 0, sizeof(parser));
-	return (parser);
+	ft_memset(block, 0, sizeof(block));
+	return (block);
 }
 
 char	**free_str(char **s)
@@ -40,15 +40,15 @@ char	**free_str(char **s)
 	return (s);
 }
 
-void	free_parser(t_parser	*parser)
+void	free_block(t_block	*block)
 {
-	t_parser	*next;
+	t_block	*next;
 
-	while (parser)
+	while (block)
 	{
-		next = parser->next;
-		if (parser->command)
-			free_str(parser->command->target);
-		parser = next;
+		next = block->next;
+		if (block->command)
+			free_str(block->command->target);
+		block = next;
 	}
 }

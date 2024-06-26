@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hyeonble <hyeonble@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 14:16:09 by seungryk          #+#    #+#             */
-/*   Updated: 2024/06/24 12:56:11 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/06/26 22:19:22 by hyeonble         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "built_in.h"
 
-void	ft_cd(t_parser *parser, t_env_list *env)
+void	ft_cd(t_block *parser, t_env_list *env)
 {
 	int		ret;
 	char	*path;
