@@ -6,7 +6,7 @@
 /*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 09:05:12 by seungryk          #+#    #+#             */
-/*   Updated: 2024/06/21 14:43:05 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/06/26 16:51:28 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,8 @@ void	parsing_token(t_parser **head, t_token *tokens)
 			parser = new_parser(PIPE);
 			add_back_parser(head, parser);
 		}
-		else if (curr->type == IN_REDIRECT || curr->type == OUT_REDIRECT)
+		else if (curr->type == IN_REDIRECT || curr->type == OUT_REDIRECT || \
+				curr->type == HEREDOC_REDIRECT || curr->type == APPEND_REDIRECT)
 		{
 			parser = redirect_parser(curr, curr->type);
 			curr = curr->next;

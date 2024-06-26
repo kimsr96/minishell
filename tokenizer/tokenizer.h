@@ -6,7 +6,7 @@
 /*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 15:00:19 by seungryk          #+#    #+#             */
-/*   Updated: 2024/06/21 14:06:28 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/06/26 16:48:51 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,9 @@ typedef enum e_tokentype
 	WORD = 0,
 	PIPE,
 	IN_REDIRECT,
+	HEREDOC_REDIRECT,
 	OUT_REDIRECT,
+	APPEND_REDIRECT,
 	CMD
 }				t_tokentype;
 

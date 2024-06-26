@@ -6,7 +6,7 @@
 /*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 11:02:39 by seungryk          #+#    #+#             */
-/*   Updated: 2024/06/21 14:17:47 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/06/26 17:33:53 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,10 +62,14 @@ void	token_type(t_token *token, char *s, int quote)
 		token->type = WORD;
 	else if (!ft_strncmp(s, "|", 1))
 		token->type = PIPE;
-	else if (!ft_strncmp(s, "<", 1) || !ft_strncmp(s, "<<", 2))
+	else if (!ft_strncmp(s, "<", 1))
 		token->type = IN_REDIRECT;
-	else if (!ft_strncmp(s, ">", 1) || !ft_strncmp(s, ">>", 2))
+	else if (!ft_strncmp(s, "<<", 2))
+		token->type = HEREDOC_REDIRECT;
+	else if (!ft_strncmp(s, ">", 1))
 		token->type = OUT_REDIRECT;
+	else if (!ft_strncmp(s, ">>", 2))
+		token->type = APPEND_REDIRECT;
 	else
 		token->type = WORD;
 }

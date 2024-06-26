@@ -6,15 +6,15 @@
 /*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/15 13:51:07 by seungryk          #+#    #+#             */
-/*   Updated: 2024/06/20 17:12:51 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/06/26 17:34:28 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef ENV_H
 # define ENV_H
 
-#include <stdlib.h>
-#include "../libft/libft.h"
+# include <stdlib.h>
+# include "../libft/libft.h"
 
 typedef struct s_env_list
 {

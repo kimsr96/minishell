@@ -6,7 +6,7 @@
 /*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/08 13:32:28 by seungryk          #+#    #+#             */
-/*   Updated: 2024/06/24 15:39:22 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/06/26 17:38:46 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,10 @@ void	ft_echo(char **str, int fd);
 void	ft_env(t_env_list *env, int fd);
 
 /* ft_exit.c */
-void    ft_exit(void);
+void	ft_exit(void);
 
 /* ft_exit_status.c */
-void    ft_exit_status(void);
+void	ft_exit_status(void);
 
 /* ft_export.c */
 void	ft_export(t_env_list *head, char **str);
@@ -51,5 +51,5 @@ void	sort_print_env(t_env_list *head);
 void	ft_unset(t_env_list *head, char **str);
 
 /* pwd.c */
-char    *ft_pwd(int flag);
+char	*ft_pwd(int flag);
 #endif

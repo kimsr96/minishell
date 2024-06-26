@@ -6,7 +6,7 @@
 /*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 15:08:30 by seungryk          #+#    #+#             */
-/*   Updated: 2024/06/15 15:33:54 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/06/26 16:54:14 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,8 @@ void	free_parser(t_parser	*parser)
 	while (parser)
 	{
 		next = parser->next;
-		free_str(parser->command->target);
+		if (parser->command)
+			free_str(parser->command->target);
 		parser = next;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 10:00:10 by seungryk          #+#    #+#             */
-/*   Updated: 2024/06/24 17:02:45 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/06/26 17:37:35 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,17 +19,17 @@ void	print_parser(t_parser *parser)
 	while (parser)
 	{
 		printf("type: %d\n", parser->type);
-		if (parser->command->target)
+		if (parser->type >= 2 && parser->type <= 5)
+			printf("data: %s\n", parser->redirection->file_name);
+		else if (parser->command && parser->command->target)
 		{
 			i = 0;
 			while (parser->command->target[i])
 			{
-				printf("%s \n", parser->command->target[i]);
+				printf("data: %s\n", parser->command->target[i]);
 				i++;
 			}
 		}
-		if (parser->command->cmd_path)
-			printf("path : %s\n", parser->command->cmd_path);
 		parser = parser->next;
 	}
 }
@@ -45,8 +45,7 @@ void	start_shell(t_env_list *env)
 		str = readline("minishell$ ");
 		if (!str)
 		{
-            printf("\e7\e[A\e[11Cexit\n");  
-			// 커서 위치 저장, 커서를 한 줄 위로 이동,  커서를 11칸 오른쪽으로 이동
+			printf("\e7\e[A\e[11Cexit\n");
 			break ;
 		}
 		parser = init_parser();

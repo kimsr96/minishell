@@ -6,7 +6,7 @@
 /*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 14:43:27 by seungryk          #+#    #+#             */
-/*   Updated: 2024/06/21 14:01:48 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/06/26 17:33:14 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,16 +28,26 @@ static int	is_quote(char c)
 		return (0);
 }
 
+static int	is_metachar(char *s)
+{
+	if (!ft_strncmp(s, ">>", 2) || !ft_strncmp(s, "<<", 2))
+		return (2);
+	else if (*s == '|' || *s == '>' || *s == '<')
+		return (1);
+	else
+		return (0);
+}
+
 int	token_len(char *s, int quote)
 {
 	int	i;
 	int	len;
 
-	i = 0;
+	i = -1;
 	len = 0;
-	while (s[i])
+	while (s[++i])
 	{
-		if (is_space(s[i]) && quote == 0)
+		if ((is_space(s[i]) && quote == 0) || is_metachar(&s[i]))
 			break ;
 		else if (i != 0 && (s[i] == '\'' || s[i] == '"'))
 		{
@@ -46,10 +56,21 @@ int	token_len(char *s, int quote)
 			else
 				quote = 1;
 		}
-		i++;
 		len++;
 	}
 	return (len);
+}
+
+void	print_token(t_token *token)
+{
+	t_token	*curr;
+
+	curr = token;
+	while (curr)
+	{
+		printf("%s\n", curr->data);
+		curr = curr->next;
+	}
 }
 
 t_token	*tokenizer(char *s)
@@ -67,7 +88,9 @@ t_token	*tokenizer(char *s)
 			i++;
 		else
 		{
-			len = token_len(&s[i], is_quote(s[i]));
+			len = is_metachar(&s[i]);
+			if (!len)
+				len = token_len(&s[i], is_quote(s[i]));
 			token = new_token(&s[i], len, is_quote(s[i]));
 			add_back_token(&head, token);
 			i += len;
@@ -75,5 +98,6 @@ t_token	*tokenizer(char *s)
 	}
 	quote_token(head);
 	env_token(head);
+	print_token(head);
 	return (head);
 }

@@ -6,7 +6,7 @@
 /*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 17:25:17 by seungryk          #+#    #+#             */
-/*   Updated: 2024/06/24 15:35:09 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/06/26 17:40:47 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,6 @@ void	execute_cmd(t_parser *parser, t_env_list *env)
 				perror(*parser->command->target);
 		}
 		else
-			waitpid(pid, &status, 0);
+			waitpid(pid, &g_status, 0);
 	}
 }

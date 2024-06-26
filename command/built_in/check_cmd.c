@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   command_parser.c                                    :+:      :+:    :+:   */
+/*   check_cmd.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/03 10:29:24 by seungryk          #+#    #+#             */
-/*   Updated: 2024/06/11 15:14:05 by seungryk         ###   ########.fr       */
+/*   Created: 2024/06/26 17:34:51 by seungryk          #+#    #+#             */
+/*   Updated: 2024/06/26 17:41:05 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static int	find_cmd2(t_parser *parser, char *cmd, t_env_list *env)
 {
 	if (!ft_strncmp(cmd, "export", 6))
 	{
-		ft_export(env, parser->command->target); 
+		ft_export(env, parser->command->target);
 		return (1);
 	}
 	else if (!ft_strncmp(cmd, "unset", 5))
@@ -71,15 +71,21 @@ int	check_cmd(t_parser *parser, t_env_list *env)
 	curr = parser;
 	while (curr)
 	{
-		if (curr->command)
+		if (curr->type == IN_REDIRECT || curr->type == OUT_REDIRECT || \
+				curr->type == HEREDOC_REDIRECT || curr->type == APPEND_REDIRECT)
+			return (1);
+		else if (curr->command)
+		{
 			if (*curr->command->target)
+			{
 				if (find_cmd(parser, *curr->command->target, env))
 				{
-					status = 0;
+					g_status = 0;
 					return (1);
 				}
+			}
+		}
 		curr = curr->next;
 	}
 	return (0);
 }
-
