@@ -6,13 +6,14 @@
 /*   By: hyeonble <hyeonble@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 14:51:51 by seungryk          #+#    #+#             */
-/*   Updated: 2024/06/27 22:38:51 by hyeonble         ###   ########.fr       */
+/*   Updated: 2024/06/30 21:51:56 by hyeonble         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <fcntl.h>
 #include <unistd.h>
-#include <../command.h>
+#include "../command.h"
+#include "exec.h"
 
 int	is_directory(char *filename)
 {
@@ -53,12 +54,12 @@ int check_file(t_redirect *redirection)
 	{
 		if (access(filename, F_OK) != 0)
 			return (raise_file_error(filename, "No such file or directory\n"));
-		if (access(filename, W_OK) != 0)
+		if (access(filename, R_OK) != 0)
 			return (raise_file_error(filename, "Permission denied\n"));
 	}
 	if (type == OUT_REDIRECT || type == APPEND_REDIRECT)
 	{
-		if (access(filename, F_OK) == 0 || access(filename, W_OK) != 0)
+		if (access(filename, F_OK) == 0 && access(filename, W_OK) != 0)
 			return (raise_file_error(filename, "Permission denied\n"));
 	}
 	return (0);
@@ -70,15 +71,19 @@ int	open_file(t_redirect *redirection)
 
 	if (check_file(redirection) < 0)
 		return (-1);
+	fd = -1;
 	filename = redirection->file_name;
-	if (redirection->io_type == IN_REDIRECT)
-		fd = open(filename, O_RDONLY);
-	else if (redirection->io_type == HEREDOC_REDIRECT)
-		fd = open(filename, O_RDONLY);
-	else if (redirection->io_type == OUT_REDIRECT)
-		fd = open(filename, O_RDWR | O_CREAT | O_TRUNC, 0644);
-	else if (redirection->io_type == APPEND_REDIRECT)
-		fd = open(filename, O_RDWR | O_CREAT | O_APPEND, 0644);
+	if (redirection->io_type >= IN_REDIRECT && redirection->io_type <= APPEND_REDIRECT)
+	{
+		if (redirection->io_type == IN_REDIRECT)
+			fd = open(filename, O_RDONLY);
+		else if (redirection->io_type == HEREDOC_REDIRECT)
+			fd = open(filename, O_RDONLY);
+		else if (redirection->io_type == OUT_REDIRECT)
+			fd = open(filename, O_RDWR | O_CREAT | O_TRUNC, 0644);
+		else
+			fd = open(filename, O_RDWR | O_CREAT | O_APPEND, 0644);
+	}
 	if (fd < 0)
 	{
 		ft_putstr_fd("file open error\n", 2);
@@ -92,7 +97,10 @@ int	redirect(t_block *block)
 	int	fd;
 
 	if (block == NULL || block->redirection == NULL)
+	{
+		printf("%d", block->type);
 		return (-1);
+	}
 	fd = open_file(block->redirection);
 	if (fd < 0)
 		return (-1);

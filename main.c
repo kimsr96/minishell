@@ -6,7 +6,7 @@
 /*   By: hyeonble <hyeonble@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 10:00:10 by seungryk          #+#    #+#             */
-/*   Updated: 2024/06/26 22:34:58 by hyeonble         ###   ########.fr       */
+/*   Updated: 2024/06/30 16:55:04 by hyeonble         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void	start_shell(t_env_list *env)
 		parsing_token(&block, tokens);
 		//print_block(block);
 		if (block)
-			execute_cmd(block, env);
+			exec(block, env);
 		free_token(tokens);
 		free_block(block);
 		add_history(str);

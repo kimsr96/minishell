@@ -18,10 +18,9 @@ t_block	*init_block(void)
 	t_block		*block;
 
 	len = 0;
-	block = (t_block *)malloc(sizeof(block));
+	block = (t_block *)ft_calloc(1, sizeof(t_block));
 	if (!block)
 		exit(1);
-	ft_memset(block, 0, sizeof(block));
 	return (block);
 }
 

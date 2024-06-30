@@ -6,7 +6,7 @@
 /*   By: hyeonble <hyeonble@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/08 13:32:28 by seungryk          #+#    #+#             */
-/*   Updated: 2024/06/27 22:38:45 by hyeonble         ###   ########.fr       */
+/*   Updated: 2024/06/30 16:57:04 by hyeonble         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,8 @@
 # include <stdio.h>
 
 /* ft_check_cmd */
-int		check_cmd(t_block *block, t_env_list *env);
+int		is_builtin(t_block *block);
+void	exec_builtin(t_block *block, t_env_list *env);
 
 /* ft_cd.c */
 void	ft_cd(t_block *block, t_env_list *env);

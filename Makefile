@@ -13,6 +13,7 @@ SRCS =  main.c \
 		command/built_in/ft_exit_status.c \
 		command/built_in/ft_export_no_option.c \
 		command/built_in/built_in.c \
+		command/exec/exec_redirection.c \
 		env/env.c \
 		env/env_utils.c \
 		env/find_env.c \
