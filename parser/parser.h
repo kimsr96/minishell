@@ -6,7 +6,7 @@
 /*   By: hyeonble <hyeonble@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 08:36:13 by seungryk          #+#    #+#             */
-/*   Updated: 2024/07/06 15:52:23 by hyeonble         ###   ########.fr       */
+/*   Updated: 2024/07/11 14:58:59 by hyeonble         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ typedef struct s_redirect
 {
 	int		io_type;
 	char	*delimiter;
-	char	*file_name;	
+	char	*file_name;
 }t_redirect;
 
 typedef struct s_block

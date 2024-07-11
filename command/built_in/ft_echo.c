@@ -6,7 +6,7 @@
 /*   By: hyeonble <hyeonble@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 14:47:14 by seungryk          #+#    #+#             */
-/*   Updated: 2024/07/10 18:20:14 by hyeonble         ###   ########.fr       */
+/*   Updated: 2024/07/11 14:58:52 by hyeonble         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ static int	is_flag(char **str, int len)
 	return (1);
 }
 
-int	ft_echo(char **str, int fd)
+void	ft_echo(char **str, int fd)
 {
 	int	len;
 
@@ -61,5 +61,4 @@ int	ft_echo(char **str, int fd)
 		print_echo(str, 1, fd);
 	else
 		print_echo(str, 0, fd);
-	return (0);
 }
