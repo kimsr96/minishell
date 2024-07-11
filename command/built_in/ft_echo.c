@@ -3,62 +3,77 @@
 /*                                                        :::      ::::::::   */
 /*   ft_echo.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyeonble <hyeonble@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 14:47:14 by seungryk          #+#    #+#             */
-/*   Updated: 2024/07/11 14:58:52 by hyeonble         ###   ########.fr       */
+/*   Updated: 2024/07/11 17:02:37 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "built_in.h"
 
-static void	print_echo(char **str, int flag, int fd)
+static void	print_echo(char **str, int flag_num, int len, int fd)
 {
 	int	i;
 
-	if (flag)
-		i = 2;
-	else
-		i = 1;
+	i = flag_num + 1;
 	if (str == NULL)
 		ft_putchar_fd('\n', fd);
 	while (str[i])
 	{
 		ft_putstr_fd(str[i], fd);
+		if (len - flag_num > 1)
+			ft_putchar_fd(' ', fd);
 		i++;
 	}
-	if (!flag)
+	if (!flag_num)
 		ft_putchar_fd('\n', fd);
 }
 
-static int	is_flag(char **str, int len)
+static int	check_flag(char *str)
 {
-	int		i;
-	char	*flag;
+	int	i;
 
 	i = 0;
+	if (str[i] == '-' && str[i + 1] == 'n')
+	{
+		while (str[++i])
+		{
+			if (str[i] != 'n')
+				return (0);
+		}
+		return (1);
+	}
+	else
+		return (0);
+}
+
+static int	get_flag_num(char **str, int len)
+{
+	int		idx;
+	int		flag_num;
+
+	idx = 1;
+	flag_num = 0;
 	if (len <= 1)
 		return (0);
-	flag = str[1];
-	if (flag[i] != '-')
-		return (0);
-	while (flag[++i])
+	while (str[idx])
 	{
-		if (flag[i] != 'n')
-			return (0);
+		if (check_flag(str[idx]))
+			flag_num++;
+		idx++;
 	}
-	return (1);
+	return (flag_num);
 }
 
 void	ft_echo(char **str, int fd)
 {
 	int	len;
+	int	flag_num;
 
 	len = 0;
 	while (str[len])
 		len++;
-	if (is_flag(str, len))
-		print_echo(str, 1, fd);
-	else
-		print_echo(str, 0, fd);
+	flag_num = get_flag_num(str, len);
+	print_echo(str, flag_num, len - 1, fd);
 }
