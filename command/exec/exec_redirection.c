@@ -6,7 +6,7 @@
 /*   By: hyeonble <hyeonble@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 14:51:51 by seungryk          #+#    #+#             */
-/*   Updated: 2024/06/30 21:51:56 by hyeonble         ###   ########.fr       */
+/*   Updated: 2024/07/06 15:37:11 by hyeonble         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,15 +92,12 @@ int	open_file(t_redirect *redirection)
 	return (fd);
 }
 
-int	redirect(t_block *block)
+int	redirect(t_block **head, t_block *block)
 {
 	int	fd;
 
 	if (block == NULL || block->redirection == NULL)
-	{
-		printf("%d", block->type);
 		return (-1);
-	}
 	fd = open_file(block->redirection);
 	if (fd < 0)
 		return (-1);
@@ -108,5 +105,7 @@ int	redirect(t_block *block)
 		dup2(fd, STDIN_FILENO);
 	else
 		dup2(fd, STDOUT_FILENO);
+	close(fd);
+	remove_block(head, block);
 	return (1);
 }

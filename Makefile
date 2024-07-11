@@ -17,10 +17,12 @@ SRCS =  main.c \
 		env/env.c \
 		env/env_utils.c \
 		env/find_env.c \
+		env/get_envp.c \
 		parser/parser_token.c \
 		parser/parser_init_free.c \
 		parser/parser_utils.c \
 		parser/command_path.c \
+		parser/remove_block.c \
 		signal/ft_signal.c \
 		tokenizer/tokenizer.c \
 		tokenizer/token_utils.c \
@@ -32,11 +34,16 @@ OBJECTS = $(addprefix $(OBJ_DIR)/, $(SRCS:.c=.o))
 INC = minishell.h
 NAME = minishell
 
+
+COMPILE_FLAGS = -lreadline -L/opt/homebrew/opt/readline/lib
+OBJ_FLAGS = -I/opt/homebrew/opt/readline/include
+
 all : $(NAME)
 
 $(NAME) : $(OBJECTS) $(INC)
 	make -C ./libft
-	$(CC) $(CFLAGS) -lreadline $(OBJECTS) $(LIBFT) -o $(NAME) 
+	$(CC) $(CFLAGS) $(COMPILE_FLAGS) $(OBJECTS) $(LIBFT) -o $(NAME)
+#$(CC) $(CFLAGS) -lreadline $(OBJECTS) $(LIBFT) -o $(NAME)
 
 $(OBJ_DIR) :
 	mkdir -p $(OBJ_DIR)
@@ -49,7 +56,7 @@ $(OBJ_DIR) :
 	mkdir -p $(OBJ_DIR)/parser
 
 $(OBJ_DIR)/%.o : %.c | $(OBJ_DIR)
-	$(CC) $(CFLAGS) -c $< -o $@
+	$(CC) $(CFLAGS) $(OBJ_FLAGS) -c $< -o $@
 
 clean :
 	make -C ./libft clean
@@ -62,5 +69,9 @@ fclean : clean
 re :
 	make fclean
 	make all
+
+debug : $(OBJECTS) $(INC)
+	make -C ./libft
+	$(CC) $(CFLAGS) $(COMPILE_FLAGS) -g -O0 -DDEBUG $(OBJECTS) $(LIBFT) -o $(NAME)_debug
 
 .PHONY : all clean fclean re

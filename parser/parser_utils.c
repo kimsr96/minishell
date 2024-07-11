@@ -6,7 +6,7 @@
 /*   By: hyeonble <hyeonble@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 09:24:40 by seungryk          #+#    #+#             */
-/*   Updated: 2024/06/26 22:31:54 by hyeonble         ###   ########.fr       */
+/*   Updated: 2024/07/02 17:57:34 by hyeonble         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,10 +65,8 @@ char	**join_str(char **s1, char *s2)
 
 t_block	*new_block(t_tokentype type)
 {
-	int		i;
 	t_block	*block;
 
-	i = 0;
 	block = ft_calloc(1, sizeof(t_block));
 	if (!block)
 		exit(1);

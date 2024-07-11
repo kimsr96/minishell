@@ -6,7 +6,7 @@
 /*   By: hyeonble <hyeonble@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 10:00:10 by seungryk          #+#    #+#             */
-/*   Updated: 2024/06/30 16:55:04 by hyeonble         ###   ########.fr       */
+/*   Updated: 2024/07/06 15:53:17 by hyeonble         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,12 +50,12 @@ void	start_shell(t_env_list *env)
 		}
 		block = init_block();
 		tokens = tokenizer(str);
-		parsing_token(&block, tokens);
+		parsing_token(&block, tokens, env);
 		//print_block(block);
 		if (block)
 			exec(block, env);
 		free_token(tokens);
-		free_block(block);
+		free_block_all(block);
 		add_history(str);
 		free(str);
 	}
@@ -63,13 +63,12 @@ void	start_shell(t_env_list *env)
 
 int	main(int argc, char **argv, char **envp)
 {
-	int			i;
 	t_env_list	*env;
 
-	i = 0;
 	if (argc != 1)
 		return (0);
-	argv = NULL;
+	if (argv)
+		argv = NULL;
 	env = NULL;
 	set_signal();
 	env = get_env(env, envp);

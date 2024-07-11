@@ -14,10 +14,8 @@
 
 t_block	*init_block(void)
 {
-	int			len;
 	t_block		*block;
 
-	len = 0;
 	block = (t_block *)ft_calloc(1, sizeof(t_block));
 	if (!block)
 		exit(1);
@@ -39,15 +37,35 @@ char	**free_str(char **s)
 	return (s);
 }
 
-void	free_block(t_block	*block)
+void	free_block_all(t_block *block)
 {
 	t_block	*next;
 
 	while (block)
 	{
 		next = block->next;
-		if (block->command)
-			free_str(block->command->target);
+		free_block(block);
 		block = next;
 	}
+}
+
+void	free_block(t_block *block)
+{
+	if (block->command)
+	{
+		if (block->command->cmd_path)
+			free(block->command->cmd_path);
+		if (block->command->target)
+			free_2darr(block->command->target);
+		free(block->command);
+	}
+	if (block->redirection)
+	{
+		if (block->redirection->delimiter)
+			free(block->redirection->delimiter);
+		if (block->redirection->file_name)
+			free(block->redirection->delimiter);
+		free(block->redirection);
+	}
+	free(block);
 }

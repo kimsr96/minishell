@@ -6,7 +6,7 @@
 /*   By: hyeonble <hyeonble@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 08:36:13 by seungryk          #+#    #+#             */
-/*   Updated: 2024/06/27 17:41:51 by hyeonble         ###   ########.fr       */
+/*   Updated: 2024/07/06 15:52:23 by hyeonble         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define PARSER_H
 
 # include "../tokenizer/tokenizer.h"
+# include "../env/env.h"
 
 typedef struct s_command
 {
@@ -37,7 +38,7 @@ typedef struct s_block
 }t_block;
 
 /* parse_token.c */
-void		parsing_token(t_block **head, t_token *tokens);
+void		parsing_token(t_block **head, t_token *tokens, t_env_list *env);
 
 /* parser_utils.c */
 char		**join_str(char **s1, char *s2);
@@ -47,8 +48,15 @@ void		add_back_block(t_block **head, t_block *new_block);
 /* parser_free.c */
 t_block		*init_block(void);
 char		**free_str(char **s);
+void		free_block_all(t_block *block);
 void		free_block(t_block	*block);
 
 /* command_path.c */
-void		add_cmd_path(t_command *command, char *cmd);
+char		**get_path(t_env_list *env);
+char		*get_cmd(t_env_list *env, char *cmd);
+char		*case_only_cmd(char **path, char *cmd);
+void		free_2darr(char **s);
+
+void		remove_block(t_block **head, t_block *cur_block);
+
 #endif

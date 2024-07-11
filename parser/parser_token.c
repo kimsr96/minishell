@@ -6,7 +6,7 @@
 /*   By: hyeonble <hyeonble@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 09:05:12 by seungryk          #+#    #+#             */
-/*   Updated: 2024/06/26 22:39:19 by hyeonble         ###   ########.fr       */
+/*   Updated: 2024/07/05 16:28:30 by hyeonble         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static t_block	*redirect_block(t_token *token, t_tokentype type)
 	return (block);
 }
 
-static t_token	*command_parser(t_block **head, t_token *curr)
+static t_token	*command_parser(t_block **head, t_token *curr, t_env_list *env)
 {
 	t_block		*block;
 	t_command	*command;
@@ -41,9 +41,9 @@ static t_token	*command_parser(t_block **head, t_token *curr)
 	if (!command)
 		exit(1);
 	command->target = NULL;
-	add_cmd_path(command, curr->data);
+	command->cmd_path = get_cmd(env, curr->data);
 	while (curr)
-	{	
+	{
 		command->target = join_str(command->target, curr->data);
 		if (curr->next)
 			if (curr->next->type == PIPE || \
@@ -57,7 +57,7 @@ static t_token	*command_parser(t_block **head, t_token *curr)
 	return (curr);
 }
 
-void	parsing_token(t_block **head, t_token *tokens)
+void	parsing_token(t_block **head, t_token *tokens, t_env_list *env)
 {
 	t_token		*curr;
 	t_block		*block;
@@ -79,7 +79,7 @@ void	parsing_token(t_block **head, t_token *tokens)
 			add_back_block(head, block);
 		}
 		else
-			curr = command_parser(head, curr);
+			curr = command_parser(head, curr, env);
 		if (curr)
 			curr = curr->next;
 	}
