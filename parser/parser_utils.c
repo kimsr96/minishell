@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyeonble <hyeonble@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 09:24:40 by seungryk          #+#    #+#             */
-/*   Updated: 2024/07/02 17:57:34 by hyeonble         ###   ########.fr       */
+/*   Updated: 2024/07/23 16:36:10 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,6 @@ t_block	*new_block(t_tokentype type)
 	if (!block)
 		exit(1);
 	block->command = NULL;
-	block->redirection = NULL;
 	block->next = NULL;
 	block->type = type;
 	return (block);

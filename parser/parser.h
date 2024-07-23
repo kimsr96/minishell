@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyeonble <hyeonble@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 08:36:13 by seungryk          #+#    #+#             */
-/*   Updated: 2024/07/11 14:58:59 by hyeonble         ###   ########.fr       */
+/*   Updated: 2024/07/23 19:44:07 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,24 +16,33 @@
 # include "../tokenizer/tokenizer.h"
 # include "../env/env.h"
 
-typedef struct s_command
+typedef enum e_redir_type
 {
-	char	*cmd_path;
-	char	**target;
-}t_command;
+	IN_REDIRECT,
+	HEREDOC_REDIRECT,
+	OUT_REDIRECT,
+	APPEND_REDIRECT
+}			t_redir_type;
 
 typedef struct s_redirect
 {
-	int		io_type;
-	char	*delimiter;
-	char	*file_name;
+	int					io_type;
+	char				*delimiter;
+	char				*file_name;
+	struct s_redirect	*next;
 }t_redirect;
+
+typedef struct s_command
+{
+	char			*cmd_path;
+	char			**target;
+	t_redirect		*redirect;
+}t_command;
 
 typedef struct s_block
 {
 	int				type;
 	t_command		*command;
-	t_redirect		*redirection;
 	struct s_block	*next;
 }t_block;
 
@@ -57,6 +66,11 @@ char		*get_cmd(t_env_list *env, char *cmd);
 char		*case_only_cmd(char **path, char *cmd);
 void		free_2darr(char **s);
 
-void		remove_block(t_block **head, t_block *cur_block);
+/* redirect_block.c */
+int				is_redirect(t_tokentype type);
+void			add_back_redirect(t_redirect **head, t_redirect *new_redirect);
+void			remove_block(t_block **head, t_block *cur_block);
+t_redirect		*get_redirect(t_token *token, t_redir_type type);
+t_redir_type	set_redirect_type(char *s);
 
 #endif

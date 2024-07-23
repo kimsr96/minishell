@@ -3,36 +3,36 @@
 /*                                                        :::      ::::::::   */
 /*   command.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyeonble <hyeonble@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 17:25:17 by seungryk          #+#    #+#             */
-/*   Updated: 2024/07/11 17:42:22 by hyeonble         ###   ########.fr       */
+/*   Updated: 2024/07/23 17:07:41 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "command.h"
 
-void	handle_redirection(t_block **head, t_block **cur)
-{
-	t_block	*next_block;
-	t_block	*last_cmd;
+//void	handle_redirection(t_block **head, t_block **cur)
+//{
+//	t_block	*next_block;
+//	t_block	*last_cmd;
 
-	last_cmd = NULL;
-	while ((*cur) != NULL && (*cur)->type != PIPE)
-	{
-		next_block = (*cur)->next;
-		if ((*cur)->type == CMD)
-			last_cmd = *cur;
-		if ((*cur)->redirection != NULL)
-		{
-			if (redirect(head, *cur) < 0)
-				exit (1);
-		}
-		(*cur) = next_block;
-	}
-	if (last_cmd != NULL)
-		*cur = last_cmd;
-}
+//	last_cmd = NULL;
+//	while ((*cur) != NULL && (*cur)->type != PIPE)
+//	{
+//		next_block = (*cur)->next;
+//		if ((*cur)->type == CMD)
+//			last_cmd = *cur;
+//		if ((*cur)->redirection != NULL)
+//		{
+//			if (redirect(head, *cur) < 0)
+//				exit (1);
+//		}
+//		(*cur) = next_block;
+//	}
+//	if (last_cmd != NULL)
+//		*cur = last_cmd;
+//}
 
 void	restore_fd(int stdin_backup, int stdout_backup)
 {
@@ -129,11 +129,11 @@ void	exec(t_block *block, t_env_list *env)
 	has_pipe_flag = has_pipe(block);
 	while (cur != NULL)
 	{
-		if (!check_redir)
-		{
-			handle_redirection(&block, &cur);
-			check_redir = 1;
-		}
+		//if (!check_redir)
+		//{
+		//	handle_redirection(&block, &cur);
+		//	check_redir = 1;
+		//}
 		if (cur->next != NULL && cur->next->type == PIPE)
 		{
 			if (pipe(fds) < 0)

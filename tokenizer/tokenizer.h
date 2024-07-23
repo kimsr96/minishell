@@ -6,7 +6,7 @@
 /*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 15:00:19 by seungryk          #+#    #+#             */
-/*   Updated: 2024/06/26 16:48:51 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/07/23 19:41:15 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,9 @@ typedef enum e_quotetype
 
 typedef enum e_tokentype
 {
-	WORD = 0,
+	CMD = 0,
 	PIPE,
-	IN_REDIRECT,
-	HEREDOC_REDIRECT,
-	OUT_REDIRECT,
-	APPEND_REDIRECT,
-	CMD
+	REDIRECT
 }				t_tokentype;
 
 typedef struct s_token
@@ -62,6 +58,6 @@ t_token		*tokenizer(char *s);
 int			get_env_len(char *s);
 void		add_back_token(t_token **head, t_token *new);
 void		free_token(t_token	*token);
-t_token		*new_token(char *s, int len, int quote);
+t_token		*new_token(char *s, int len);
 
 #endif

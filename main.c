@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyeonble <hyeonble@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 10:00:10 by seungryk          #+#    #+#             */
-/*   Updated: 2024/07/11 14:56:08 by hyeonble         ###   ########.fr       */
+/*   Updated: 2024/07/23 20:01:35 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,22 +14,36 @@
 
 void	print_block(t_block *block)
 {
-	int	i;
+	int			i;
+	t_command 	*cmd;
+	t_redirect	*curr;
 
 	while (block)
 	{
-		printf("type: %d\n", block->type);
-		if (block->type >= 2 && block->type <= 5)
-			printf("data: %s\n", block->redirection->file_name);
-		else if (block->command && block->command->target)
+		cmd = block->command;
+		if (cmd && (cmd->target || cmd->redirect))
 		{
+			curr = cmd->redirect;
+			while (curr)
+			{
+				printf("======REDIRECTION======\n");
+				printf("type: %d\n", curr->io_type);
+				printf("file_name: %s\n", curr->file_name);
+				printf("delimiter: %s\n", curr->delimiter);
+				printf("========================\n");
+				curr = curr->next;
+			}
 			i = 0;
 			while (block->command->target[i])
 			{
-				printf("data: %s\n", block->command->target[i]);
+				if (i == 0)
+					printf("cmd: %s\n", block->command->target[i]);
+				else
+					printf("target: %s\n", block->command->target[i]);
 				i++;
 			}
 		}
+		printf("****************************\n");
 		block = block->next;
 	}
 }
@@ -51,9 +65,9 @@ void	start_shell(t_env_list *env)
 		block = init_block();
 		tokens = tokenizer(str);
 		parsing_token(&block, tokens, env);
-		//print_block(block);
-		if (block)
-			exec(block, env);
+		print_block(block);
+		//if (block)
+		//	exec(block, env);
 		free_token(tokens);
 		free_block_all(block);
 		add_history(str);

@@ -3,56 +3,47 @@
 /*                                                        :::      ::::::::   */
 /*   parser_token.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyeonble <hyeonble@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 09:05:12 by seungryk          #+#    #+#             */
-/*   Updated: 2024/07/05 16:28:30 by hyeonble         ###   ########.fr       */
+/*   Updated: 2024/07/23 19:58:57 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
 
-static t_block	*redirect_block(t_token *token, t_tokentype type)
-{
-	t_block		*block;
-	t_redirect	*redirect;
-
-	block = new_block(type);
-	if (!block)
-		exit(1);
-	redirect = ft_calloc(1, sizeof(t_redirect));
-	if (!redirect)
-		exit(1);
-	redirect->io_type = type;
-	redirect->file_name = token->next->data;
-	block->redirection = redirect;
-	return (block);
-}
-
 static t_token	*command_parser(t_block **head, t_token *curr, t_env_list *env)
 {
 	t_block		*block;
-	t_command	*command;
+	t_command	*cmd;
 
 	block = new_block(CMD);
 	if (!block)
 		exit(1);
-	command = ft_calloc(1, sizeof(t_command));
-	if (!command)
+	cmd = ft_calloc(1, sizeof(t_command));
+	if (!cmd)
 		exit(1);
-	command->target = NULL;
-	command->cmd_path = get_cmd(env, curr->data);
+	cmd->target = NULL;
+	cmd->redirect = NULL;
+	cmd->cmd_path = get_cmd(env, curr->data);
 	while (curr)
 	{
-		command->target = join_str(command->target, curr->data);
+		if (is_redirect(curr->type))
+		{
+			curr->type = set_redirect_type(curr->data);
+			add_back_redirect(&cmd->redirect, get_redirect(curr, curr->type));
+			curr = curr->next;
+		}
+		else
+		{
+			cmd->target = join_str(cmd->target, curr->data);
+		}
 		if (curr->next)
-			if (curr->next->type == PIPE || \
-				curr->next->type == IN_REDIRECT \
-				|| curr->next->type == OUT_REDIRECT)
+			if (curr->next->type == PIPE)
 				break ;
 		curr = curr->next;
 	}
-	block->command = command;
+	block->command = cmd;
 	add_back_block(head, block);
 	return (curr);
 }
@@ -69,13 +60,6 @@ void	parsing_token(t_block **head, t_token *tokens, t_env_list *env)
 		if (curr->type == PIPE)
 		{
 			block = new_block(PIPE);
-			add_back_block(head, block);
-		}
-		else if (curr->type == IN_REDIRECT || curr->type == OUT_REDIRECT || \
-				curr->type == HEREDOC_REDIRECT || curr->type == APPEND_REDIRECT)
-		{
-			block = redirect_block(curr, curr->type);
-			curr = curr->next;
 			add_back_block(head, block);
 		}
 		else

@@ -51,21 +51,24 @@ void	free_block_all(t_block *block)
 
 void	free_block(t_block *block)
 {
-	if (block->command)
+	t_command	*cmd;
+
+	cmd = block->command;
+	if (cmd)
 	{
+		if (cmd->redirect)
+		{
+			if (cmd->redirect->delimiter)
+				free(cmd->redirect->delimiter);
+			if (cmd->redirect->file_name)
+				free(cmd->redirect->delimiter);
+			free(cmd->redirect);
+		}
 		if (block->command->cmd_path)
 			free(block->command->cmd_path);
 		if (block->command->target)
 			free_2darr(block->command->target);
 		free(block->command);
-	}
-	if (block->redirection)
-	{
-		if (block->redirection->delimiter)
-			free(block->redirection->delimiter);
-		if (block->redirection->file_name)
-			free(block->redirection->delimiter);
-		free(block->redirection);
 	}
 	free(block);
 }

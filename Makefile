@@ -23,18 +23,18 @@ SRCS =  main.c \
 		parser/parser_utils.c \
 		parser/command_path.c \
 		parser/remove_block.c \
+		parser/redirect_block.c \
 		signal/ft_signal.c \
 		tokenizer/tokenizer.c \
 		tokenizer/token_utils.c \
 		tokenizer/quote_token.c \
 		tokenizer/quote_token_utils.c \
 		tokenizer/env_token.c
+
 OBJ_DIR = obj
 OBJECTS = $(addprefix $(OBJ_DIR)/, $(SRCS:.c=.o))
 INC = minishell.h
 NAME = minishell
-
-
 COMPILE_FLAGS = -lreadline -L/opt/homebrew/opt/readline/lib
 OBJ_FLAGS = -I/opt/homebrew/opt/readline/include
 

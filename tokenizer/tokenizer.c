@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizer.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyeonble <hyeonble@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 14:43:27 by seungryk          #+#    #+#             */
-/*   Updated: 2024/06/30 17:06:29 by hyeonble         ###   ########.fr       */
+/*   Updated: 2024/07/23 19:17:30 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ t_token	*tokenizer(char *s)
 			len = is_metachar(&s[i]);
 			if (!len)
 				len = token_len(&s[i], is_quote(s[i]));
-			token = new_token(&s[i], len, is_quote(s[i]));
+			token = new_token(&s[i], len);
 			add_back_token(&head, token);
 			i += len;
 		}

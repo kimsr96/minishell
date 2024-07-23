@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_redirection.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyeonble <hyeonble@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 14:51:51 by seungryk          #+#    #+#             */
-/*   Updated: 2024/07/11 14:55:14 by hyeonble         ###   ########.fr       */
+/*   Updated: 2024/07/23 17:01:32 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,20 +92,20 @@ int	open_file(t_redirect *redirection)
 	return (fd);
 }
 
-int	redirect(t_block **head, t_block *block)
-{
-	int	fd;
+//int	redirect(t_block **head, t_block *block)
+//{
+//	int	fd;
 
-	if (block == NULL || block->redirection == NULL)
-		return (-1);
-	fd = open_file(block->redirection);
-	if (fd < 0)
-		return (-1);
-	if (block->type == IN_REDIRECT || block->type == HEREDOC_REDIRECT)
-		dup2(fd, STDIN_FILENO);
-	else
-		dup2(fd, STDOUT_FILENO);
-	close(fd);
-	remove_block(head, block);
-	return (1);
-}
+//	if (block == NULL || block->redirection == NULL)
+//		return (-1);
+//	fd = open_file(block->redirection);
+//	if (fd < 0)
+//		return (-1);
+//	if (block->type == IN_REDIRECT || block->type == HEREDOC_REDIRECT)
+//		dup2(fd, STDIN_FILENO);
+//	else
+//		dup2(fd, STDOUT_FILENO);
+//	close(fd);
+//	remove_block(head, block);
+//	return (1);
+//}

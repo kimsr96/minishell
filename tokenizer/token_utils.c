@@ -6,7 +6,7 @@
 /*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 11:02:39 by seungryk          #+#    #+#             */
-/*   Updated: 2024/06/26 17:33:53 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/07/23 19:25:05 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,25 +56,19 @@ void	free_token(t_token	*token)
 	}
 }
 
-void	token_type(t_token *token, char *s, int quote)
+void	token_type(t_token *token, char *s)
 {
-	if (quote)
-		token->type = WORD;
-	else if (!ft_strncmp(s, "|", 1))
+	if (!ft_strncmp(s, "|", 1))
 		token->type = PIPE;
-	else if (!ft_strncmp(s, "<", 1))
-		token->type = IN_REDIRECT;
-	else if (!ft_strncmp(s, "<<", 2))
-		token->type = HEREDOC_REDIRECT;
-	else if (!ft_strncmp(s, ">", 1))
-		token->type = OUT_REDIRECT;
-	else if (!ft_strncmp(s, ">>", 2))
-		token->type = APPEND_REDIRECT;
+	else if (!ft_strncmp(s, "<<", 2) || !ft_strncmp(s, "<", 1))
+		token->type = REDIRECT;
+	else if (!ft_strncmp(s, ">>", 2) || !ft_strncmp(s, ">", 1))
+		token->type = REDIRECT;
 	else
-		token->type = WORD;
+		token->type = CMD;
 }
 
-t_token	*new_token(char *s, int len, int quote)
+t_token	*new_token(char *s, int len)
 {
 	int			i;
 	t_token		*token;
@@ -93,6 +87,6 @@ t_token	*new_token(char *s, int len, int quote)
 		token->data[i] = s[i];
 		i++;
 	}
-	token_type(token, token->data, quote);
+	token_type(token, token->data);
 	return (token);
 }
