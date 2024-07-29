@@ -6,7 +6,7 @@
 /*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 14:46:50 by seungryk          #+#    #+#             */
-/*   Updated: 2024/06/19 16:03:29 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/07/29 17:29:33 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,11 @@ static void	remove_quote(t_token *token)
 		if (get_quote_type(token, token->data[i]))
 			ret[idx++] = token->data[i];
 		i++;
+	}
+	if(token->quote_type)
+	{
+		perror("quote error");
+		exit(1);
 	}
 	free(token->data);
 	token->data = ret;
