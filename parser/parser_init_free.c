@@ -12,16 +12,6 @@
 
 #include "parser.h"
 
-t_block	*init_block(void)
-{
-	t_block		*block;
-
-	block = (t_block *)ft_calloc(1, sizeof(t_block));
-	if (!block)
-		exit(1);
-	return (block);
-}
-
 char	**free_str(char **s)
 {
 	int	i;

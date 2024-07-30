@@ -6,7 +6,7 @@
 /*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 14:25:39 by seungryk          #+#    #+#             */
-/*   Updated: 2024/07/29 14:38:00 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/07/30 13:40:36 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,19 @@ void	shift_left(char **str)
 
 void	env_exception(t_command *cmd)
 {
-	if (!ft_strncmp(*cmd->target, "env", 3))
+	int	i;
+
+	i = 0;
+	while (cmd->target[i + 1])
 	{
-		if (cmd->target[1] == NULL)
-			return ;
+		if (!ft_strncmp(cmd->target[i], "env", 3))
+		{
+			if (cmd->target[i + 1] == NULL)
+				return ;
+			else
+				shift_left(cmd->target);
+		}
 		else
-			shift_left(cmd->target);
+			return ;
 	}
 }

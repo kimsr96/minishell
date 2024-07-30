@@ -6,7 +6,7 @@
 /*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 08:36:13 by seungryk          #+#    #+#             */
-/*   Updated: 2024/07/29 17:51:29 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/07/30 14:44:48 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,25 +46,25 @@ typedef struct s_block
 	struct s_block	*next;
 }t_block;
 
+
 /* parse_token.c */
-void		parsing_token(t_block **head, t_token *tokens, t_env_list *env);
+int				parsing_token(t_block **head, t_token *tokens, t_env_list *env);
 
 /* parser_utils.c */
-char		**join_str(char **s1, char *s2);
-t_block		*new_block(t_tokentype type);
-void		add_back_block(t_block **head, t_block *new_block);
+char			**join_str(char **s1, char *s2);
+t_block			*new_block(t_tokentype type);
+void			add_back_block(t_block **head, t_block *new_block);
 
 /* parser_free.c */
-t_block		*init_block(void);
-char		**free_str(char **s);
-void		free_block_all(t_block *block);
-void		free_block(t_block	*block);
+char			**free_str(char **s);
+void			free_block_all(t_block *block);
+void			free_block(t_block	*block);
 
 /* command_path.c */
-char		**get_path(t_env_list *env);
-char		*get_cmd(t_env_list *env, char *cmd);
-char		*case_only_cmd(char **path, char *cmd);
-void		free_2darr(char **s);
+char			**get_path(t_env_list *env);
+char			*get_cmd(t_env_list *env, char *cmd);
+char			*case_only_cmd(char **path, char *cmd);
+void			free_2darr(char **s);
 
 /* redirect_block.c */
 int				is_redirect(t_tokentype type);
@@ -77,5 +77,5 @@ t_redir_type	set_redirect_type(char *s);
 void			env_exception(t_command *cmd);
 
 /* pipe_exception */
-void			last_block_pipe_exception(t_block **head);
+int				last_block_pipe_exception(t_block **head);
 #endif

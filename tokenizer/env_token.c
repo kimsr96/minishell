@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_token.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyeonble <hyeonble@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/30 10:42:02 by seungryk          #+#    #+#             */
-/*   Updated: 2024/07/11 14:56:10 by hyeonble         ###   ########.fr       */
+/*   Updated: 2024/07/30 15:02:22 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,11 +107,11 @@ static void	get_env_string(t_token *token, char *s)
 	token->data = ret;
 }
 
-void	env_token(t_token *tokens)
+void	env_token(t_token **head)
 {
 	t_token	*curr;
 
-	curr = tokens;
+	curr = *head;
 	while (curr)
 	{
 		if (ft_strncmp(curr->data, "$?", 2) == 0)

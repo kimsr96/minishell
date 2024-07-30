@@ -1,31 +1,14 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipe_exception.c                                   :+:      :+:    :+:   */
+/*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/29 17:36:58 by seungryk          #+#    #+#             */
-/*   Updated: 2024/07/30 14:49:46 by seungryk         ###   ########.fr       */
+/*   Created: 2024/07/30 13:08:33 by seungryk          #+#    #+#             */
+/*   Updated: 2024/07/30 14:53:40 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parser.h"
+#include "error.h"
 
-int	last_block_pipe_exception(t_block **head)
-{
-	t_block	*curr;
-
-	curr = *head;
-	if (!curr)
-		return (0);
-	while (curr->next)
-		curr = curr->next;
-	if (curr->type == PIPE)
-	{
-		perror("pipe error");
-		return (127);
-	}
-	else
-		return (0);
-}

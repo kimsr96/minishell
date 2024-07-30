@@ -18,6 +18,7 @@ SRCS =  main.c \
 		env/env_utils.c \
 		env/find_env.c \
 		env/get_envp.c \
+		error/error.c \
 		parser/parser_token.c \
 		parser/parser_init_free.c \
 		parser/parser_utils.c \
@@ -53,6 +54,7 @@ $(OBJ_DIR) :
 	mkdir -p $(OBJ_DIR)/command/exec
 	mkdir -p $(OBJ_DIR)/command/built_in
 	mkdir -p $(OBJ_DIR)/env
+	mkdir -p $(OBJ_DIR)/error
 	mkdir -p $(OBJ_DIR)/tokenizer
 	mkdir -p $(OBJ_DIR)/signal
 	mkdir -p $(OBJ_DIR)/parser
