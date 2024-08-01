@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   command_path.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyeonble <hyeonble@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/08 09:25:07 by seungryk          #+#    #+#             */
-/*   Updated: 2024/07/02 18:46:21 by hyeonble         ###   ########.fr       */
+/*   Updated: 2024/08/01 19:00:04 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ char	*get_cmd(t_env_list *env, char *cmd)
 		else
 			perror("command not found\n");
 	}
-	path = get_path(env);
+	path = get_path(env->next);
 	if (!path)
 		return (0);
 	return (case_only_cmd(path, cmd));

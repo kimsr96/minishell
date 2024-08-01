@@ -6,7 +6,7 @@
 /*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 13:09:44 by seungryk          #+#    #+#             */
-/*   Updated: 2024/08/01 15:16:44 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/08/01 18:48:30 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ int	ft_export(t_env_list *head, char **str)
 	char		*key;
 	char		*value;
 
+	head = head->next;
 	if (str[1] == NULL)
 		sort_print_env(head);
 	else

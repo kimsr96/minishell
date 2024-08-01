@@ -6,7 +6,7 @@
 /*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 10:00:10 by seungryk          #+#    #+#             */
-/*   Updated: 2024/08/01 18:09:57 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/08/01 18:21:43 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ void	start_shell(t_env_list *env)
 			printf("\e7\e[A\e[11Cexit\n");
 			break ;
 		}
-		if (tokenizer(&tokens, str))
+		if (tokenizer(&tokens, str, env))
 		{
 			get_next_command_line(NULL, tokens, str);
 			continue ;
