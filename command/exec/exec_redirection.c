@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_redirection.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hyeonble <hyeonble@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 14:51:51 by seungryk          #+#    #+#             */
-/*   Updated: 2024/07/23 17:01:32 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/07/31 17:36:53 by hyeonble         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	raise_file_error(char *filename, char *error)
 	return (-1);
 }
 
-int check_file(t_redirect *redirection)
+int check_file(t_redirect *redirect)
 // 경우의 수
 // 1. infile이 존재하지 않을때
 // 2. file이 directory일때
@@ -46,8 +46,8 @@ int check_file(t_redirect *redirection)
 	char	*filename;
 	int		type;
 
-	filename = redirection->file_name;
-	type = redirection->io_type;
+	filename = redirect->file_name;
+	type = redirect->io_type;
 	if (is_directory(filename))
 		raise_file_error(filename, "Is a directory\n");
 	if (type == IN_REDIRECT)
@@ -64,22 +64,22 @@ int check_file(t_redirect *redirection)
 	}
 	return (0);
 }
-int	open_file(t_redirect *redirection)
+int	open_file(t_redirect *redirect)
 {
 	int		fd;
 	char	*filename;
 
-	if (check_file(redirection) < 0)
+	if (check_file(redirect) < 0)
 		return (-1);
 	fd = -1;
-	filename = redirection->file_name;
-	if (redirection->io_type >= IN_REDIRECT && redirection->io_type <= APPEND_REDIRECT)
+	filename = redirect->file_name;
+	if (redirect->io_type >= IN_REDIRECT && redirect->io_type <= APPEND_REDIRECT)
 	{
-		if (redirection->io_type == IN_REDIRECT)
+		if (redirect->io_type == IN_REDIRECT)
 			fd = open(filename, O_RDONLY);
-		else if (redirection->io_type == HEREDOC_REDIRECT)
+		else if (redirect->io_type == HEREDOC_REDIRECT)
 			fd = open(filename, O_RDONLY);
-		else if (redirection->io_type == OUT_REDIRECT)
+		else if (redirect->io_type == OUT_REDIRECT)
 			fd = open(filename, O_RDWR | O_CREAT | O_TRUNC, 0644);
 		else
 			fd = open(filename, O_RDWR | O_CREAT | O_APPEND, 0644);
@@ -92,20 +92,17 @@ int	open_file(t_redirect *redirection)
 	return (fd);
 }
 
-//int	redirect(t_block **head, t_block *block)
-//{
-//	int	fd;
+int	redirect(t_redirect *redir)
+{
+	int	fd;
 
-//	if (block == NULL || block->redirection == NULL)
-//		return (-1);
-//	fd = open_file(block->redirection);
-//	if (fd < 0)
-//		return (-1);
-//	if (block->type == IN_REDIRECT || block->type == HEREDOC_REDIRECT)
-//		dup2(fd, STDIN_FILENO);
-//	else
-//		dup2(fd, STDOUT_FILENO);
-//	close(fd);
-//	remove_block(head, block);
-//	return (1);
-//}
+	fd = open_file(redir);
+	if (fd < 0)
+		return (-1);
+	if (redir->io_type == IN_REDIRECT || redir->io_type == HEREDOC_REDIRECT)
+		dup2(fd, STDIN_FILENO);
+	else
+		dup2(fd, STDOUT_FILENO);
+	close(fd);
+	return (1);
+}

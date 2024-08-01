@@ -1,28 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   command.c                                          :+:      :+:    :+:   */
+/*   command2.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hyeonble <hyeonble@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/12 17:25:17 by seungryk          #+#    #+#             */
-/*   Updated: 2024/08/01 17:05:37 by hyeonble         ###   ########.fr       */
+/*   Created: 2024/07/22 20:28:21 by hyeonble          #+#    #+#             */
+/*   Updated: 2024/07/31 16:22:20 by hyeonble         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "command.h"
 
-void	handle_redirection(t_command *cmd)
+void	handle_redirection(t_block **head, t_block **cur)
 {
-	if (cmd != NULL)
+	t_block	*next_block;
+	t_block	*last_cmd;
+
+	last_cmd = NULL;
+	while ((*cur) != NULL && (*cur)->type != PIPE)
 	{
-		while (cmd->redirect != NULL)
+		next_block = (*cur)->next;
+		if ((*cur)->type == CMD)
+			last_cmd = *cur;
+		if ((*cur)->redirection != NULL)
 		{
-			if (redirect(cmd->redirect) < 0)
+			if (redirect(head, *cur) < 0)
 				exit (1);
-			cmd->redirect = cmd->redirect->next;
 		}
+		(*cur) = next_block;
 	}
+	if (last_cmd != NULL)
+		*cur = last_cmd;
 }
 
 void	restore_fd(int stdin_backup, int stdout_backup)
@@ -34,6 +43,7 @@ void	restore_fd(int stdin_backup, int stdout_backup)
 	close(stdin_backup);
 	close(stdout_backup);
 }
+
 static int	get_pipe_num(t_block *block)
 {
 	int		pipe_num;
@@ -96,7 +106,7 @@ void	exec_no_pipe(t_block *block, t_env_list *env)
 	cur = block;
 	while (cur != NULL)
 	{
-		handle_redirection(cur->command);
+		handle_redirection(&block, &cur);
 		if (cur->type == CMD)
 		{
 			if (is_builtin(cur))
@@ -125,6 +135,7 @@ void	exec_with_pipe(t_block *block, t_env_list *env)
 	cur = block;
 	while (cur != NULL)
 	{
+		handle_redirection(&block, &cur);
 		if (cur->type == CMD)
 		{
 			if (cur->next != NULL && cur->next->type == PIPE)
@@ -136,7 +147,8 @@ void	exec_with_pipe(t_block *block, t_env_list *env)
 				p.pipe_after = 0;
 			fork_process(block, env, &p);
 			p.prev_fd = p.fds[0];
-			// dup2(p.stdin_backup, STDIN_FILENO);
+			dup2(p.stdin_backup, STDIN_FILENO);
+			dup2(p.stdout_backup, STDOUT_FILENO);
 		}
 		cur = cur->next;
 	}
@@ -156,25 +168,18 @@ void	fork_process(t_block *block, t_env_list *env, t_pipe *p)
 		if (p->pipe_after)
 		{
 			dup2(p->fds[1], STDOUT_FILENO);
-			close(p->fds[1]);
+			close(p->fds[0]);
 		}
 		if (p->prev_fd != -1)
 		{
 			dup2(p->prev_fd, STDIN_FILENO);
 			close(p->prev_fd);
+			close(p->fds[1]);
 		}
-		close(p->fds[0]);
-		handle_redirection(cur->command);
 		execute_in_child(cur, env);
 	}
 	else
-	{
-		if (p->fds[1] != 0)
-			close(p->fds[1]);
-		if (p->prev_fd != -1)
-			close(p->prev_fd);
 		waitpid(-1, NULL, 0);
-	}
 }
 
 void	init_pipe(t_pipe *p, t_block *block)
