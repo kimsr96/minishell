@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   built_in.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyeonble <hyeonble@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/28 15:58:02 by hyeonble          #+#    #+#             */
-/*   Updated: 2024/06/28 16:08:46 by hyeonble         ###   ########.fr       */
+/*   Updated: 2024/08/01 15:29:13 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	exec_builtin(t_block *block, t_env_list *env)
 	if (ft_strncmp(cmd, "cd", 2) == 0)
 		ft_cd(block, env);
 	if (ft_strncmp(cmd, "pwd", 3) == 0)
-		ft_pwd(0);
+		ft_pwd();
 	if (ft_strncmp(cmd, "exit", 4) == 0)
 		ft_exit();
 	if (ft_strncmp(cmd, "export", 6) == 0)

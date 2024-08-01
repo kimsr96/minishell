@@ -6,13 +6,13 @@
 /*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 16:39:03 by seungryk          #+#    #+#             */
-/*   Updated: 2024/06/15 15:56:12 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/08/01 15:11:53 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "built_in.h"
 
-void	ft_env(t_env_list *env, int fd)
+int	ft_env(t_env_list *env, int fd)
 {
 	while (env)
 	{
@@ -22,4 +22,5 @@ void	ft_env(t_env_list *env, int fd)
 		ft_putchar_fd('\n', fd);
 		env = env->next;
 	}
+	return (0);
 }

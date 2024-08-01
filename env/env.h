@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyeonble <hyeonble@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/15 13:51:07 by seungryk          #+#    #+#             */
-/*   Updated: 2024/07/05 16:27:20 by hyeonble         ###   ########.fr       */
+/*   Updated: 2024/08/01 17:10:08 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ typedef struct s_env_list
 int			get_key_len(char *envp);
 char		*get_key(char *envp, int len);
 char		*get_value(char *envp, int len);
-t_env_list	*get_env(t_env_list *head, char **envp);
+t_env_list	*get_env(t_env_list **head, char **envp);
 
 /* env_utils.c */
 void		free_env(t_env_list	*env);

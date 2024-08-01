@@ -6,7 +6,7 @@
 /*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 13:09:44 by seungryk          #+#    #+#             */
-/*   Updated: 2024/07/30 15:04:17 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/08/01 15:16:44 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	check_key_name(char *s)
 		return (1);
 }
 
-void	ft_export(t_env_list *head, char **str)
+int	ft_export(t_env_list *head, char **str)
 {
 	int			key_len;
 	int			value_len;
@@ -36,10 +36,14 @@ void	ft_export(t_env_list *head, char **str)
 		key = get_key(str[1], key_len);
 		value = get_value(str[1], value_len);
 		if (check_key_name(str[1]))
+		{
 			perror("not a valid identifier");
+			return (1);
+		}
 		if (ft_strnstr(str[1], "+=", ft_strlen(str[1])))
 			add_env_value(head, key, value);
 		else
 			change_env_value(head, key, value);
 	}
+	return (0);
 }

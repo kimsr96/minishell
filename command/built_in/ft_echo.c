@@ -6,7 +6,7 @@
 /*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 14:47:14 by seungryk          #+#    #+#             */
-/*   Updated: 2024/07/11 17:02:37 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/08/01 15:12:21 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ static int	get_flag_num(char **str, int len)
 	return (flag_num);
 }
 
-void	ft_echo(char **str, int fd)
+int	ft_echo(char **str, int fd)
 {
 	int	len;
 	int	flag_num;
@@ -76,4 +76,5 @@ void	ft_echo(char **str, int fd)
 		len++;
 	flag_num = get_flag_num(str, len);
 	print_echo(str, flag_num, len - 1, fd);
+	return (0);
 }

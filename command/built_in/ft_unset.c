@@ -6,13 +6,13 @@
 /*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 13:09:47 by seungryk          #+#    #+#             */
-/*   Updated: 2024/06/19 14:25:51 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/08/01 15:23:50 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "built_in.h"
 
-void	ft_unset(t_env_list *head, char **str)
+int	ft_unset(t_env_list *head, char **str)
 {
 	int			i;
 	t_env_list	*curr;
@@ -37,4 +37,5 @@ void	ft_unset(t_env_list *head, char **str)
 		free(target_node);
 		i++;
 	}
+	return (0);
 }
