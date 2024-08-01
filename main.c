@@ -6,7 +6,7 @@
 /*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 10:00:10 by seungryk          #+#    #+#             */
-/*   Updated: 2024/08/01 17:05:35 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/08/01 18:09:57 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,8 +82,8 @@ void	start_shell(t_env_list *env)
 			continue ;
 		}
 		print_block(block);
-		//if (block)
-		//	exec(block, env);
+		if (block)
+			exec(block, env);
 		get_next_command_line(block, tokens, str);
 	}
 }

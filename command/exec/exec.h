@@ -6,7 +6,7 @@
 /*   By: hyeonble <hyeonble@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/27 22:02:20 by hyeonble          #+#    #+#             */
-/*   Updated: 2024/07/11 14:55:29 by hyeonble         ###   ########.fr       */
+/*   Updated: 2024/07/31 17:28:20 by hyeonble         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,6 @@
 int	is_directory(char *filename);
 int	raise_file_error(char *filename, char *error);
 int	check_file(t_redirect *redirection);
-int	redirect(t_block **head, t_block *block);
+int	redirect(t_redirect *redir);
 
 #endif
