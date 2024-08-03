@@ -1,48 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env_exception.c                                    :+:      :+:    :+:   */
+/*   env_token_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/29 14:25:39 by seungryk          #+#    #+#             */
-/*   Updated: 2024/08/03 13:52:31 by seungryk         ###   ########.fr       */
+/*   Created: 2024/08/03 14:59:51 by seungryk          #+#    #+#             */
+/*   Updated: 2024/08/03 15:02:12 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parser.h"
+#include "tokenizer.h"
 
-void	shift_left(char **str)
+int	get_env_len(char *s)
 {
 	int	i;
+	int	len;
 
 	i = 0;
-	while (str[i + 1])
+	len = 0;
+	while (s[i])
 	{
-		free(str[i]);
-		str[i] = ft_strdup(str[i + 1]);
+		if (s[i] != '\'' && s[i] != '"')
+			len++;
 		i++;
 	}
-	str[i] = NULL;
+	return (len);
 }
 
-void	env_exception(t_command *cmd)
+char	*alloc_ret_str(size_t s_len)
 {
-	int	i;
+	char	*ret;
 
-	i = 0;
-	if (!cmd->target)
-		return ;
-	while (cmd->target[i + 1])
-	{
-		if (!ft_strncmp(cmd->target[i], "env", 3))
-		{
-			if (cmd->target[i + 1] == NULL)
-				return ;
-			else
-				shift_left(cmd->target);
-		}
-		else
-			return ;
-	}
+	ret = malloc(sizeof(char) * (s_len + 1));
+	if (!ret)
+		exit(1);
+	ret[s_len] = '\0';
+	return (ret);
 }

@@ -6,7 +6,7 @@
 /*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/08 09:25:07 by seungryk          #+#    #+#             */
-/*   Updated: 2024/08/01 19:00:04 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/08/03 13:47:23 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@ char	*get_cmd(t_env_list *env, char *cmd)
 {
 	char	**path;
 
+	if (!cmd)
+		return (0);
 	if (ft_strchr(cmd, '/'))
 	{
 		if (access(cmd, X_OK) == 0)

@@ -6,7 +6,7 @@
 /*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 14:43:27 by seungryk          #+#    #+#             */
-/*   Updated: 2024/08/03 13:06:56 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/08/03 14:44:55 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ int	tokenizer(t_token **head, char *s, t_env_list *env)
 	}
 	if (quote_token(head))
 		return (1);
-	env_token(head, env);
-	// print_token(head);
+	if (env_token(head, env))
+		return (1);
 	return (0);
 }

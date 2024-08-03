@@ -6,7 +6,7 @@
 /*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 15:00:19 by seungryk          #+#    #+#             */
-/*   Updated: 2024/08/03 13:07:18 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/08/03 16:01:27 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ typedef enum e_tokentype
 {
 	CMD = 0,
 	PIPE,
-	REDIRECT
+	REDIRECT,
 }				t_tokentype;
 
 typedef struct s_token
@@ -40,8 +40,12 @@ typedef struct s_token
 	struct s_token		*next;
 }						t_token;
 
-/* env_parser.c */
-void		env_token(t_token **head, t_env_list *env);
+/* env_token_utils.c */
+int			get_env_len(char *s);
+char		*alloc_ret_str(size_t s_len);
+
+/* env_token.c */
+int			env_token(t_token **head, t_env_list *env);
 
 /* quote_token_utils.c */
 int			quote_len(t_token *token);
@@ -56,10 +60,11 @@ int			quote_token(t_token **head);
 int			tokenizer(t_token **head, char *s, t_env_list *env);
 
 /* token_utils.c */
+void		free_all_token(t_token	*token);
 char		**free_str(char **s);
 int			get_env_len(char *s);
+int			del_token(t_token **head);
 void		add_back_token(t_token **head, t_token *new);
-void		free_token(t_token	*token);
 t_token		*new_token(char *s, int len);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 10:00:10 by seungryk          #+#    #+#             */
-/*   Updated: 2024/08/01 18:21:43 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/08/03 15:08:11 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,8 @@ void	get_next_command_line(t_block *block, t_token *token, char *str)
 {
 	if (block)
 		free_block_all(block);
-	free_token(token);
+	if (token)
+		free_all_token(token);
 	add_history(str);
 	free(str);
 }

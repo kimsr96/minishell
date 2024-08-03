@@ -6,7 +6,7 @@
 /*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/30 10:42:02 by seungryk          #+#    #+#             */
-/*   Updated: 2024/08/03 13:22:49 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/08/03 16:00:51 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,17 +31,6 @@ static char	*get_env_var_name(char *s, int len)
 		i++;
 	}
 	return (env_s);
-}
-
-static char	*alloc_ret_str(size_t s_len)
-{
-	char	*ret;
-
-	ret = malloc(sizeof(char) * (s_len + 1));
-	if (!ret)
-		exit(1);
-	ret[s_len] = '\0';
-	return (ret);
 }
 
 static void	join_env_str(t_token *token, int len, char **value_set)
@@ -72,7 +61,7 @@ static void	join_env_str(t_token *token, int len, char **value_set)
 	free_str(value_set);
 }
 
-static void	get_env_string(t_token *token, char *s, t_env_list *env)
+static int	get_env_string(t_token *token, char *s, t_env_list *env)
 {
 	size_t		i;
 	char		*find_key;
@@ -83,29 +72,30 @@ static void	get_env_string(t_token *token, char *s, t_env_list *env)
 	while (s[i] && s[i] != '$')
 		i++;
 	if (!s[i])
-		return ;
+		return (0);
 	else if (s[i] == '$')
 	{
 		find_key = get_env_var_name(&s[i + 1], get_env_len(&s[i + 1]));
 		target = find_key_node(env, find_key);
 		if (!target)
-		{
-			free(token->data);
-			token->data = NULL;
-			return ;
-		}
+			return (-1);
 	}
 	join_env_str(token, i, ft_split2(target->value, "\x20\t\v\n\r\f"));
+	return (0);
 }
 
-void	env_token(t_token **head, t_env_list *env)
+int	env_token(t_token **head, t_env_list *env)
 {
 	t_token	*curr;
 
 	curr = *head;
 	while (curr)
 	{
-		get_env_string(curr, curr->data, env);
+		if (get_env_string(curr, curr->data, env) == -1)
+			curr->data = NULL;
 		curr = curr->next;
 	}
+	if (del_token(head))
+		return (1);
+	return (0);
 }

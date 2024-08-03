@@ -6,7 +6,7 @@
 /*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/28 15:58:02 by hyeonble          #+#    #+#             */
-/*   Updated: 2024/08/01 19:07:39 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/08/03 13:55:34 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ int	is_builtin(t_block *block)
 {
 	char	*cmd;
 
+	if (*block->command->target == NULL)
+		return (0);
 	cmd = *block->command->target;
 	if (ft_strncmp(cmd, "echo", 4) == 0)
 		return (1);

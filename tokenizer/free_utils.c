@@ -1,48 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env_exception.c                                    :+:      :+:    :+:   */
+/*   free_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/29 14:25:39 by seungryk          #+#    #+#             */
-/*   Updated: 2024/08/03 13:52:31 by seungryk         ###   ########.fr       */
+/*   Created: 2024/08/03 15:03:45 by seungryk          #+#    #+#             */
+/*   Updated: 2024/08/03 15:16:13 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parser.h"
+#include "tokenizer.h"
 
-void	shift_left(char **str)
+char	**free_str(char **s)
 {
 	int	i;
 
 	i = 0;
-	while (str[i + 1])
+	while (s[i])
 	{
-		free(str[i]);
-		str[i] = ft_strdup(str[i + 1]);
+		free(s[i]);
 		i++;
 	}
-	str[i] = NULL;
+	free(s);
+	s = NULL;
+	return (s);
 }
 
-void	env_exception(t_command *cmd)
+void	free_all_token(t_token	*token)
 {
-	int	i;
+	t_token	*next;
 
-	i = 0;
-	if (!cmd->target)
-		return ;
-	while (cmd->target[i + 1])
+	while (token)
 	{
-		if (!ft_strncmp(cmd->target[i], "env", 3))
-		{
-			if (cmd->target[i + 1] == NULL)
-				return ;
-			else
-				shift_left(cmd->target);
-		}
-		else
-			return ;
+		next = token->next;
+		free(token->data);
+		free(token);
+		token = next;
 	}
 }
