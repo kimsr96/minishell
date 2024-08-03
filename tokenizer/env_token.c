@@ -6,7 +6,7 @@
 /*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/30 10:42:02 by seungryk          #+#    #+#             */
-/*   Updated: 2024/08/01 18:44:15 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/08/03 13:22:49 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,47 +33,43 @@ static char	*get_env_var_name(char *s, int len)
 	return (env_s);
 }
 
-static char	*get_return_string(char *s, char *new_value)
+static char	*alloc_ret_str(size_t s_len)
 {
 	char	*ret;
-	size_t	s_len;
-	size_t	value_len;
 
-	s_len = 0;
-	while (s[s_len] && s[s_len] != '$')
-		s_len++;
-	value_len = ft_strlen(new_value);
-	ret = malloc(sizeof(char) * (s_len + value_len + 1));
+	ret = malloc(sizeof(char) * (s_len + 1));
 	if (!ret)
 		exit(1);
-	ret[s_len + value_len] = '\0';
+	ret[s_len] = '\0';
 	return (ret);
 }
 
-static void	join_env_str(t_token *token, char *old_key, char *new_value)
+static void	join_env_str(t_token *token, int len, char **value_set)
 {
 	int		i;
 	int		j;
-	int		idx;
-	char	*ret;
+	char	*s1;
+	t_token	*n_token;
 
 	i = 0;
-	j = -1;
-	idx = 0;
-	ret = get_return_string(old_key, new_value);
-	while (old_key[i])
+	j = 0;
+	s1 = alloc_ret_str(len);
+	while (i < len)
 	{
-		if (old_key[i] == '$')
-		{
-			while (new_value[++j])
-				ret[idx++] = new_value[j];
-			i += get_env_len(&old_key[i]);
-		}
-		else
-			ret[idx++] = old_key[i++];
+		s1[i] = token->data[i];
+		i++;
 	}
 	free(token->data);
-	token->data = ret;
+	token->data = ft_strjoin(s1, value_set[j]);
+	free(s1);
+	while (value_set[++j])
+	{
+		n_token = new_token(value_set[j], ft_strlen(value_set[j]));
+		n_token->next = token->next;
+		token->next = n_token;
+		token = n_token;
+	}
+	free_str(value_set);
 }
 
 static void	get_env_string(t_token *token, char *s, t_env_list *env)
@@ -83,25 +79,23 @@ static void	get_env_string(t_token *token, char *s, t_env_list *env)
 	t_env_list	*target;
 
 	i = 0;
-	while (s[i])
-	{
-		if (s[i] == '$')
-		{
-			find_key = get_env_var_name(&s[i + 1], get_env_len(&s[i + 1]));
-			target = find_key_node(env, find_key);
-			if (!target)
-			{
-				free(token->data);
-				token->data = NULL;
-				return ;
-			}
-			break ;
-		}
+	target = NULL;
+	while (s[i] && s[i] != '$')
 		i++;
-	}
-	if (i == ft_strlen(s))
+	if (!s[i])
 		return ;
-	join_env_str(token, token->data, target->value);
+	else if (s[i] == '$')
+	{
+		find_key = get_env_var_name(&s[i + 1], get_env_len(&s[i + 1]));
+		target = find_key_node(env, find_key);
+		if (!target)
+		{
+			free(token->data);
+			token->data = NULL;
+			return ;
+		}
+	}
+	join_env_str(token, i, ft_split2(target->value, "\x20\t\v\n\r\f"));
 }
 
 void	env_token(t_token **head, t_env_list *env)

@@ -12,21 +12,6 @@
 
 #include "parser.h"
 
-char	**free_str(char **s)
-{
-	int	i;
-
-	i = 0;
-	while (s[i])
-	{
-		free(s[i]);
-		i++;
-	}
-	free(s);
-	s = NULL;
-	return (s);
-}
-
 void	free_block_all(t_block *block)
 {
 	t_block	*next;

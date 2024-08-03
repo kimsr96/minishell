@@ -6,7 +6,7 @@
 /*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 08:36:13 by seungryk          #+#    #+#             */
-/*   Updated: 2024/07/31 15:57:59 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/08/03 12:16:21 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ t_block			*new_block(t_tokentype type);
 void			add_back_block(t_block **head, t_block *new_block);
 
 /* parser_free.c */
-char			**free_str(char **s);
+
 void			free_block_all(t_block *block);
 void			free_block(t_block	*block);
 

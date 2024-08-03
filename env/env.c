@@ -6,7 +6,7 @@
 /*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/15 13:51:01 by seungryk          #+#    #+#             */
-/*   Updated: 2024/08/01 19:06:12 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/08/03 13:28:19 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ t_env_list	*get_env(t_env_list **head, char **envp)
 	t_env_list	*new_env;
 
 	*head = NULL;
-	new_env = new_env_list("?", "0");
+	new_env = new_env_list(ft_strdup("?"), ft_strdup("0"));
 	add_back_env(head, new_env);
 	while (*envp)
 	{
