@@ -6,7 +6,7 @@
 /*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 14:16:09 by seungryk          #+#    #+#             */
-/*   Updated: 2024/08/01 15:20:24 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/08/03 17:08:25 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,10 @@ int	ft_cd(t_block *parser, t_env_list *env)
 {
 	int		ret;
 	char	*path;
-	char	pwd[1024];
-	char	old_pwd[1024];
+	char	*pwd;
+	char	*old_pwd;
 
-	getcwd(old_pwd, 1024);
+	old_pwd = getcwd(NULL, 0);
 	path = parser->command->target[1];
 	if (path == NULL || ft_strncmp(path, "~", 1) == 0)
 	{
@@ -35,7 +35,7 @@ int	ft_cd(t_block *parser, t_env_list *env)
 			return (1);
 		}
 	}
-	getcwd(pwd, 1024);
+	pwd = getcwd(NULL, 0);
 	change_env_value(env, "PWD", pwd);
 	change_env_value(env, "OLDPWD", old_pwd);
 	return (0);

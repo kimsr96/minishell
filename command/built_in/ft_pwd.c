@@ -6,7 +6,7 @@
 /*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 12:13:51 by seungryk          #+#    #+#             */
-/*   Updated: 2024/08/01 15:25:52 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/08/03 17:11:12 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,15 @@
 
 int	ft_pwd(void)
 {
-	char	pwd[1024];
+	char	*pwd;
 
-	if (getcwd(pwd, 1024))
-	{
-		printf("%s\n", pwd);
-		return (0);
-	}
-	else
+	pwd = getcwd(NULL, 0);
+	if (!pwd)
 	{
 		perror("getcwd failed");
 		return (1);
 	}
+	printf("%s\n", pwd);
+	free(pwd);
+	return (0);
 }

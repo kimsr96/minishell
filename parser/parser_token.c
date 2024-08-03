@@ -6,11 +6,24 @@
 /*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 09:05:12 by seungryk          #+#    #+#             */
-/*   Updated: 2024/08/03 13:47:28 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/08/03 16:52:29 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
+
+t_command	*new_command(char *path)
+{
+	t_command	*cmd;
+
+	cmd = ft_calloc(1, sizeof(t_command));
+	if (!cmd)
+		exit(1);
+	cmd->target = NULL;
+	cmd->redirect = NULL;
+	cmd->cmd_path = path;
+	return (cmd);
+}
 
 static t_token	*command_parser(t_block **head, t_token *curr, t_env_list *env)
 {
@@ -18,14 +31,7 @@ static t_token	*command_parser(t_block **head, t_token *curr, t_env_list *env)
 	t_command	*cmd;
 
 	block = new_block(CMD);
-	if (!block)
-		exit(1);
-	cmd = ft_calloc(1, sizeof(t_command));
-	if (!cmd)
-		exit(1);
-	cmd->target = NULL;
-	cmd->redirect = NULL;
-	cmd->cmd_path = get_cmd(env, curr->data);
+	cmd = new_command(get_cmd(env, curr->data));
 	while (curr)
 	{
 		if (is_redirect(curr->type))

@@ -6,7 +6,7 @@
 /*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 17:34:51 by seungryk          #+#    #+#             */
-/*   Updated: 2024/08/01 19:02:35 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/08/03 16:06:36 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,6 @@ static int	find_cmd2(t_block *block, char *cmd, t_env_list *env)
 		ft_env(env, STDOUT_FILENO);
 		return (1);
 	}
-	//else if (!ft_strncmp(cmd, "$?", 2))
-	//{
-	//	ft_exit_status();
-	//	return (1);
-	//}
 	else
 		return (0);
 }

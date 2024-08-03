@@ -6,7 +6,7 @@
 /*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 08:36:13 by seungryk          #+#    #+#             */
-/*   Updated: 2024/08/03 12:16:21 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/08/03 16:54:22 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ typedef struct s_block
 	t_command		*command;
 	struct s_block	*next;
 }t_block;
-
 
 /* parse_token.c */
 int				parsing_token(t_block **head, t_token *tokens, t_env_list *env);

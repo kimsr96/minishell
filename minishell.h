@@ -6,7 +6,7 @@
 /*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 10:00:06 by seungryk          #+#    #+#             */
-/*   Updated: 2024/08/01 18:10:25 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/08/03 16:50:52 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,6 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 
-void    get_next_command_line(t_block *block, t_token *token, char *str);
+void	get_next_command_line(t_block *block, t_token *token, char *str);
 
 #endif
