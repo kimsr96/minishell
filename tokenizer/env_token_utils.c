@@ -6,7 +6,7 @@
 /*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 14:59:51 by seungryk          #+#    #+#             */
-/*   Updated: 2024/08/03 15:02:12 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/08/04 16:40:37 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,13 @@ int	get_env_len(char *s)
 
 	i = 0;
 	len = 0;
+	if (s[i] == '?')
+		return (1);
 	while (s[i])
 	{
-		if (s[i] != '\'' && s[i] != '"')
+		if (ft_isspace(s[i]))
+			break ;
+		else if (s[i] != '\'' && s[i] != '"')
 			len++;
 		i++;
 	}

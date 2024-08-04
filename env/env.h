@@ -6,7 +6,7 @@
 /*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/15 13:51:07 by seungryk          #+#    #+#             */
-/*   Updated: 2024/08/01 17:10:08 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/08/04 12:30:51 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,8 @@ t_env_list	*new_env_list(char *key, char *value);
 
 /* find_env.c */
 void		add_env_value(t_env_list *head, char *key, char *value);
-void		change_env_value(t_env_list *head, char *key, char *value);
+void		change_add_value(t_env_list *head, char *key, char *value);
+void		change_value(t_env_list *head, char *key, char *value);
 t_env_list	*find_key_node(t_env_list *env, char *find_key);
 
 char		**get_envp(t_env_list *env);

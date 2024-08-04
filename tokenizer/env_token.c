@@ -6,7 +6,7 @@
 /*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/30 10:42:02 by seungryk          #+#    #+#             */
-/*   Updated: 2024/08/03 16:00:51 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/08/04 15:40:54 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static char	*get_env_var_name(char *s, int len)
 	if (!env_s)
 		return (NULL);
 	env_s[len] = '\0';
-	while (s[i])
+	while (s[i] && i < len)
 	{
 		if (s[i] != '\'' && s[i] != '"')
 			env_s[j++] = s[i];
@@ -58,7 +58,7 @@ static void	join_env_str(t_token *token, int len, char **value_set)
 		token->next = n_token;
 		token = n_token;
 	}
-	free_str(value_set);
+	value_set = free_str(value_set);
 }
 
 static int	get_env_string(t_token *token, char *s, t_env_list *env)
@@ -77,10 +77,14 @@ static int	get_env_string(t_token *token, char *s, t_env_list *env)
 	{
 		find_key = get_env_var_name(&s[i + 1], get_env_len(&s[i + 1]));
 		target = find_key_node(env, find_key);
+		free(find_key);
 		if (!target)
 			return (-1);
 	}
-	join_env_str(token, i, ft_split2(target->value, "\x20\t\v\n\r\f"));
+	if (ft_strncmp(target->key, "?", 1) == 0)
+		token->data = ft_strjoin(target->value, &s[i + 2]);
+	else
+		join_env_str(token, i, ft_split2(target->value, "\x20\t\v\n\r\f"));
 	return (0);
 }
 

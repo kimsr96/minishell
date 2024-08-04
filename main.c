@@ -6,7 +6,7 @@
 /*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 10:00:10 by seungryk          #+#    #+#             */
-/*   Updated: 2024/08/03 15:08:11 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/08/04 16:15:46 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,10 +50,10 @@ void	print_block(t_block *block)
 
 void	get_next_command_line(t_block *block, t_token *token, char *str)
 {
-	if (block)
-		free_block_all(block);
 	if (token)
 		free_all_token(token);
+	if (block)
+		free_block_all(block);
 	add_history(str);
 	free(str);
 }
@@ -82,7 +82,7 @@ void	start_shell(t_env_list *env)
 			get_next_command_line(block, tokens, str);
 			continue ;
 		}
-		print_block(block);
+		//print_block(block);
 		if (block)
 			exec(block, env);
 		get_next_command_line(block, tokens, str);

@@ -6,7 +6,7 @@
 /*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/15 16:00:44 by seungryk          #+#    #+#             */
-/*   Updated: 2024/08/03 17:09:01 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/08/04 17:03:10 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	add_env_value(t_env_list *head, char *key, char *value)
 	}
 }
 
-void	change_env_value(t_env_list *head, char *key, char *value)
+void	change_add_value(t_env_list *head, char *key, char *value)
 {
 	t_env_list	*node;
 
@@ -49,15 +49,33 @@ void	change_env_value(t_env_list *head, char *key, char *value)
 	}
 }
 
+void	change_value(t_env_list *head, char *key, char *value)
+{
+	t_env_list	*node;
+
+	node = find_key_node(head, key);
+	if (!node)
+		return ;
+	else
+	{
+		free(node->value);
+		node->value = value;
+	}
+}
+
 t_env_list	*find_key_node(t_env_list *head, char *find_key)
 {
+	size_t		key_len;
 	t_env_list	*env;
 
+	key_len = ft_strlen(find_key);
+	if (key_len == 0)
+		return (NULL);
 	env = head;
 	while (env)
 	{
-		if (env->key)
-			if (!ft_strncmp(env->key, find_key, ft_strlen(env->key)))
+		if (env->key && key_len == ft_strlen(env->key))
+			if (!ft_strncmp(env->key, find_key, key_len))
 				return (env);
 		env = env->next;
 	}

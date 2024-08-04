@@ -6,13 +6,13 @@
 /*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 11:12:11 by seungryk          #+#    #+#             */
-/*   Updated: 2024/08/03 11:01:53 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/08/04 16:35:55 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 int	ft_isspace(int c)
 {
-	if (c >= 9 && c <= 13 || c == 32)
+	if ((c >= 9 && c <= 13) || c == 32)
 		return (1);
 	else
 		return (0);

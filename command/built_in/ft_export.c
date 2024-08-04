@@ -6,7 +6,7 @@
 /*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 13:09:44 by seungryk          #+#    #+#             */
-/*   Updated: 2024/08/01 18:48:30 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/08/04 12:29:12 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int	ft_export(t_env_list *head, char **str)
 		if (ft_strnstr(str[1], "+=", ft_strlen(str[1])))
 			add_env_value(head, key, value);
 		else
-			change_env_value(head, key, value);
+			change_add_value(head, key, value);
 	}
 	return (0);
 }

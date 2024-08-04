@@ -6,13 +6,13 @@
 /*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/07 20:53:48 by seungryk          #+#    #+#             */
-/*   Updated: 2023/10/17 14:35:37 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/08/04 13:56:41 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static void	*ft_freeall(char **ret)
+void	*ft_freeall(char **ret)
 {
 	int	i;
 

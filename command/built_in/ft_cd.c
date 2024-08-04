@@ -6,7 +6,7 @@
 /*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 14:16:09 by seungryk          #+#    #+#             */
-/*   Updated: 2024/08/04 12:12:13 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/08/04 12:30:59 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	ft_cd(t_block *block, t_env_list *head)
 	if (ret == -1)
 		return (error_msg_with_status("cd", path, NO_FILE_DIR, 1));
 	pwd = getcwd(NULL, 0);
-	change_env_value(head, "PWD", pwd);
-	change_env_value(head, "OLDPWD", old_pwd);
+	change_value(head, "PWD", pwd);
+	change_value(head, "OLDPWD", old_pwd);
 	return (0);
 }

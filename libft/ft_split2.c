@@ -6,13 +6,13 @@
 /*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 22:42:18 by seungryk          #+#    #+#             */
-/*   Updated: 2024/08/03 11:56:12 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/08/04 13:59:35 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
+#include "libft.h"
 
-int	check_charset(char c, char *charset)
+static int	check_charset(char c, char *charset)
 {
 	int	i;
 
@@ -26,91 +26,86 @@ int	check_charset(char c, char *charset)
 	return (0);
 }
 
-int	count_str(char *str, char *charset)
+static int	word_len(char const *s, char *charset)
 {
 	int	i;
-	int	len;
-	int	cnt;
 
-	i = -1;
+	i = 0;
+	while (!check_charset(s[i], charset) && s[i])
+		i++;
+	return (i);
+}
+
+static int	word_count(char const *s, char *charset)
+{
+	size_t	i;
+	size_t	j;
+	int		cnt;
+
+	j = 0;
 	cnt = 0;
-	while (str[++i])
-		;
-	len = i;
-	if (len == 0)
-		return (0);
-	i = -1;
-	while (str[++i])
+	while (s[j] && check_charset(s[j], charset))
+		j++;
+	i = j;
+	while (s[i])
 	{
-		if (check_charset(str[i], charset))
+		if (check_charset(s[i], charset))
 		{
-			if (i == 0 || i == len - 1)
-				continue ;
+			while (s[i] && check_charset(s[i], charset))
+				i++;
+			if (s[i] == '\0')
+				break ;
 			cnt += 1;
 		}
+		else
+			i++;
 	}
+	if (i == 0 || i == j)
+		return (cnt);
 	return (cnt + 1);
 }
 
-char	*ft_strncpy(char *dest, char *src, unsigned int n)
+static char	*put_word(char const *s, int len)
 {
-	unsigned int	i;
+	int		i;
+	char	*word;
 
 	i = 0;
-	while (i < n && src[i] != '\0')
+	word = (char *)ft_calloc(len + 1, sizeof(char));
+	if (!word)
+		return (NULL);
+	while (i < len)
 	{
-		dest[i] = src[i];
+		word[i] = s[i];
 		i++;
 	}
-	while (i < n)
-	{
-		dest[i] = '\0';
-		i++;
-	}
-	dest[i] = '\0';
-	return (dest);
+	word[i] = '\0';
+	return (word);
 }
 
-char	*put_word(char *word, char *charset)
+char	**ft_split2(char *s, char *charset)
 {
 	int		i;
-	int		last;
-	char	*dest;
+	int		idx;
+	char	**ret;
 
 	i = -1;
-	last = 0;
-	while (!check_charset(word[last], charset) && word[last])
-			last++;
-	dest = (char *)malloc(sizeof(char) * (last + 1));
-	if (!dest)
-		return (0);
-	ft_strncpy(dest, word, last);
-	return (dest);
-}
-
-char	**ft_split2(char *str, char *charset)
-{
-	int		i;
-	int		index;
-	char	**arr;
-
-	index = 0;
-	if (!count_str(str, charset))
+	idx = 0;
+	if (!s)
 		return (NULL);
-	arr = (char **)malloc(sizeof(char *) * (count_str(str, charset) + 1));
-	if (!arr)
+	ret = (char **)ft_calloc(word_count(s, charset) + 1, sizeof(char *));
+	if (!ret)
 		return (NULL);
-	i = -1;
-	while (str[++i])
+	while (s[++i])
 	{
-		if (!check_charset(str[i], charset))
+		if (!check_charset(s[i], charset))
 		{
-			arr[index] = put_word(&str[i], charset);
-			index++;
-			while (str[++i] && !check_charset(str[i], charset))
-				;
+			ret[idx] = put_word(&s[i], word_len(&s[i], charset));
+			if (!ret[idx++])
+				return (ft_freeall(ret));
+			i += (word_len(&s[i], charset) - 1);
 		}
 	}
-	arr[index] = NULL;
-	return (arr);
+	ret[idx] = NULL;
+	return (ret);
 }

@@ -6,7 +6,7 @@
 /*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 15:03:45 by seungryk          #+#    #+#             */
-/*   Updated: 2024/08/03 15:16:13 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/08/04 15:04:18 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,8 @@ void	free_all_token(t_token	*token)
 	while (token)
 	{
 		next = token->next;
-		free(token->data);
+		if (token->data)
+			free(token->data);
 		free(token);
 		token = next;
 	}

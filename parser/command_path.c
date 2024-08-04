@@ -6,7 +6,7 @@
 /*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/08 09:25:07 by seungryk          #+#    #+#             */
-/*   Updated: 2024/08/03 13:47:23 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/08/04 15:15:36 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ char	*get_cmd(t_env_list *env, char *cmd)
 	if (ft_strchr(cmd, '/'))
 	{
 		if (access(cmd, X_OK) == 0)
-			return (cmd);
+			return (ft_strdup(cmd));
 		else
 			perror("command not found\n");
 	}
