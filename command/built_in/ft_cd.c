@@ -6,37 +6,34 @@
 /*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 14:16:09 by seungryk          #+#    #+#             */
-/*   Updated: 2024/08/03 17:08:25 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/08/04 12:12:13 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "built_in.h"
 
-int	ft_cd(t_block *parser, t_env_list *env)
+int	ft_cd(t_block *block, t_env_list *head)
 {
-	int		ret;
-	char	*path;
-	char	*pwd;
-	char	*old_pwd;
+	int			ret;
+	char		*path;
+	char		*pwd;
+	char		*old_pwd;
+	t_env_list	*env;
 
 	old_pwd = getcwd(NULL, 0);
-	path = parser->command->target[1];
+	path = block->command->target[1];
 	if (path == NULL || ft_strncmp(path, "~", 1) == 0)
 	{
-		chdir(getenv("HOME"));
-		return (0);
+		env = find_key_node(head, "HOME");
+		if (!env)
+			return (error_msg_with_status("cd", "HOME", NOT_SET, 1));
+		path = env->value;
 	}
-	else
-	{
-		ret = chdir(path);
-		if (ret == -1)
-		{
-			printf("bash: cd: %s: No such file or dircetory\n", path);
-			return (1);
-		}
-	}
+	ret = chdir(path);
+	if (ret == -1)
+		return (error_msg_with_status("cd", path, NO_FILE_DIR, 1));
 	pwd = getcwd(NULL, 0);
-	change_env_value(env, "PWD", pwd);
-	change_env_value(env, "OLDPWD", old_pwd);
+	change_env_value(head, "PWD", pwd);
+	change_env_value(head, "OLDPWD", old_pwd);
 	return (0);
 }
