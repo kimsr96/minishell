@@ -6,7 +6,7 @@
 /*   By: hyeonble <hyeonble@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 17:25:17 by seungryk          #+#    #+#             */
-/*   Updated: 2024/08/05 12:20:57 by hyeonble         ###   ########.fr       */
+/*   Updated: 2024/08/05 15:35:45 by hyeonble         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ void	execute_in_child(t_block *block, t_env_list *env)
 {
 	char	**envp;
 
+	printf("%s\n", block->command->cmd_path);
 	if (!block->command->cmd_path)
 		perror("command not found");
 	if (is_builtin(block))
@@ -116,7 +117,7 @@ void	exec_no_pipe(t_block *block, t_env_list *env)
 	}
 }
 
-void	exec_with_pipe(t_block *block, t_env_list *env)
+int	exec_with_pipe(t_block *block, t_env_list *env)
 {
 	t_block	*cur;
 	t_pipe	p;
@@ -136,11 +137,13 @@ void	exec_with_pipe(t_block *block, t_env_list *env)
 				p.pipe_after = 0;
 			fork_process(cur, env, &p);
 			p.prev_fd = p.fds[0];
+			p.child_num++;
 		}
 		else if (cur->type == PIPE)
 			p.pipe_prev = 1;
 		cur = cur->next;
 	}
+	return (wait_process(&p));
 }
 
 void	fork_process(t_block *block, t_env_list *env, t_pipe *p)
@@ -148,8 +151,8 @@ void	fork_process(t_block *block, t_env_list *env, t_pipe *p)
 	pid_t	pid;
 	t_block	*cur;
 
-	pid = fork();
 	cur = block;
+	pid = fork();
 	if (pid < 0)
 		perror("fork error");
 	else if (pid == 0)
@@ -174,8 +177,22 @@ void	fork_process(t_block *block, t_env_list *env, t_pipe *p)
 			close(p->fds[1]);
 		if (p->prev_fd != -1)
 			close(p->prev_fd);
-		waitpid(-1, NULL, 0);
 	}
+}
+
+int	wait_process(t_pipe *p)
+{
+	int		i;
+	int		status;
+
+	i = 0;
+	while (i < p->child_num)
+	{
+		waitpid(-1, &status, 0);
+		// if (WIFEXITED(status))
+		i++;
+	}
+	return (status);
 }
 
 void	init_pipe(t_pipe *p, t_block *block)
@@ -186,4 +203,5 @@ void	init_pipe(t_pipe *p, t_block *block)
 	p->pipe_num = get_pipe_num(block);
 	p->pipe_after = 1;
 	p->pipe_prev = 0;
+	p->child_num = 0;
 }
