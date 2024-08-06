@@ -6,7 +6,7 @@
 /*   By: hyeonble <hyeonble@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 10:00:10 by seungryk          #+#    #+#             */
-/*   Updated: 2024/08/06 17:25:02 by hyeonble         ###   ########.fr       */
+/*   Updated: 2024/08/06 18:04:43 by hyeonble         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ void	print_block(t_block *block)
 
 void	get_next_command_line(t_block *block, t_token *token, char *str)
 {
+	unlink_tmpfile(block);
 	if (block)
 		free_block_all(block);
 	if (token)

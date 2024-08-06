@@ -6,7 +6,7 @@
 /*   By: hyeonble <hyeonble@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/05 15:38:57 by hyeonble          #+#    #+#             */
-/*   Updated: 2024/08/06 17:22:20 by hyeonble         ###   ########.fr       */
+/*   Updated: 2024/08/06 18:04:16 by hyeonble         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,4 +89,26 @@ char	*get_tmp_filename(void)
 	return (filename);
 }
 
-// void	unlink_tmpfile()
+void	unlink_tmpfile(t_block *block)
+{
+	t_block		*cur;
+	t_redirect	*redir;
+
+	cur = block;
+	while (cur != NULL)
+	{
+		if (cur->type == CMD)
+		{
+			redir = cur->command->redirect;
+			while (redir != NULL)
+			{
+				if (redir->io_type == HEREDOC_REDIRECT)
+				{
+					unlink(redir->file_name);
+				}
+				redir = redir->next;
+			}
+		}
+		cur = cur->next;
+	}
+}

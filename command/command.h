@@ -6,7 +6,7 @@
 /*   By: hyeonble <hyeonble@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/08 13:32:28 by seungryk          #+#    #+#             */
-/*   Updated: 2024/08/06 16:15:57 by hyeonble         ###   ########.fr       */
+/*   Updated: 2024/08/06 17:32:01 by hyeonble         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ int		wait_process(t_pipe *p);
 void	check_heredoc(t_block *block);
 char	*get_heredoc(t_redirect *redir);
 char	*get_tmp_filename(void);
+void	unlink_tmpfile(t_block *block);
 
 int     g_status;
 #endif
