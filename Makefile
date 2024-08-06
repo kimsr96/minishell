@@ -30,11 +30,9 @@ SRCS =  main.c \
 		tokenizer/tokenizer.c \
 		tokenizer/token_utils.c \
 		tokenizer/quote_token.c \
-		tokenizer/quote_token_utils.c \
-		tokenizer/env_token.c \
-		tokenizer/env_token_utils.c \
+		tokenizer/interpreter.c \
+		tokenizer/interpreter_utils.c \
 		tokenizer/free_utils.c \
-		tokenizer/interpreter.c 
 
 OBJ_DIR = obj
 OBJECTS = $(addprefix $(OBJ_DIR)/, $(SRCS:.c=.o))
