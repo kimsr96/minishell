@@ -6,7 +6,7 @@
 /*   By: hyeonble <hyeonble@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/08 13:32:28 by seungryk          #+#    #+#             */
-/*   Updated: 2024/08/05 14:52:52 by hyeonble         ###   ########.fr       */
+/*   Updated: 2024/08/06 16:15:57 by hyeonble         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@
 # include "./built_in/built_in.h"
 # include "./exec/exec.h"
 # include "../env/env.h"
+# include <readline/readline.h>
+# include <fcntl.h>
 
 typedef struct s_pipe
 {
@@ -40,6 +42,10 @@ void	restore_fd(int stdin_backup, int stdout_backup);
 void	fork_process(t_block *block, t_env_list *env, t_pipe *p);
 void	child_process(t_block *block, int *fds, t_env_list *env, int prev_fd);
 int		wait_process(t_pipe *p);
+
+void	check_heredoc(t_block *block);
+char	*get_heredoc(t_redirect *redir);
+char	*get_tmp_filename(void);
 
 int     g_status;
 #endif

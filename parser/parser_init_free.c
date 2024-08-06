@@ -36,7 +36,7 @@ void	free_block(t_block *block)
 			if (cmd->redirect->delimiter)
 				free(cmd->redirect->delimiter);
 			if (cmd->redirect->file_name)
-				free(cmd->redirect->delimiter);
+				free(cmd->redirect->file_name);
 			free(cmd->redirect);
 		}
 		if (block->command->cmd_path)
