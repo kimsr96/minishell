@@ -6,7 +6,7 @@
 /*   By: hyeonble <hyeonble@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 17:25:17 by seungryk          #+#    #+#             */
-/*   Updated: 2024/08/05 15:35:45 by hyeonble         ###   ########.fr       */
+/*   Updated: 2024/08/06 16:36:19 by hyeonble         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,6 @@ void	execute_in_child(t_block *block, t_env_list *env)
 {
 	char	**envp;
 
-	printf("%s\n", block->command->cmd_path);
 	if (!block->command->cmd_path)
 		perror("command not found");
 	if (is_builtin(block))

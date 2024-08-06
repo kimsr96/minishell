@@ -3,6 +3,7 @@ CFLAGS = -Wall -Wextra -Werror -fsanitize=address -g3
 LIBFT = -Llibft -lft
 SRCS =  main.c \
 		command/command.c \
+		command/heredoc.c \
 		command/built_in/ft_cd.c \
 		command/built_in/ft_pwd.c \
 		command/built_in/ft_env.c \

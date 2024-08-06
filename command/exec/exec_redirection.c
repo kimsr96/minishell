@@ -6,7 +6,7 @@
 /*   By: hyeonble <hyeonble@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 14:51:51 by seungryk          #+#    #+#             */
-/*   Updated: 2024/07/31 17:36:53 by hyeonble         ###   ########.fr       */
+/*   Updated: 2024/08/06 16:25:56 by hyeonble         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ int check_file(t_redirect *redirect)
 	}
 	return (0);
 }
+
 int	open_file(t_redirect *redirect)
 {
 	int		fd;

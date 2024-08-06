@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hyeonble <hyeonble@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 10:00:10 by seungryk          #+#    #+#             */
-/*   Updated: 2024/08/06 12:52:09 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/08/06 17:25:02 by hyeonble         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,10 +50,10 @@ void	print_block(t_block *block)
 
 void	get_next_command_line(t_block *block, t_token *token, char *str)
 {
-	if (token)
-		free_all_token(token);
 	if (block)
 		free_block_all(block);
+	if (token)
+		free_all_token(token);
 	add_history(str);
 	free(str);
 }
@@ -82,7 +82,8 @@ void	start_shell(t_env_list *env)
 			get_next_command_line(block, tokens, str);
 			continue ;
 		}
-		print_block(block);
+		// print_block(block);
+		check_heredoc(block);
 		if (block)
 			exec(block, env);
 		get_next_command_line(block, tokens, str);
