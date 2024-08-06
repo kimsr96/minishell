@@ -6,7 +6,7 @@
 /*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 15:00:19 by seungryk          #+#    #+#             */
-/*   Updated: 2024/08/03 16:01:27 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/08/06 15:14:03 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,22 +40,6 @@ typedef struct s_token
 	struct s_token		*next;
 }						t_token;
 
-/* env_token_utils.c */
-int			get_env_len(char *s);
-char		*alloc_ret_str(size_t s_len);
-
-/* env_token.c */
-int			env_token(t_token **head, t_env_list *env);
-
-/* quote_token_utils.c */
-int			quote_len(t_token *token);
-int			get_quote_type(t_token *token, char c);
-int			double_quote_exception(char a, char b);
-char		*realloc_without_quote(char *s, char x, size_t len);
-
-/* quote_token.c */
-int			quote_token(t_token **head);
-
 /* tokenizer.c */
 int			tokenizer(t_token **head, char *s, t_env_list *env);
 
@@ -67,4 +51,17 @@ int			del_token(t_token **head);
 void		add_back_token(t_token **head, t_token *new);
 t_token		*new_token(char *s, int len);
 
+/* interpreter.c */
+int			token_interpreter(t_token **head, t_env_list *env);
+
+/* interpreter_utils.c */
+int			split_data(char *s);
+int			join_env_str(t_token *token, char *ret, int j, char **value_set);
+
+/* quote_token.c */
+int			ft_isquote(char c);
+int			get_quote_type(t_token *token, char c);
+int			valid_quote(t_token *token);
+int			quote_len(t_token *token);
+void		remove_quote(t_token *token, int len);
 #endif
