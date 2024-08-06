@@ -6,13 +6,13 @@
 /*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/30 10:42:02 by seungryk          #+#    #+#             */
-/*   Updated: 2024/08/04 15:40:54 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/08/05 20:25:28 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "tokenizer.h"
 
-static char	*get_env_var_name(char *s, int len)
+char	*get_env_var_name(char *s, int len)
 {
 	int		i;
 	int		j;
@@ -33,7 +33,7 @@ static char	*get_env_var_name(char *s, int len)
 	return (env_s);
 }
 
-static void	join_env_str(t_token *token, int len, char **value_set)
+void	join_env_str(t_token *token, int len, char **value_set)
 {
 	int		i;
 	int		j;
