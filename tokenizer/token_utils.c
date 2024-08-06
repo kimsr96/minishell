@@ -6,7 +6,7 @@
 /*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 11:02:39 by seungryk          #+#    #+#             */
-/*   Updated: 2024/08/03 16:01:17 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/08/06 19:00:45 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ t_token	*new_token(char *s, int len)
 		exit(1);
 	token->next = NULL;
 	token->data = ft_calloc(len + 1, sizeof(char));
-	if (!(token->data))
+	if (!token->data)
 		exit(1);
 	token->data[len] = '\0';
 	while (i < len)
@@ -86,6 +86,7 @@ t_token	*new_token(char *s, int len)
 		token->data[i] = s[i];
 		i++;
 	}
+	token->first_word = 0;
 	token_type(token, token->data);
 	return (token);
 }

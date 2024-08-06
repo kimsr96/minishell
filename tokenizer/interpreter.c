@@ -6,7 +6,7 @@
 /*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/05 11:12:22 by seungryk          #+#    #+#             */
-/*   Updated: 2024/08/06 15:02:29 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/08/06 19:14:01 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,11 @@ static int	interprete_str_len(t_token *token, char *s, t_env_list *env)
 		{
 			target = get_target(env, &s[i + 1]);
 			if (target)
+			{
 				len += ft_strlen(target->value);
+				if (split_data(token, target->value) == -1)
+					len -= 1;
+			}
 			env_len = get_env_len(&s[i + 1]);
 			i += env_len + 1;
 		}
@@ -56,6 +60,7 @@ static int	interprete_str_len(t_token *token, char *s, t_env_list *env)
 int	env_expansion(t_token *token, t_env_list *env, char *s, char *ret)
 {
 	int			len;
+	int			is_split;
 	char		**value_set;
 	t_env_list	*target;
 
@@ -63,10 +68,17 @@ int	env_expansion(t_token *token, t_env_list *env, char *s, char *ret)
 	target = get_target(env, s);
 	if (target)
 	{
-		if (split_data(target->value))
+		is_split = split_data(token, target->value);
+		if (is_split)
 		{
 			value_set = ft_split2(target->value, "\x20\t\v\n\r\f");
-			len += join_env_str(token, ret, len, value_set);
+			if (is_split == -1)
+			{
+				*ret = ' ';
+				len += join_env_str(token, ret + 1, len, value_set);
+			}
+			else
+				len += join_env_str(token, ret, len, value_set);
 		}
 		else
 		{
@@ -94,6 +106,8 @@ int	interpreter(t_token *token, char *s, t_env_list *env, int len)
 	{
 		if (get_quote_type(token, s[i]) != S_QUOTE && s[i] == '$')
 		{
+			if (j != 0)
+				token->space = 1;
 			j += env_expansion(token, env, &s[i + 1], &ret[j]);
 			i += get_env_len(&s[i + 1]) + 1;
 		}
