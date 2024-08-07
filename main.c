@@ -6,7 +6,7 @@
 /*   By: hyeonble <hyeonble@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 10:00:10 by seungryk          #+#    #+#             */
-/*   Updated: 2024/08/06 18:04:43 by hyeonble         ###   ########.fr       */
+/*   Updated: 2024/08/07 17:27:05 by hyeonble         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,8 +83,8 @@ void	start_shell(t_env_list *env)
 			get_next_command_line(block, tokens, str);
 			continue ;
 		}
-		// print_block(block);
 		check_heredoc(block);
+		// print_block(block);
 		if (block)
 			exec(block, env);
 		get_next_command_line(block, tokens, str);
