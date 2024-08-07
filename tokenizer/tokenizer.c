@@ -6,7 +6,7 @@
 /*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 14:43:27 by seungryk          #+#    #+#             */
-/*   Updated: 2024/08/07 13:37:10 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/08/07 14:16:57 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static int	is_space(char c)
 
 static int	is_metachar(char *s)
 {
-	if (!ft_strncmp(s, ">>", 3) || !ft_strncmp(s, "<<", 3))
+	if (!ft_strncmp(s, ">>", 2) || !ft_strncmp(s, "<<", 2))
 		return (2);
 	else if (*s == '|' || *s == '>' || *s == '<')
 		return (1);
