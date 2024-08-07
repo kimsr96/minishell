@@ -6,7 +6,7 @@
 /*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 09:05:12 by seungryk          #+#    #+#             */
-/*   Updated: 2024/08/03 16:52:29 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/08/07 16:18:05 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,27 +28,29 @@ t_command	*new_command(char *path)
 static t_token	*command_parser(t_block **head, t_token *curr, t_env_list *env)
 {
 	t_block		*block;
-	t_command	*cmd;
+	t_redirect	*redir;
 
 	block = new_block(CMD);
-	cmd = new_command(get_cmd(env, curr->data));
+	block->command = new_command(get_cmd(env, curr->data));
 	while (curr)
 	{
 		if (is_redirect(curr->type))
 		{
 			curr->type = set_redirect_type(curr->data);
-			add_back_redirect(&cmd->redirect, get_redirect(curr, curr->type));
+			redir = get_redirect(curr, curr->type);
+			if (!redir)
+				return (NULL);
+			add_back_redirect(&block->command->redirect, redir);
 			curr = curr->next;
 		}
 		else
-			cmd->target = join_str(cmd->target, curr->data);
+			block->command->target = join_str(block->command->target, curr->data);
 		if (curr->next)
 			if (curr->next->type == PIPE)
 				break ;
 		curr = curr->next;
 	}
-	env_exception(cmd);
-	block->command = cmd;
+	env_exception(block->command);
 	add_back_block(head, block);
 	return (curr);
 }
