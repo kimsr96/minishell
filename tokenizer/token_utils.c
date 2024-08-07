@@ -6,7 +6,7 @@
 /*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 11:02:39 by seungryk          #+#    #+#             */
-/*   Updated: 2024/08/06 19:00:45 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/08/07 11:04:35 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ t_token	*new_token(char *s, int len)
 		token->data[i] = s[i];
 		i++;
 	}
-	token->first_word = 0;
+	token->space = 0;
 	token_type(token, token->data);
 	return (token);
 }
