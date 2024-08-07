@@ -6,7 +6,7 @@
 /*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 15:08:01 by seungryk          #+#    #+#             */
-/*   Updated: 2024/08/07 14:15:45 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/08/07 14:32:50 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ int	quote_len(t_token *token)
 	}
 	if (token->quote_type)
 	{
-		perror("quote error2");
+		perror("quote error");
 		return (-1);
 	}
 	return (len);
@@ -73,7 +73,7 @@ int	valid_quote(t_token *token)
 	}
 	if (token->quote_type)
 	{
-		perror("quote error1");
+		perror("quote error");
 		return (1);
 	}
 	return (0);
