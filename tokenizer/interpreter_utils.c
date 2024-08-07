@@ -6,7 +6,7 @@
 /*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 15:00:37 by seungryk          #+#    #+#             */
-/*   Updated: 2024/08/06 19:14:04 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/08/07 13:19:00 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,10 @@ int	split_data(t_token *token, char *s)
 			break ;
 		i++;
 	}
-	if (s[i] == '\0' && !space)
+	if ((s[i] == '\0' && !space) || token->quote_type != DEFAULT)
+	{
 		return (0);
+	}
 	else if (space && token->space)
 		return (-1);
 	else

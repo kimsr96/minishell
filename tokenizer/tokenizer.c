@@ -6,7 +6,7 @@
 /*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 14:43:27 by seungryk          #+#    #+#             */
-/*   Updated: 2024/08/06 15:04:58 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/08/07 13:37:10 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,17 +20,9 @@ static int	is_space(char c)
 		return (0);
 }
 
-static int	is_quote(char c)
-{
-	if (c == '\'' || c == '"')
-		return (1);
-	else
-		return (0);
-}
-
 static int	is_metachar(char *s)
 {
-	if (!ft_strncmp(s, ">>", 2) || !ft_strncmp(s, "<<", 2))
+	if (!ft_strncmp(s, ">>", 3) || !ft_strncmp(s, "<<", 3))
 		return (2);
 	else if (*s == '|' || *s == '>' || *s == '<')
 		return (1);
@@ -47,15 +39,12 @@ int	token_len(char *s, int quote)
 	len = 0;
 	while (s[++i])
 	{
-		if ((is_space(s[i]) && quote == 0) || is_metachar(&s[i]))
+		if (quote == 0 && (is_space(s[i]) || is_metachar(&s[i])))
 			break ;
-		else if (i != 0 && (s[i] == '\'' || s[i] == '"'))
-		{
-			if (quote)
-				quote = 0;
-			else
-				quote = 1;
-		}
+		else if (i != 0 && s[i] == '\'' && quote == 1)
+			quote = 0;
+		else if (i != 0 && s[i] == '"' && quote == 2)
+			quote = 0;
 		len++;
 	}
 	return (len);
@@ -89,7 +78,7 @@ int	tokenizer(t_token **head, char *s, t_env_list *env)
 		{
 			len = is_metachar(&s[i]);
 			if (!len)
-				len = token_len(&s[i], is_quote(s[i]));
+				len = token_len(&s[i], ft_isquote(s[i]));
 			token = new_token(&s[i], len);
 			add_back_token(head, token);
 			i += len;

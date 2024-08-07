@@ -6,19 +6,11 @@
 /*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 15:08:01 by seungryk          #+#    #+#             */
-/*   Updated: 2024/08/06 19:00:30 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/08/07 13:42:17 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "tokenizer.h"
-
-int	ft_isquote(char c)
-{
-	if (c == '\'' || c == '"')
-		return (1);
-	else
-		return (0);
-}
 
 int	get_quote_type(t_token *token, char c)
 {
@@ -95,6 +87,8 @@ void	remove_quote(t_token *token, int len)
 
 	i = 0;
 	idx = 0;
+	if (token->quote_in_env)
+		return ;
 	ret = malloc(sizeof(char) * (len + 1));
 	if (!ret)
 		exit(1);

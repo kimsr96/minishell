@@ -6,7 +6,7 @@
 /*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/05 11:12:22 by seungryk          #+#    #+#             */
-/*   Updated: 2024/08/06 19:14:01 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/08/07 13:09:51 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,20 @@ static int	interprete_str_len(t_token *token, char *s, t_env_list *env)
 	return (len);
 }
 
+int	include_quote(char *s)
+{
+	int	i;
+
+	i = 0;
+	while (s[i])
+	{
+		if (ft_isquote(s[i]))
+			return (1);
+		i++;
+	}
+	return (0);
+}
+
 int	env_expansion(t_token *token, t_env_list *env, char *s, char *ret)
 {
 	int			len;
@@ -68,6 +82,7 @@ int	env_expansion(t_token *token, t_env_list *env, char *s, char *ret)
 	target = get_target(env, s);
 	if (target)
 	{
+		token->quote_in_env = include_quote(target->value);
 		is_split = split_data(token, target->value);
 		if (is_split)
 		{
@@ -95,6 +110,7 @@ int	interpreter(t_token *token, char *s, t_env_list *env, int len)
 {
 	int			i;
 	int			j;
+	int			type;
 	char		*ret;
 
 	i = 0;
@@ -104,6 +120,7 @@ int	interpreter(t_token *token, char *s, t_env_list *env, int len)
 		perror("malloc error");
 	while (s[i])
 	{
+		type = token->quote_type;
 		if (get_quote_type(token, s[i]) != S_QUOTE && s[i] == '$')
 		{
 			if (j != 0)
@@ -113,7 +130,8 @@ int	interpreter(t_token *token, char *s, t_env_list *env, int len)
 		}
 		else
 		{
-			ret[j++] = s[i];
+			if (type == token->quote_type)
+				ret[j++] = s[i];
 			i++;
 		}
 	}
@@ -135,7 +153,7 @@ int	token_interpreter(t_token **head, t_env_list *env)
 			return (1);
 		len = interprete_str_len(curr, curr->data, env);
 		interpreter(curr, curr->data, env, len);
-		remove_quote(curr, quote_len(curr));
+		//remove_quote(curr, quote_len(curr));s
 		curr = curr->next;
 	}
 	return (0);
