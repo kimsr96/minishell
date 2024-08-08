@@ -6,7 +6,7 @@
 /*   By: hyeonble <hyeonble@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 17:25:17 by seungryk          #+#    #+#             */
-/*   Updated: 2024/08/06 16:36:19 by hyeonble         ###   ########.fr       */
+/*   Updated: 2024/08/07 16:33:44 by hyeonble         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,16 @@
 
 void	handle_redirection(t_command *cmd)
 {
-	if (cmd != NULL)
+	t_command	*cur;
+
+	cur = cmd;
+	if (cur != NULL)
 	{
-		while (cmd->redirect != NULL)
+		while (cur->redirect != NULL)
 		{
-			if (redirect(cmd->redirect) < 0)
+			if (redirect(cur->redirect) < 0)
 				exit (1);
-			cmd->redirect = cmd->redirect->next;
+			cur->redirect = cur->redirect->next;
 		}
 	}
 }
@@ -63,8 +66,6 @@ void	exec(t_block *block, t_env_list *env)
 		exec_no_pipe(block, env);
 	else
 		exec_with_pipe(block, env);
-	// while (pipe_num-- >= 0)
-	// 	waitpid(-1, NULL, 0);
 	restore_fd(stdin_backup, stdout_backup);
 }
 

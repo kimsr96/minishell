@@ -6,7 +6,7 @@
 /*   By: hyeonble <hyeonble@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/05 15:38:57 by hyeonble          #+#    #+#             */
-/*   Updated: 2024/08/06 18:04:16 by hyeonble         ###   ########.fr       */
+/*   Updated: 2024/08/07 17:27:49 by hyeonble         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ void	check_heredoc(t_block *block)
 {
 	t_block		*cur;
 	t_redirect	*redir;
-	pid_t		pid;
 
 	cur = block;
 	while (cur != NULL)
@@ -27,15 +26,7 @@ void	check_heredoc(t_block *block)
 			while (redir != NULL)
 			{
 				if (redir->io_type == HEREDOC_REDIRECT)
-				{
-					pid = fork();
-					if (pid < 0)
-						exit(1);
-					else if (pid == 0)
-						redir->file_name = get_heredoc(redir);
-					else
-						waitpid(pid, NULL, 0);
-				}
+					exec_heredoc(redir);
 				redir = redir->next;
 			}
 		}
@@ -43,17 +34,37 @@ void	check_heredoc(t_block *block)
 	}
 }
 
-char	*get_heredoc(t_redirect *redir)
+void	exec_heredoc(t_redirect *redir)
 {
-	char	*tmpfile;
+	pid_t	pid;
+	char	*filename;
+
+	filename = get_tmp_filename();
+	pid = fork();
+	if (pid < 0)
+		exit(1);
+	else if (pid == 0)
+	{
+		get_heredoc(redir, filename);
+		exit(0);
+	}
+	else
+	{
+		waitpid(pid, NULL, 0);
+		redir->file_name = filename;
+	}
+
+}
+
+void	get_heredoc(t_redirect *redir, char *filename)
+{
 	char	*line;
 	char	*delimiter;
 	int		fd;
 
 	signal(SIGINT, SIG_DFL);
-	tmpfile = get_tmp_filename();
 	delimiter = redir->delimiter;
-	fd = open(tmpfile, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+	fd = open(filename, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	while (1)
 	{
 		line = readline("> ");
@@ -61,12 +72,14 @@ char	*get_heredoc(t_redirect *redir)
 			break ;
 		if (!ft_strncmp(line, delimiter, ft_strlen(delimiter)) && \
 			ft_strlen(line) == ft_strlen(delimiter))
+		{
+			free(line);
 			break ;
+		}
 		ft_putendl_fd(line, fd);
 		free(line);
 	}
 	close(fd);
-	return (tmpfile);
 }
 
 char	*get_tmp_filename(void)
