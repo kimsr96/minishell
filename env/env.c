@@ -6,11 +6,12 @@
 /*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/15 13:51:01 by seungryk          #+#    #+#             */
-/*   Updated: 2024/08/03 13:28:19 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/08/07 16:49:42 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
+#include <stdio.h>
 
 int	get_key_len(char *envp)
 {
@@ -19,6 +20,8 @@ int	get_key_len(char *envp)
 	len = 0;
 	while (envp[len])
 	{
+		if (ft_isspace(envp[len]))
+			return (-1);
 		if (envp[len] == '=' || envp[len] == '+')
 			break ;
 		len++;

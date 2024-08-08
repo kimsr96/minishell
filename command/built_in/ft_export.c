@@ -6,7 +6,7 @@
 /*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 13:09:44 by seungryk          #+#    #+#             */
-/*   Updated: 2024/08/04 12:29:12 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/08/07 17:01:02 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,31 +20,43 @@ int	check_key_name(char *s)
 		return (1);
 }
 
-int	ft_export(t_env_list *head, char **str)
+void	put_env(t_env_list *head, char *s)
 {
 	int			key_len;
 	int			value_len;
 	char		*key;
 	char		*value;
 
+	key_len = get_key_len(s);
+	value_len = ft_strlen(s) - (key_len + 1);
+	key = get_key(s, key_len);
+	value = get_value(s, value_len);
+	if (check_key_name(s) || key_len == -1)
+	{
+		perror("not a valid identifier");
+		return ;
+	}
+	if (ft_strnstr(s, "+=", ft_strlen(s)))
+		add_env_value(head, key, value);
+	else
+		change_add_value(head, key, value);
+}
+
+int	ft_export(t_env_list *head, char **str)
+{
+	int	i;
+
+	i = 1;
 	head = head->next;
-	if (str[1] == NULL)
+	if (str[i] == NULL)
 		sort_print_env(head);
 	else
 	{
-		key_len = get_key_len(str[1]);
-		value_len = ft_strlen(str[1]) - (key_len + 1);
-		key = get_key(str[1], key_len);
-		value = get_value(str[1], value_len);
-		if (check_key_name(str[1]))
+		while (str[i])
 		{
-			perror("not a valid identifier");
-			return (1);
+			put_env(head, str[i]);
+			i++;
 		}
-		if (ft_strnstr(str[1], "+=", ft_strlen(str[1])))
-			add_env_value(head, key, value);
-		else
-			change_add_value(head, key, value);
 	}
 	return (0);
 }

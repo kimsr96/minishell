@@ -6,7 +6,7 @@
 /*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/08 13:32:28 by seungryk          #+#    #+#             */
-/*   Updated: 2024/08/04 12:12:05 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/08/08 18:50:24 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # include <unistd.h>
 # include <sys/wait.h>
 # include <stdio.h>
+# include <limits.h>
 
 /* ft_check_cmd */
 int		is_builtin(t_block *block);
@@ -36,7 +37,7 @@ int		ft_echo(char **str, int fd);
 int		ft_env(t_env_list *env, int fd);
 
 /* ft_exit.c */
-int		ft_exit(void);
+int		ft_exit(char **target);
 
 /* ft_export.c */
 int		ft_export(t_env_list *head, char **str);
