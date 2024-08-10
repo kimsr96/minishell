@@ -6,7 +6,7 @@
 /*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/05 11:12:22 by seungryk          #+#    #+#             */
-/*   Updated: 2024/08/10 15:55:23 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/08/10 17:48:54 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,25 +88,34 @@ int	env_expansion(t_token *token, t_env_list *env, char *s, char *ret)
 			len += ft_strlen(target->value);
 		}
 	}
-	else
-		token->data = NULL;
 	return (len);
 }
 
-void	interpreter(t_token *token, t_env_list *env, char *ret)
+int	is_expansion(t_token *token, t_env_list *env, char *s)
+{
+	if (get_quote_type(token, *s) != S_QUOTE && \
+			*s == '$' && *(s + 1) != '=' && *(s + 1))
+	{
+		if (get_target(env, s + 1))
+			return (1);
+		else
+			return (0);
+	}
+	else
+		return (0);
+}
+
+void	interpreter(t_token *token, t_env_list *env, char *ret, int type)
 {
 	int			i;
 	int			j;
-	int			type;
 
 	i = 0;
 	j = 0;
 	while (token->data[i])
 	{
 		type = token->quote_type;
-		if (get_quote_type(token, token->data[i]) != S_QUOTE && \
-			token->data[i] == '$' && token->data[i + 1] != '=' && \
-			token->data[i + 1])
+		if (is_expansion(token, env, &(token->data[i])))
 		{
 			if (j != 0)
 				token->space = 1;
@@ -118,16 +127,16 @@ void	interpreter(t_token *token, t_env_list *env, char *ret)
 			ret[j++] = token->data[i];
 		i++;
 	}
-	free(token->data);
-	token->data = ret;
 }
 
-int	token_interpreter(t_token **head, t_env_list *env)
+int		token_interpreter(t_token **head, t_env_list *env)
 {
 	int		len;
+	int		type;
 	char	*ret;
 	t_token	*curr;
 
+	type = 0;
 	curr = *head;
 	while (curr)
 	{
@@ -138,7 +147,9 @@ int	token_interpreter(t_token **head, t_env_list *env)
 		ret = ft_calloc(len + 1, sizeof(char));
 		if (!ret)
 			perror("malloc error");
-		interpreter(curr, env, ret);
+		interpreter(curr, env, ret, type);
+		free(curr->data);
+		curr->data = ret;
 		curr = curr->next;
 	}
 	return (0);

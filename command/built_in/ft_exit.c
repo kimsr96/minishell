@@ -6,7 +6,7 @@
 /*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 16:11:13 by seungryk          #+#    #+#             */
-/*   Updated: 2024/08/10 16:34:17 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/08/10 16:40:55 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,6 +110,6 @@ int	ft_exit(char **target)
 	}
 	else
 		exit_num = within_range(target[1]);
-	printf("%lld\n", exit_num);
+	exit(exit_num);
 	return (exit_num);
 }
