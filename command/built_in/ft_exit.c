@@ -6,7 +6,7 @@
 /*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 16:11:13 by seungryk          #+#    #+#             */
-/*   Updated: 2024/08/09 15:21:49 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/08/10 16:30:36 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,8 @@ int	ft_exit(char **target)
 		exit_num = 1;
 		perror("too many arguments");
 	}
+	else if (i == 1)
+		exit_num = 0;
 	else if (check_digit(target[1]) == -1)
 	{
 		exit_num = 255;

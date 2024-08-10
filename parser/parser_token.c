@@ -6,7 +6,7 @@
 /*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 09:05:12 by seungryk          #+#    #+#             */
-/*   Updated: 2024/08/10 14:40:25 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/08/10 16:23:52 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ int	parsing_token(t_block **head, t_token *tokens, t_env_list *env)
 		if (curr)
 			curr = curr->next;
 	}
-	if (last_block_pipe_exception(head))
+	if (last_block_pipe_exception(head, env))
 		return (1);
 	return (0);
 }

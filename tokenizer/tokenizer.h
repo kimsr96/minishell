@@ -6,7 +6,7 @@
 /*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 15:00:19 by seungryk          #+#    #+#             */
-/*   Updated: 2024/08/10 14:27:03 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/08/10 16:24:46 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <stdlib.h>
 # include "../env/env.h"
 # include "../libft/libft.h"
+# include "../error/error.h"
 
 typedef enum e_quotetype
 {
@@ -65,7 +66,6 @@ int			join_env_str(t_token *token, char *ret, int j, char **value_set);
 
 /* quote_token.c */
 int			get_quote_type(t_token *token, char c);
-int			valid_quote(t_token *token);
-int			quote_len(t_token *token);
+int			valid_quote(t_token *token, t_env_list *env);
 void		remove_quote(t_token *token, int len);
 #endif

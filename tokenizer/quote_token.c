@@ -6,7 +6,7 @@
 /*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 15:08:01 by seungryk          #+#    #+#             */
-/*   Updated: 2024/08/07 14:32:50 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/08/10 15:56:05 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,28 +40,7 @@ int	get_quote_type(t_token *token, char c)
 	return (0);
 }
 
-int	quote_len(t_token *token)
-{
-	int	i;
-	int	len;
-
-	i = 0;
-	len = 0;
-	while (token->data[i])
-	{
-		if (get_quote_type(token, token->data[i]))
-			len++;
-		i++;
-	}
-	if (token->quote_type)
-	{
-		perror("quote error");
-		return (-1);
-	}
-	return (len);
-}
-
-int	valid_quote(t_token *token)
+int	valid_quote(t_token *token, t_env_list *env)
 {
 	int	i;
 
@@ -72,10 +51,7 @@ int	valid_quote(t_token *token)
 		i++;
 	}
 	if (token->quote_type)
-	{
-		perror("quote error");
-		return (1);
-	}
+		return (parsing_error(env, ERR_QUOTE, 1));
 	return (0);
 }
 
