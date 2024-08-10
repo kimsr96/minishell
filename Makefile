@@ -33,11 +33,18 @@ SRCS =  main.c \
 		tokenizer/quote_token.c \
 		tokenizer/interpreter.c \
 		tokenizer/interpreter_utils.c \
-		tokenizer/free_utils.c \
-
+		tokenizer/free_utils.c 
+INC = 	minishell.h \
+		command/built_in/built_in.h \
+		command/exec/exec.h \
+		command/command.h \
+		env/env.h \
+		error/error.h \
+		parser/parser.h \
+		signal/ft_signal.h \
+		tokenizer/tokenizer.h 
 OBJ_DIR = obj
 OBJECTS = $(addprefix $(OBJ_DIR)/, $(SRCS:.c=.o))
-INC = minishell.h
 NAME = minishell
 COMPILE_FLAGS = -lreadline -L/opt/homebrew/opt/readline/lib
 OBJ_FLAGS = -I/opt/homebrew/opt/readline/include

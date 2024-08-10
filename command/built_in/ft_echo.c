@@ -6,22 +6,45 @@
 /*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 14:47:14 by seungryk          #+#    #+#             */
-/*   Updated: 2024/08/01 15:12:21 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/08/09 17:39:33 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "built_in.h"
 
-static void	print_echo(char **str, int flag_num, int len, int fd)
+static void	print_str(char *str, int fd)
 {
 	int	i;
 
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] == '\\')
+		{
+			if (str[i + 1] == '\\')
+			{
+				ft_putchar_fd('\\', fd);
+				i++;
+			}
+		}
+		else
+			ft_putchar_fd(str[i], fd);
+		i++;
+	}
+}
+
+static void	print_echo(char **str, int flag_num, int len, int fd)
+{
+	int	i;
+	int	j;
+
 	i = flag_num + 1;
+	j = 0;
 	if (str == NULL)
 		ft_putchar_fd('\n', fd);
 	while (str[i])
 	{
-		ft_putstr_fd(str[i], fd);
+		print_str(str[i], fd);
 		if (len - flag_num > 1)
 			ft_putchar_fd(' ', fd);
 		i++;

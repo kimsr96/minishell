@@ -6,7 +6,7 @@
 /*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 16:11:13 by seungryk          #+#    #+#             */
-/*   Updated: 2024/08/08 18:51:19 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/08/09 15:21:49 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,26 +15,30 @@
 int	check_digit(char *s)
 {
 	int	i;
+	int	len;
 	int	flag;
 
-	i = 0;
+	i = -1;
+	len = 0;
 	flag = 0;
-	while (s[i])
+	while (s[++i])
 	{
 		if (ft_isspace(s[i]))
-		{
-			i++;
 			continue ;
-		}
 		if (ft_isdigit(s[i]))
+		{
 			flag = 1;
+			len++;
+		}
 		else if (s[i] == '-' && flag)
-			return (1);
+			return (-1);
 		else if (s[i] != '-' && !ft_isdigit(s[i]))
-			return (1);
-		i++;
+			return (-1);
 	}
-	return (0);
+	if (len)
+		return (len);
+	else
+		return (-1);
 }
 
 long long	ft_atol(const char *str, int *error)
@@ -68,7 +72,7 @@ long long	ft_atol(const char *str, int *error)
 
 unsigned long long	within_range(char *target)
 {
-	long long 	num;
+	unsigned long long 	num;
 	int 		error;
 
 	error = 0;
@@ -94,15 +98,16 @@ int	ft_exit(char **target)
 		i++;
 	if (i > 2)
 	{
-		exit_num = 0;
+		exit_num = 1;
 		perror("too many arguments");
 	}
-	if (check_digit(target[1]))
+	else if (check_digit(target[1]) == -1)
 	{
 		exit_num = 255;
 		perror("numeric argument required");
 	}
-	exit_num = within_range(target[1]);
+	else
+		exit_num = within_range(target[1]);
 	printf("%lld\n", exit_num);
 	return (exit_num);
 }

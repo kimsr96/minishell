@@ -6,7 +6,7 @@
 /*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 15:00:19 by seungryk          #+#    #+#             */
-/*   Updated: 2024/08/07 12:49:19 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/08/10 14:27:03 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ typedef struct s_token
 	int					quote_type;
 	int					space;
 	int					quote_in_env;
+	int					is_split;
 	char				*data;
 	struct s_token		*next;
 }						t_token;
@@ -55,9 +56,11 @@ t_token		*new_token(char *s, int len);
 
 /* interpreter.c */
 int			token_interpreter(t_token **head, t_env_list *env);
+void		interpreter(t_token *token, t_env_list *env, char *ret);
 
 /* interpreter_utils.c */
-int			split_data(t_token *token, char *s);
+int			include_quote(char *s);
+void		split_data(t_token *token, char *s);
 int			join_env_str(t_token *token, char *ret, int j, char **value_set);
 
 /* quote_token.c */

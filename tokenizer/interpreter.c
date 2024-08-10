@@ -6,7 +6,7 @@
 /*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/05 11:12:22 by seungryk          #+#    #+#             */
-/*   Updated: 2024/08/07 13:09:51 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/08/10 14:34:10 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,53 +29,49 @@ static int	interprete_str_len(t_token *token, char *s, t_env_list *env)
 {
 	int			i;
 	int			len;
-	int			env_len;
 	t_env_list	*target;
 
 	i = 0;
 	len = 0;
 	while (s[i])
 	{
-		if (get_quote_type(token, s[i]) != S_QUOTE && s[i] == '$')
+		if (get_quote_type(token, s[i]) != S_QUOTE &&\
+				s[i] == '$' && s[i + 1] != '=' && s[i + 1])
 		{
 			target = get_target(env, &s[i + 1]);
 			if (target)
 			{
 				len += ft_strlen(target->value);
-				if (split_data(token, target->value) == -1)
+				if (token->is_split == -1)
 					len -= 1;
 			}
-			env_len = get_env_len(&s[i + 1]);
-			i += env_len + 1;
+			i += get_env_len(&s[i + 1]) + 1;
+			continue ;
 		}
-		else
-		{
-			i++;
-			len++;
-		}
+		i++;
+		len++;
 	}
 	return (len);
 }
 
-int	include_quote(char *s)
+int	get_value_set(t_token *token, char *ret, int len, t_env_list *target)
 {
-	int	i;
+	char		**value_set;
 
-	i = 0;
-	while (s[i])
+	value_set = ft_split2(target->value, "\x20\t\v\n\r\f");
+	if (token->is_split == -1)
 	{
-		if (ft_isquote(s[i]))
-			return (1);
-		i++;
+		*ret = ' ';
+		len += join_env_str(token, ret + 1, len, value_set);
 	}
-	return (0);
+	else
+		len += join_env_str(token, ret, len, value_set);
+	return (len);
 }
 
 int	env_expansion(t_token *token, t_env_list *env, char *s, char *ret)
 {
 	int			len;
-	int			is_split;
-	char		**value_set;
 	t_env_list	*target;
 
 	len = 0;
@@ -83,18 +79,9 @@ int	env_expansion(t_token *token, t_env_list *env, char *s, char *ret)
 	if (target)
 	{
 		token->quote_in_env = include_quote(target->value);
-		is_split = split_data(token, target->value);
-		if (is_split)
-		{
-			value_set = ft_split2(target->value, "\x20\t\v\n\r\f");
-			if (is_split == -1)
-			{
-				*ret = ' ';
-				len += join_env_str(token, ret + 1, len, value_set);
-			}
-			else
-				len += join_env_str(token, ret, len, value_set);
-		}
+		split_data(token, target->value);
+		if (token->is_split)
+			len += get_value_set(token, ret, len, target);
 		else
 		{
 			ft_strlcat(ret, target->value, ft_strlen(target->value) + 1);
@@ -106,43 +93,39 @@ int	env_expansion(t_token *token, t_env_list *env, char *s, char *ret)
 	return (len);
 }
 
-int	interpreter(t_token *token, char *s, t_env_list *env, int len)
+void	interpreter(t_token *token, t_env_list *env, char *ret)
 {
 	int			i;
 	int			j;
 	int			type;
-	char		*ret;
 
 	i = 0;
 	j = 0;
-	ret = ft_calloc(len + 1, sizeof(char));
-	if (!ret)
-		perror("malloc error");
-	while (s[i])
+	while (token->data[i])
 	{
 		type = token->quote_type;
-		if (get_quote_type(token, s[i]) != S_QUOTE && s[i] == '$')
+		if (get_quote_type(token, token->data[i]) != S_QUOTE && \
+			token->data[i] == '$' && token->data[i + 1] != '=' && \
+			token->data[i + 1])
 		{
 			if (j != 0)
 				token->space = 1;
-			j += env_expansion(token, env, &s[i + 1], &ret[j]);
-			i += get_env_len(&s[i + 1]) + 1;
+			j += env_expansion(token, env, &token->data[i + 1], &ret[j]);
+			i += get_env_len(&token->data[i + 1]) + 1;
+			continue ;
 		}
-		else
-		{
-			if (type == token->quote_type)
-				ret[j++] = s[i];
-			i++;
-		}
+		if (type == token->quote_type)
+			ret[j++] = token->data[i];
+		i++;
 	}
 	free(token->data);
 	token->data = ret;
-	return (0);
 }
 
 int	token_interpreter(t_token **head, t_env_list *env)
 {
 	int		len;
+	char	*ret;
 	t_token	*curr;
 
 	curr = *head;
@@ -152,8 +135,10 @@ int	token_interpreter(t_token **head, t_env_list *env)
 		if (valid_quote(curr))
 			return (1);
 		len = interprete_str_len(curr, curr->data, env);
-		interpreter(curr, curr->data, env, len);
-		//remove_quote(curr, quote_len(curr));s
+		ret = ft_calloc(len + 1, sizeof(char));
+		if (!ret)
+			perror("malloc error");
+		interpreter(curr, env, ret);
 		curr = curr->next;
 	}
 	return (0);

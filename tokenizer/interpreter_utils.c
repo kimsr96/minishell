@@ -6,13 +6,27 @@
 /*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 15:00:37 by seungryk          #+#    #+#             */
-/*   Updated: 2024/08/07 13:19:00 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/08/10 14:11:37 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "tokenizer.h"
 
-int	split_data(t_token *token, char *s)
+int	include_quote(char *s)
+{
+	int	i;
+
+	i = 0;
+	while (s[i])
+	{
+		if (ft_isquote(s[i]))
+			return (1);
+		i++;
+	}
+	return (0);
+}
+
+void	split_data(t_token *token, char *s)
 {
 	int	i;
 	int	space;
@@ -28,13 +42,11 @@ int	split_data(t_token *token, char *s)
 		i++;
 	}
 	if ((s[i] == '\0' && !space) || token->quote_type != DEFAULT)
-	{
-		return (0);
-	}
+		token->is_split = 0;
 	else if (space && token->space)
-		return (-1);
+		token->is_split = -1;
 	else
-		return (1);
+		token->is_split = 1;
 }
 
 int	join_env_str(t_token *token, char *ret, int j, char **value_set)
