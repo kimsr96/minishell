@@ -6,7 +6,7 @@
 /*   By: hyeonble <hyeonble@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 17:25:17 by seungryk          #+#    #+#             */
-/*   Updated: 2024/08/07 16:33:44 by hyeonble         ###   ########.fr       */
+/*   Updated: 2024/08/10 13:20:27 by hyeonble         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ void	exec(t_block *block, t_env_list *env)
 	restore_fd(stdin_backup, stdout_backup);
 }
 
-void	execute_in_child(t_block *block, t_env_list *env)
+int	execute_in_child(t_block *block, t_env_list *env)
 {
 	char	**envp;
 
@@ -78,14 +78,14 @@ void	execute_in_child(t_block *block, t_env_list *env)
 	if (is_builtin(block))
 	{
 		exec_builtin(block, env);
-		exit(0);
+		exit(EXIT_SUCCESS);
 	}
 	else
 	{
 		envp = get_envp(env);
 		if (execve(block->command->cmd_path, block->command->target, envp) < 0)
-			perror("exec error");
-		exit(0);
+			exit(EXIT_FAILURE);
+		exit(EXIT_SUCCESS);
 	}
 }
 
@@ -110,7 +110,7 @@ void	exec_no_pipe(t_block *block, t_env_list *env)
 				else if (pid == 0)
 					execute_in_child(cur, env);
 				else
-					waitpid(-1, NULL, 0);
+					wait_process()
 			}
 		}
 		cur = cur->next;
@@ -143,13 +143,14 @@ int	exec_with_pipe(t_block *block, t_env_list *env)
 			p.pipe_prev = 1;
 		cur = cur->next;
 	}
-	return (wait_process(&p));
+	wait_process(&p);
 }
 
 void	fork_process(t_block *block, t_env_list *env, t_pipe *p)
 {
 	pid_t	pid;
 	t_block	*cur;
+	int		status;
 
 	cur = block;
 	pid = fork();
@@ -169,7 +170,7 @@ void	fork_process(t_block *block, t_env_list *env, t_pipe *p)
 		}
 		close(p->fds[0]);
 		handle_redirection(cur->command);
-		execute_in_child(cur, env);
+		status = execute_in_child(cur, env);
 	}
 	else
 	{
@@ -180,19 +181,22 @@ void	fork_process(t_block *block, t_env_list *env, t_pipe *p)
 	}
 }
 
-int	wait_process(t_pipe *p)
+void	wait_process(t_pipe *p)
 {
 	int		i;
-	int		status;
+	int		exit_code;
 
 	i = 0;
 	while (i < p->child_num)
 	{
 		waitpid(-1, &status, 0);
-		// if (WIFEXITED(status))
+		if (WIFEXITED(status))
+		{
+			exit_code = WEXITSTATUS(status);
+			//env에 exit_code 업데이트
+		}
 		i++;
 	}
-	return (status);
 }
 
 void	init_pipe(t_pipe *p, t_block *block)

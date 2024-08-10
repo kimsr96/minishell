@@ -6,7 +6,7 @@
 /*   By: hyeonble <hyeonble@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/08 13:32:28 by seungryk          #+#    #+#             */
-/*   Updated: 2024/08/07 17:26:39 by hyeonble         ###   ########.fr       */
+/*   Updated: 2024/08/09 22:40:47 by hyeonble         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,9 @@
 # include "../env/env.h"
 # include <readline/readline.h>
 # include <fcntl.h>
+
+# define EXIT_SUCCESS 0
+# define EXIT_FAILURE 1
 
 typedef struct s_pipe
 {
