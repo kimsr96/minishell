@@ -6,7 +6,7 @@
 /*   By: hyeonble <hyeonble@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 17:25:17 by seungryk          #+#    #+#             */
-/*   Updated: 2024/08/10 13:20:27 by hyeonble         ###   ########.fr       */
+/*   Updated: 2024/08/10 14:26:48 by hyeonble         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ void	restore_fd(int stdin_backup, int stdout_backup)
 	close(stdin_backup);
 	close(stdout_backup);
 }
+
 static int	get_pipe_num(t_block *block)
 {
 	int		pipe_num;
@@ -55,30 +56,36 @@ static int	get_pipe_num(t_block *block)
 
 void	exec(t_block *block, t_env_list *env)
 {
-	int	pipe_num;
-	int	stdin_backup;
-	int	stdout_backup;
+	t_pipe	p;
+	int		stdin_backup;
+	int		stdout_backup;
 
+	init_pipe(&p, block);
 	stdin_backup = dup(STDIN_FILENO);
 	stdout_backup = dup(STDOUT_FILENO);
-	pipe_num = get_pipe_num(block);
-	if (pipe_num == 0)
-		exec_no_pipe(block, env);
+	if (p.pipe_num == 0)
+		exec_no_pipe(block, env, &p);
 	else
-		exec_with_pipe(block, env);
+		exec_with_pipe(block, env, &p);
 	restore_fd(stdin_backup, stdout_backup);
 }
 
-int	execute_in_child(t_block *block, t_env_list *env)
+void	execute_in_child(t_block *block, t_env_list *env)
 {
+	int		status;
 	char	**envp;
 
 	if (!block->command->cmd_path)
-		perror("command not found");
+	{
+		//error함수에서 status return
+		status = 126;
+		ft_putendl_fd("command not found", 2);
+		exit(status);
+	}
 	if (is_builtin(block))
 	{
-		exec_builtin(block, env);
-		exit(EXIT_SUCCESS);
+		status = exec_builtin(block, env);
+		exit(status);
 	}
 	else
 	{
@@ -89,7 +96,7 @@ int	execute_in_child(t_block *block, t_env_list *env)
 	}
 }
 
-void	exec_no_pipe(t_block *block, t_env_list *env)
+void	exec_no_pipe(t_block *block, t_env_list *env, t_pipe *p)
 {
 	t_block	*cur;
 	pid_t	pid;
@@ -100,6 +107,7 @@ void	exec_no_pipe(t_block *block, t_env_list *env)
 		handle_redirection(cur->command);
 		if (cur->type == CMD)
 		{
+			p->child_num++;
 			if (is_builtin(cur))
 				exec_builtin(cur, env);
 			else
@@ -110,19 +118,17 @@ void	exec_no_pipe(t_block *block, t_env_list *env)
 				else if (pid == 0)
 					execute_in_child(cur, env);
 				else
-					wait_process()
+					wait_process(p, env);
 			}
 		}
 		cur = cur->next;
 	}
 }
 
-int	exec_with_pipe(t_block *block, t_env_list *env)
+void	exec_with_pipe(t_block *block, t_env_list *env, t_pipe *p)
 {
 	t_block	*cur;
-	t_pipe	p;
 
-	init_pipe(&p, block);
 	cur = block;
 	while (cur != NULL)
 	{
@@ -130,27 +136,26 @@ int	exec_with_pipe(t_block *block, t_env_list *env)
 		{
 			if (cur->next != NULL && cur->next->type == PIPE)
 			{
-				if (pipe(p.fds) < 0)
+				if (pipe(p->fds) < 0)
 					perror("pipe error\n");
 			}
 			else
-				p.pipe_after = 0;
-			fork_process(cur, env, &p);
-			p.prev_fd = p.fds[0];
-			p.child_num++;
+				p->pipe_after = 0;
+			fork_process(cur, env, p);
+			p->prev_fd = p->fds[0];
+			p->child_num++;
 		}
 		else if (cur->type == PIPE)
-			p.pipe_prev = 1;
+			p->pipe_prev = 1;
 		cur = cur->next;
 	}
-	wait_process(&p);
+	wait_process(p, env);
 }
 
 void	fork_process(t_block *block, t_env_list *env, t_pipe *p)
 {
 	pid_t	pid;
 	t_block	*cur;
-	int		status;
 
 	cur = block;
 	pid = fork();
@@ -170,7 +175,7 @@ void	fork_process(t_block *block, t_env_list *env, t_pipe *p)
 		}
 		close(p->fds[0]);
 		handle_redirection(cur->command);
-		status = execute_in_child(cur, env);
+		execute_in_child(cur, env);
 	}
 	else
 	{
@@ -181,9 +186,10 @@ void	fork_process(t_block *block, t_env_list *env, t_pipe *p)
 	}
 }
 
-void	wait_process(t_pipe *p)
+void	wait_process(t_pipe *p, t_env_list *env)
 {
 	int		i;
+	int		status;
 	int		exit_code;
 
 	i = 0;
@@ -193,17 +199,20 @@ void	wait_process(t_pipe *p)
 		if (WIFEXITED(status))
 		{
 			exit_code = WEXITSTATUS(status);
-			//env에 exit_code 업데이트
+			update_exit_code(exit_code, env);
 		}
 		i++;
 	}
 }
 
+void	update_exit_code(int exit_code, t_env_list *env)
+{
+	env->value = ft_itoa(exit_code);
+}
+
 void	init_pipe(t_pipe *p, t_block *block)
 {
 	p->prev_fd = -1;
-	p->stdin_backup = dup(STDIN_FILENO);
-	p->stdout_backup = dup(STDOUT_FILENO);
 	p->pipe_num = get_pipe_num(block);
 	p->pipe_after = 1;
 	p->pipe_prev = 0;
