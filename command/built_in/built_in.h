@@ -6,7 +6,7 @@
 /*   By: hyeonble <hyeonble@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/08 13:32:28 by seungryk          #+#    #+#             */
-/*   Updated: 2024/08/10 15:43:29 by hyeonble         ###   ########.fr       */
+/*   Updated: 2024/08/10 16:36:55 by hyeonble         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 
 /* ft_check_cmd */
 int		is_builtin(t_block *block);
-int		exec_builtin(t_block *block, t_env_list *env);
+void	exec_builtin(t_block *block, t_env_list *env);
 
 /* ft_cd.c */
 int		ft_cd(t_block *block, t_env_list *env);

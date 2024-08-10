@@ -6,7 +6,7 @@
 /*   By: hyeonble <hyeonble@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 09:05:12 by seungryk          #+#    #+#             */
-/*   Updated: 2024/08/10 15:58:06 by hyeonble         ###   ########.fr       */
+/*   Updated: 2024/08/10 16:37:27 by hyeonble         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ int	parsing_token(t_block **head, t_token *tokens, t_env_list *env)
 		if (curr)
 			curr = curr->next;
 	}
-	if (last_block_pipe_exception(head))
+	if (last_block_pipe_exception(head, env))
 		return (1);
 	return (0);
 }

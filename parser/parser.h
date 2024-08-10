@@ -6,7 +6,7 @@
 /*   By: hyeonble <hyeonble@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 08:36:13 by seungryk          #+#    #+#             */
-/*   Updated: 2024/08/10 15:42:39 by hyeonble         ###   ########.fr       */
+/*   Updated: 2024/08/10 16:36:28 by hyeonble         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,5 +77,5 @@ t_redir_type	set_redirect_type(char *s);
 void			env_exception(t_command *cmd);
 
 /* pipe_exception */
-int				last_block_pipe_exception(t_block **head);
+int				last_block_pipe_exception(t_block **head, t_env_list *env);
 #endif

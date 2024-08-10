@@ -19,6 +19,7 @@ SRCS =  main.c \
 		env/find_env.c \
 		env/get_envp.c \
 		error/error.c \
+		error/parsing_error.c \
 		parser/parser_token.c \
 		parser/parser_init_free.c \
 		parser/parser_utils.c \
