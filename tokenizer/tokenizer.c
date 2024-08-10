@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizer.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hyeonble <hyeonble@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 14:43:27 by seungryk          #+#    #+#             */
-/*   Updated: 2024/08/10 14:38:36 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/08/10 15:58:36 by hyeonble         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,7 @@ int	tokenizer(t_token **head, char *s, t_env_list *env)
 			i += len;
 		}
 	}
-	print_token(*head);
+	// print_token(*head);
 	token_interpreter(head, env);
 	return (0);
 }
