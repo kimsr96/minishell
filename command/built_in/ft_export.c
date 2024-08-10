@@ -6,7 +6,7 @@
 /*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 13:09:44 by seungryk          #+#    #+#             */
-/*   Updated: 2024/08/07 17:01:02 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/08/10 16:37:03 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,10 @@ void	put_env(t_env_list *head, char *s)
 	}
 	if (ft_strnstr(s, "+=", ft_strlen(s)))
 		add_env_value(head, key, value);
-	else
+	else if (ft_strnstr(s, "=", ft_strlen(s)))
 		change_add_value(head, key, value);
+	else
+		return ;
 }
 
 int	ft_export(t_env_list *head, char **str)
