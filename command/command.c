@@ -6,7 +6,7 @@
 /*   By: hyeonble <hyeonble@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 17:25:17 by seungryk          #+#    #+#             */
-/*   Updated: 2024/08/10 17:52:05 by hyeonble         ###   ########.fr       */
+/*   Updated: 2024/08/10 18:03:20 by hyeonble         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ void	execute_in_child(t_block *block, t_env_list *env)
 	// status = check_cmd_error(block, env);
 	// if (status)
 	// 	exit(status);
-	printf("%s", block->command->cmd_path);
+	printf("%s\n", block->command->cmd_path);
 	if (!block->command->is_empty && !block->command->cmd_path)
 	{
 		//error함수에서 status return
