@@ -6,7 +6,7 @@
 /*   By: hyeonble <hyeonble@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 17:25:17 by seungryk          #+#    #+#             */
-/*   Updated: 2024/08/11 17:17:01 by hyeonble         ###   ########.fr       */
+/*   Updated: 2024/08/11 20:58:48 by hyeonble         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,6 @@ void	execute_in_child(t_block *block, t_env_list *env)
 		exit(status);
 	}
 	status = check_cmd_error(block);
-	printf("%d", status);
 	if (status > 0)
 		exit(status);
 	else
