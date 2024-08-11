@@ -6,7 +6,7 @@
 /*   By: hyeonble <hyeonble@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/08 13:32:28 by seungryk          #+#    #+#             */
-/*   Updated: 2024/08/10 16:44:22 by hyeonble         ###   ########.fr       */
+/*   Updated: 2024/08/11 16:24:05 by hyeonble         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include "../../libft/libft.h"
 # include "../../parser/parser.h"
 # include "../../env/env.h"
-# include "../../error/error.h"
+// # include "../../error/error.h"
 # include "../command.h"
 # include <unistd.h>
 # include <sys/wait.h>
