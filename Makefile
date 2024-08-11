@@ -15,7 +15,6 @@ SRCS =  main.c \
 		parser/parser_utils.c \
 		parser/command_path.c \
 		parser/env_exception.c \
-		parser/pipe_exception.c \
 		parser/remove_block.c \
 		parser/redirect_block.c \
 		signal/ft_signal.c \

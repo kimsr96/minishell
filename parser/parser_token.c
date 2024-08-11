@@ -6,7 +6,7 @@
 /*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 09:05:12 by seungryk          #+#    #+#             */
-/*   Updated: 2024/08/11 17:14:54 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/08/11 18:15:01 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static int	redirect_parser(t_block *block, t_token *token, t_env_list *env)
 	t_redirect	*redir;
 
 	if (!token->next || token->next->type == PIPE)
-		return (parsing_error(env, ERR_SYNTAX, 1));
+		return (parsing_error(env, ERR_SYNTAX, 258));
 	token->type = set_redirect_type(token->data);
 	redir = get_redir(token, token->type);
 	if (!redir)
@@ -93,7 +93,7 @@ int	parsing_token(t_block **b_head, t_token **t_head, t_env_list *env)
 		if (curr)
 			curr = curr->next;
 	}
-	if (block_err_exception(b_head, t_head, env))
+	if (block_err(b_head, t_head, env))
 		return (1);
 	return (0);
 }

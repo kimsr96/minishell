@@ -6,19 +6,11 @@
 /*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 14:43:27 by seungryk          #+#    #+#             */
-/*   Updated: 2024/08/10 17:54:57 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/08/11 17:59:27 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "tokenizer.h"
-
-static int	is_space(char c)
-{
-	if ((c >= 9 && c <= 13) || c == 32)
-		return (1);
-	else
-		return (0);
-}
 
 static int	is_metachar(char *s)
 {
@@ -69,7 +61,7 @@ int	token_len(char *s)
 	while (s[i])
 	{
 		quote = get_quote_type_c(s[i], quote);
-		if (quote == 0 && (is_space(s[i]) || is_metachar(&s[i])))
+		if (quote == 0 && (ft_isspace(s[i]) || is_metachar(&s[i])))
 			break ;
 		len++;
 		i++;
@@ -99,7 +91,7 @@ int	tokenizer(t_token **head, char *s, t_env_list *env)
 	*head = NULL;
 	while (s[i])
 	{
-		if (is_space(s[i]))
+		if (ft_isspace(s[i]))
 			i++;
 		else
 		{

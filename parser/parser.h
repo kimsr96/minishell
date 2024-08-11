@@ -6,7 +6,7 @@
 /*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 08:36:13 by seungryk          #+#    #+#             */
-/*   Updated: 2024/08/11 17:30:45 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/08/11 18:43:55 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@
 # include "../tokenizer/tokenizer.h"
 # include "../env/env.h"
 
-typedef enum e_tokentype t_tokentype;
-typedef struct s_token t_token;
+typedef enum e_tokentype	t_tokentype;
+typedef struct s_token		t_token;
 
 typedef enum e_redir_type
 {
@@ -52,7 +52,7 @@ typedef struct s_block
 }t_block;
 
 /* parse_token.c */
-int				parsing_token(t_block **head, t_token **tokens, t_env_list *env);
+int				parsing_token(t_block **b_h, t_token **t_h, t_env_list *env);
 
 /* parser_utils.c */
 char			**join_str(char **s1, char *s2);
@@ -80,6 +80,6 @@ t_redir_type	set_redirect_type(char *s);
 /* env_exception.c */
 void			env_exception(t_command *cmd);
 
-/* pipe_exception */
-int				block_err_exception(t_block **head, t_token **token, t_env_list *env);
+/* block_exception */
+int				block_err(t_block **b_head, t_token **t_head, t_env_list *env);
 #endif
