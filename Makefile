@@ -21,6 +21,7 @@ SRCS =  main.c \
 		error/error.c \
 		error/parsing_error.c \
 		parser/parser_token.c \
+		parser/parser_err_exception.c \
 		parser/parser_init_free.c \
 		parser/parser_utils.c \
 		parser/command_path.c \

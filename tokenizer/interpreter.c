@@ -6,24 +6,11 @@
 /*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/05 11:12:22 by seungryk          #+#    #+#             */
-/*   Updated: 2024/08/10 18:09:55 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/08/11 14:33:41 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "tokenizer.h"
-
-t_env_list	*get_target(t_env_list *env, char *s)
-{
-	int			env_len;
-	char		*find_key;
-	t_env_list	*target;
-
-	env_len = get_env_len(s);
-	find_key = get_env_var_name(s, env_len);
-	target = find_key_node(env, find_key);
-	free(find_key);
-	return (target);
-}
 
 static int	interprete_str_len(t_token *token, char *s, t_env_list *env)
 {

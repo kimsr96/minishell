@@ -6,7 +6,7 @@
 /*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/23 16:45:27 by seungryk          #+#    #+#             */
-/*   Updated: 2024/08/07 16:17:52 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/08/11 15:25:47 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,15 +34,10 @@ int	is_redirect(t_tokentype type)
 		return (0);
 }
 
-t_redirect	*get_redirect(t_token *token, t_redir_type type)
+t_redirect	*get_redir(t_token *token, t_redir_type type)
 {
 	t_redirect	*redirect;
 
-	if (!token->next || token->next->type == PIPE)
-	{
-		perror("redirect error");
-		return (NULL);
-	}
 	redirect = ft_calloc(1, sizeof(t_redirect));
 	if (!redirect)
 		exit(1);

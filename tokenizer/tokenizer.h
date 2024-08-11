@@ -6,7 +6,7 @@
 /*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 15:00:19 by seungryk          #+#    #+#             */
-/*   Updated: 2024/08/10 18:11:08 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/08/11 15:38:14 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ typedef enum e_tokentype
 typedef struct s_token
 {
 	int					type;
+	int					err;
 	int					quote_type;
 	int					space;
 	int					quote_in_env;
@@ -61,6 +62,7 @@ int			token_interpreter(t_token **head, t_env_list *env);
 void		interpreter(t_token *token, t_env_list *env, char *ret);
 
 /* interpreter_utils.c */
+t_env_list	*get_target(t_env_list *env, char *s);
 int			is_expansion(t_token *token, t_env_list *env, char *s);
 int			include_quote(char *s);
 void		split_data(t_token *token, char *s);

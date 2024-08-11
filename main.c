@@ -6,7 +6,7 @@
 /*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 10:00:10 by seungryk          #+#    #+#             */
-/*   Updated: 2024/08/10 15:47:00 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/08/11 15:42:46 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ void	start_shell(t_env_list *env)
 			get_next_command_line(NULL, tokens, str);
 			continue ;
 		}
-		if (parsing_token(&block, tokens, env))
+		if (parsing_token(&block, &tokens, env))
 		{
 			get_next_command_line(block, tokens, str);
 			continue ;
