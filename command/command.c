@@ -6,7 +6,7 @@
 /*   By: hyeonble <hyeonble@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 17:25:17 by seungryk          #+#    #+#             */
-/*   Updated: 2024/08/10 18:03:20 by hyeonble         ###   ########.fr       */
+/*   Updated: 2024/08/11 17:17:01 by hyeonble         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,17 +82,10 @@ void	execute_in_child(t_block *block, t_env_list *env)
 		status = exec_builtin(block, env);
 		exit(status);
 	}
-	// status = check_cmd_error(block, env);
-	// if (status)
-	// 	exit(status);
-	printf("%s\n", block->command->cmd_path);
-	if (!block->command->is_empty && !block->command->cmd_path)
-	{
-		//error함수에서 status return
-		status = 126;
-		ft_putendl_fd("command not found", 2);
+	status = check_cmd_error(block);
+	printf("%d", status);
+	if (status > 0)
 		exit(status);
-	}
 	else
 	{
 		envp = get_envp(env);

@@ -2,24 +2,13 @@ CC = cc
 CFLAGS = -Wall -Wextra -Werror -fsanitize=address -g3
 LIBFT = -Llibft -lft
 SRCS =  main.c \
-		command/command.c \
-		command/heredoc.c \
-		command/built_in/ft_cd.c \
-		command/built_in/ft_pwd.c \
-		command/built_in/ft_env.c \
-		command/built_in/ft_echo.c \
-		command/built_in/ft_exit.c \
-		command/built_in/ft_unset.c \
-		command/built_in/ft_export.c \
-		command/built_in/ft_export_no_option.c \
-		command/built_in/built_in.c \
-		command/exec/exec_redirection.c \
+		error/error.c \
+		error/parsing_error.c \
+		error/raise_cmd_error.c \
 		env/env.c \
 		env/env_utils.c \
 		env/find_env.c \
 		env/get_envp.c \
-		error/error.c \
-		error/parsing_error.c \
 		parser/parser_token.c \
 		parser/parser_err_exception.c \
 		parser/parser_init_free.c \
@@ -35,7 +24,20 @@ SRCS =  main.c \
 		tokenizer/quote_token.c \
 		tokenizer/interpreter.c \
 		tokenizer/interpreter_utils.c \
-		tokenizer/free_utils.c 
+		tokenizer/free_utils.c \
+		command/command.c \
+		command/heredoc.c \
+		command/check_cmd_error.c \
+		command/built_in/ft_cd.c \
+		command/built_in/ft_pwd.c \
+		command/built_in/ft_env.c \
+		command/built_in/ft_echo.c \
+		command/built_in/ft_exit.c \
+		command/built_in/ft_unset.c \
+		command/built_in/ft_export.c \
+		command/built_in/ft_export_no_option.c \
+		command/built_in/built_in.c \
+		command/exec/exec_redirection.c
 INC = 	minishell.h \
 		command/built_in/built_in.h \
 		command/exec/exec.h \

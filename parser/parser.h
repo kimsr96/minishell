@@ -6,15 +6,19 @@
 /*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 08:36:13 by seungryk          #+#    #+#             */
-/*   Updated: 2024/08/11 17:15:11 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/08/11 17:30:45 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PARSER_H
 # define PARSER_H
 
+# include "../error/error.h"
 # include "../tokenizer/tokenizer.h"
 # include "../env/env.h"
+
+typedef enum e_tokentype t_tokentype;
+typedef struct s_token t_token;
 
 typedef enum e_redir_type
 {

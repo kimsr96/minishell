@@ -6,7 +6,7 @@
 /*   By: hyeonble <hyeonble@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/08 09:25:07 by seungryk          #+#    #+#             */
-/*   Updated: 2024/08/10 18:07:12 by hyeonble         ###   ########.fr       */
+/*   Updated: 2024/08/11 15:56:38 by hyeonble         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,10 +38,11 @@ char	*get_cmd(t_env_list *env, char *cmd)
 		return (0);
 	if (ft_strchr(cmd, '/'))
 	{
-		if (access(cmd, X_OK) == 0)
-			return (ft_strdup(cmd));
-		else
-			perror("command not found");
+		return(ft_strdup(cmd));
+		// if (access(cmd, X_OK) == 0)
+		// 	return (ft_strdup(cmd));
+		// else
+		// 	perror("command not found");
 	}
 	path = get_path(env->next);
 	if (!path)

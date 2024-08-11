@@ -6,13 +6,14 @@
 /*   By: hyeonble <hyeonble@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/08 13:32:28 by seungryk          #+#    #+#             */
-/*   Updated: 2024/08/10 13:58:44 by hyeonble         ###   ########.fr       */
+/*   Updated: 2024/08/11 15:54:06 by hyeonble         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef COMMAND_H
 # define COMMAND_H
 
+// # include "../error/error.h"
 # include "./built_in/built_in.h"
 # include "./exec/exec.h"
 # include "../env/env.h"
@@ -50,6 +51,10 @@ void	exec_heredoc(t_redirect *redir);
 void	get_heredoc(t_redirect *redir, char *filename);
 char	*get_tmp_filename(void);
 void	unlink_tmpfile(t_block *block);
+
+int		check_cmd_error(t_block *block);
+int		is_exist_file(char *path);
+int		is_executable(char *path);
 
 int     g_status;
 #endif
