@@ -6,7 +6,7 @@
 /*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 11:02:39 by seungryk          #+#    #+#             */
-/*   Updated: 2024/08/10 14:06:13 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/08/12 16:48:27 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	add_back_token(t_token **head, t_token *new)
 int	del_token(t_token **head)
 {
 	t_token	*curr;
-	t_token	*next;
+	t_token	*next_token;
 	t_token	*target;
 
 	curr = *head;
@@ -41,11 +41,11 @@ int	del_token(t_token **head)
 		if (curr->next->data == NULL)
 		{
 			target = curr->next;
-			next = curr->next->next;
-			curr->next = next;
+			next_token = curr->next->next;
+			curr->next = next_token;
 			free(target->data);
 			free(target);
-			curr = next;
+			curr = curr->next;
 			if (!curr)
 				break ;
 		}
