@@ -6,13 +6,13 @@
 /*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 13:09:47 by seungryk          #+#    #+#             */
-/*   Updated: 2024/08/12 14:28:18 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/08/12 16:53:25 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "built_in.h"
 
-void	*free_node(t_env_list* target)
+void	*free_node(t_env_list *target)
 {
 	free(target->key);
 	free(target->value);

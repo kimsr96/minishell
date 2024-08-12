@@ -6,29 +6,11 @@
 /*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/09 10:24:17 by seungryk          #+#    #+#             */
-/*   Updated: 2024/06/11 13:55:30 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/08/12 16:51:34 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_signal.h"
-
-void	disable_raw_mode(void)
-{
-	tcsetattr(STDIN_FILENO, TCSAFLUSH, &g_termios);
-}
-
-void	enable_raw_mode(void)
-{
-	struct termios	raw;
-
-	tcgetattr(STDIN_FILENO, &g_termios);
-	atexit(disable_raw_mode);
-	raw = g_termios;
-	tcgetattr(STDIN_FILENO, &g_termios);
-	atexit(disable_raw_mode);
-	raw.c_lflag &= ~(ECHO | ICANON | ISIG);
-	tcsetattr(STDIN_FILENO, TCSAFLUSH, &raw);
-}
 
 void	signal_handler(int signal)
 {

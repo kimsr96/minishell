@@ -6,7 +6,7 @@
 /*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 10:00:10 by seungryk          #+#    #+#             */
-/*   Updated: 2024/08/11 15:42:46 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/08/12 16:53:58 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	print_block(t_block *block)
 {
 	int			i;
-	t_command 	*cmd;
+	t_command	*cmd;
 	t_redirect	*curr;
 
 	while (block)
@@ -59,12 +59,8 @@ void	get_next_command_line(t_block *block, t_token *token, char *str)
 	free(str);
 }
 
-void	start_shell(t_env_list *env)
+void	start_shell(char *str, t_block *block, t_token *token, t_env_list *env)
 {
-	char		*str;
-	t_token		*tokens;
-	t_block		*block;
-
 	while (1)
 	{
 		str = readline("minishell$ ");
@@ -73,35 +69,42 @@ void	start_shell(t_env_list *env)
 			printf("\e7\e[A\e[11Cexit\n");
 			break ;
 		}
-		if (tokenizer(&tokens, str, env))
+		if (tokenizer(&token, str, env))
 		{
-			get_next_command_line(NULL, tokens, str);
+			get_next_command_line(NULL, token, str);
 			continue ;
 		}
-		if (parsing_token(&block, &tokens, env))
+		if (parsing_token(&block, &token, env))
 		{
-			get_next_command_line(block, tokens, str);
+			get_next_command_line(block, token, str);
 			continue ;
 		}
 		check_heredoc(block);
 		// print_block(block);
 		if (block)
 			exec(block, env);
-		get_next_command_line(block, tokens, str);
+		get_next_command_line(block, token, str);
 	}
 }
 
 int	main(int argc, char **argv, char **envp)
 {
+	char		*str;
+	t_block		*block;
+	t_token		*token;
 	t_env_list	*env;
 
 	if (argc != 1)
 		return (0);
 	if (argv)
 		argv = NULL;
+	str = NULL;
+	block = NULL;
+	token = NULL;
+	env = NULL;
 	set_signal();
 	env = get_env(&env, envp);
-	start_shell(env);
+	start_shell(str, block, token, env);
 	free_env(env);
 	return (0);
 }
