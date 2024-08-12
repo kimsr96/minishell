@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hyeonble <hyeonble@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 10:00:10 by seungryk          #+#    #+#             */
-/*   Updated: 2024/08/11 15:42:46 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/08/12 17:31:16 by hyeonble         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,9 +84,11 @@ void	start_shell(t_env_list *env)
 			continue ;
 		}
 		check_heredoc(block);
+		signal(SIGINT, SIG_IGN);
 		// print_block(block);
 		if (block)
 			exec(block, env);
+		signal(SIGINT, signal_handler);
 		get_next_command_line(block, tokens, str);
 	}
 }

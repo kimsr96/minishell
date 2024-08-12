@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_signal.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hyeonble <hyeonble@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/09 10:24:17 by seungryk          #+#    #+#             */
-/*   Updated: 2024/06/11 13:55:30 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/08/12 17:26:41 by hyeonble         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,14 @@ void	signal_handler(int signal)
 		ft_putstr_fd("\n", 1);
 		rl_redisplay();
 	}
+}
+
+void	handle_sigint_exec(int signal)
+{
+	(void)signal;
+	rl_replace_line("", 0);
+	rl_on_new_line();
+	ft_putstr_fd("\n", 1);
 }
 
 void	set_signal(void)

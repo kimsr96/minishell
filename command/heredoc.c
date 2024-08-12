@@ -6,7 +6,7 @@
 /*   By: hyeonble <hyeonble@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/05 15:38:57 by hyeonble          #+#    #+#             */
-/*   Updated: 2024/08/07 17:27:49 by hyeonble         ###   ########.fr       */
+/*   Updated: 2024/08/12 17:32:01 by hyeonble         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,6 @@ void	exec_heredoc(t_redirect *redir)
 		waitpid(pid, NULL, 0);
 		redir->file_name = filename;
 	}
-
 }
 
 void	get_heredoc(t_redirect *redir, char *filename)

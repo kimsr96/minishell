@@ -6,7 +6,7 @@
 /*   By: hyeonble <hyeonble@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 17:25:17 by seungryk          #+#    #+#             */
-/*   Updated: 2024/08/11 20:58:48 by hyeonble         ###   ########.fr       */
+/*   Updated: 2024/08/12 16:47:12 by hyeonble         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,8 @@ void	execute_in_child(t_block *block, t_env_list *env)
 	int		status;
 	char	**envp;
 
+	signal(SIGINT, SIG_DFL);
+	signal(SIGQUIT, SIG_DFL);
 	if (block->command->is_empty)
 		exit(EXIT_SUCCESS);
 	if (is_builtin(block))
@@ -105,11 +107,11 @@ void	exec_no_pipe(t_block *block, t_env_list *env, t_pipe *p)
 		handle_redirection(cur->command);
 		if (cur->type == CMD)
 		{
-			p->child_num++;
 			if (!cur->command->is_empty && is_builtin(cur))
-				exec_builtin(cur, env);
+				update_exit_code(exec_builtin(cur, env), env);
 			else
 			{
+				p->child_num++;
 				pid = fork();
 				if (pid < 0)
 					perror("fork error");
@@ -187,6 +189,7 @@ void	fork_process(t_block *block, t_env_list *env, t_pipe *p)
 void	wait_process(t_pipe *p, t_env_list *env)
 {
 	int		i;
+	int		sig;
 	int		status;
 	int		exit_code;
 
@@ -199,12 +202,25 @@ void	wait_process(t_pipe *p, t_env_list *env)
 			exit_code = WEXITSTATUS(status);
 			update_exit_code(exit_code, env);
 		}
+		else if (WIFSIGNALED(status))
+		{
+			sig = WTERMSIG(status);
+			exit_code = 128 + sig;
+			if (sig == SIGQUIT)
+				ft_putstr_fd("Quit: 3\n", STDERR_FILENO);
+			update_exit_code(exit_code, env);
+		}
 		i++;
 	}
 }
 
 void	update_exit_code(int exit_code, t_env_list *env)
 {
+	if (env->value != NULL)
+	{
+		free(env->value);
+		env->value = NULL;
+	}
 	env->value = ft_itoa(exit_code);
 }
 
