@@ -6,7 +6,7 @@
 /*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 16:11:13 by seungryk          #+#    #+#             */
-/*   Updated: 2024/08/10 17:56:08 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/08/12 15:00:39 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,19 +72,16 @@ long long	ft_atol(const char *str, int *error)
 
 unsigned long long	within_range(char *target)
 {
-	unsigned long long 	num;
-	int 		error;
+	unsigned long long	num;
+	int					error;
 
 	error = 0;
 	num = ft_atol(target, &error);
 	if (error)
-	{
-		perror("numeric argument required");
-		num = 255;
-	}
+		exit_error("exit", target, NUMERIC_ARG_REQUIRED);
 	while (num % 256 >= 256)
 		num /= 256;
-	return(num % 256);
+	return (num % 256);
 }
 
 int	ft_exit(char **target)
@@ -93,23 +90,19 @@ int	ft_exit(char **target)
 	unsigned long long	exit_num;
 
 	i = 0;
+	exit_num = 0;
 	printf("exit\n");
 	while (target[i])
 		i++;
-	if (i > 2)
+	if (target[i])
 	{
-		exit_num = 1;
-		perror("too many arguments");
+		if (check_digit(target[1]) == -1)
+			exit_error("exit", target[1], NUMERIC_ARG_REQUIRED);
+		else if (i > 2)
+			exit_error("exit", target[1], TOO_MANY_ARG);
+		else
+			exit_num = within_range(target[1]);
 	}
-	else if (i == 1)
-		exit_num = 0;
-	else if (check_digit(target[1]) == -1)
-	{
-		exit_num = 255;
-		perror("numeric argument required");
-	}
-	else
-		exit_num = within_range(target[1]);
 	exit(exit_num);
 	return (exit_num);
 }

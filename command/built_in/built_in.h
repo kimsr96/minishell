@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   built_in.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyeonble <hyeonble@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/08 13:32:28 by seungryk          #+#    #+#             */
-/*   Updated: 2024/08/11 16:24:05 by hyeonble         ###   ########.fr       */
+/*   Updated: 2024/08/12 14:18:48 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ int		ft_env(t_env_list *env, int fd);
 int		ft_exit(char **target);
 
 /* ft_export.c */
+int     check_key_name(char *s);
 int		ft_export(t_env_list *head, char **str);
 
 /* ft_export_no_option.c */

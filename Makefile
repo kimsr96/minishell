@@ -5,6 +5,7 @@ SRCS =  main.c \
 		error/error.c \
 		error/parsing_error.c \
 		error/raise_cmd_error.c \
+		error/built_in_error.c \
 		env/env.c \
 		env/env_utils.c \
 		env/find_env.c \

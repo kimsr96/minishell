@@ -6,7 +6,7 @@
 /*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 13:09:44 by seungryk          #+#    #+#             */
-/*   Updated: 2024/08/10 16:37:03 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/08/12 14:25:06 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	check_key_name(char *s)
 		return (1);
 }
 
-void	put_env(t_env_list *head, char *s)
+int	put_env(t_env_list *head, char *s)
 {
 	int			key_len;
 	int			value_len;
@@ -32,16 +32,14 @@ void	put_env(t_env_list *head, char *s)
 	key = get_key(s, key_len);
 	value = get_value(s, value_len);
 	if (check_key_name(s) || key_len == -1)
-	{
-		perror("not a valid identifier");
-		return ;
-	}
+		return (export_unset_error("export", s, NOT_VALID_IDENT));
 	if (ft_strnstr(s, "+=", ft_strlen(s)))
 		add_env_value(head, key, value);
 	else if (ft_strnstr(s, "=", ft_strlen(s)))
 		change_add_value(head, key, value);
 	else
-		return ;
+		return (0);
+	return (0);
 }
 
 int	ft_export(t_env_list *head, char **str)
@@ -56,7 +54,8 @@ int	ft_export(t_env_list *head, char **str)
 	{
 		while (str[i])
 		{
-			put_env(head, str[i]);
+			if (put_env(head, str[i]))
+				return (1);
 			i++;
 		}
 	}

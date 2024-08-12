@@ -6,12 +6,11 @@
 /*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 16:53:38 by seungryk          #+#    #+#             */
-/*   Updated: 2024/06/21 13:43:52 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/08/12 13:52:09 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "built_in.h"
-#include <stdio.h>
 
 size_t	get_min_len(char *s1, char *s2)
 {
