@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hyeonble <hyeonble@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 16:11:13 by seungryk          #+#    #+#             */
-/*   Updated: 2024/08/12 15:00:39 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/08/12 22:45:52 by hyeonble         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,14 +84,15 @@ unsigned long long	within_range(char *target)
 	return (num % 256);
 }
 
-int	ft_exit(char **target)
+int	ft_exit(char **target, int has_pipe)
 {
 	int					i;
 	unsigned long long	exit_num;
 
 	i = 0;
 	exit_num = 0;
-	printf("exit\n");
+	if (!has_pipe)
+		printf("exit\n");
 	while (target[i])
 		i++;
 	if (target[i])

@@ -6,13 +6,13 @@
 /*   By: hyeonble <hyeonble@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/05 15:38:57 by hyeonble          #+#    #+#             */
-/*   Updated: 2024/08/12 17:32:01 by hyeonble         ###   ########.fr       */
+/*   Updated: 2024/08/12 18:15:52 by hyeonble         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "command.h"
 
-void	check_heredoc(t_block *block)
+int	check_heredoc(t_block *block, t_env_list *env)
 {
 	t_block		*cur;
 	t_redirect	*redir;
@@ -26,17 +26,21 @@ void	check_heredoc(t_block *block)
 			while (redir != NULL)
 			{
 				if (redir->io_type == HEREDOC_REDIRECT)
-					exec_heredoc(redir);
+					exec_heredoc(redir, env);
+				if (redir->file_name == NULL)
+					return (1);
 				redir = redir->next;
 			}
 		}
 		cur = cur->next;
 	}
+	return (0);
 }
 
-void	exec_heredoc(t_redirect *redir)
+void	exec_heredoc(t_redirect *redir, t_env_list *env)
 {
 	pid_t	pid;
+	int		status;
 	char	*filename;
 
 	filename = get_tmp_filename();
@@ -50,7 +54,15 @@ void	exec_heredoc(t_redirect *redir)
 	}
 	else
 	{
-		waitpid(pid, NULL, 0);
+		waitpid(pid, &status, 0);
+		if (WIFSIGNALED(status) && WTERMSIG(status) == SIGINT)
+		{
+			unlink(filename);
+			free(filename);
+			redir->file_name = NULL;
+			update_exit_code(1, env);
+			return ;
+		}
 		redir->file_name = filename;
 	}
 }
@@ -115,9 +127,7 @@ void	unlink_tmpfile(t_block *block)
 			while (redir != NULL)
 			{
 				if (redir->io_type == HEREDOC_REDIRECT)
-				{
 					unlink(redir->file_name);
-				}
 				redir = redir->next;
 			}
 		}

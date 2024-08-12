@@ -6,7 +6,7 @@
 /*   By: hyeonble <hyeonble@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 17:25:17 by seungryk          #+#    #+#             */
-/*   Updated: 2024/08/12 16:47:12 by hyeonble         ###   ########.fr       */
+/*   Updated: 2024/08/12 22:13:37 by hyeonble         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ void	execute_in_child(t_block *block, t_env_list *env)
 		exit(EXIT_SUCCESS);
 	if (is_builtin(block))
 	{
-		status = exec_builtin(block, env);
+		status = exec_builtin(block, env, 1);
 		exit(status);
 	}
 	status = check_cmd_error(block);
@@ -108,7 +108,7 @@ void	exec_no_pipe(t_block *block, t_env_list *env, t_pipe *p)
 		if (cur->type == CMD)
 		{
 			if (!cur->command->is_empty && is_builtin(cur))
-				update_exit_code(exec_builtin(cur, env), env);
+				update_exit_code(exec_builtin(cur, env, 0), env);
 			else
 			{
 				p->child_num++;
@@ -118,7 +118,7 @@ void	exec_no_pipe(t_block *block, t_env_list *env, t_pipe *p)
 				else if (pid == 0)
 					execute_in_child(cur, env);
 				else
-					wait_process(p, env);
+					wait_process(p, env, pid);
 			}
 		}
 		cur = cur->next;
@@ -128,6 +128,7 @@ void	exec_no_pipe(t_block *block, t_env_list *env, t_pipe *p)
 void	exec_with_pipe(t_block *block, t_env_list *env, t_pipe *p)
 {
 	t_block	*cur;
+	pid_t	last_pid;
 
 	cur = block;
 	while (cur != NULL)
@@ -141,7 +142,7 @@ void	exec_with_pipe(t_block *block, t_env_list *env, t_pipe *p)
 			}
 			else
 				p->pipe_after = 0;
-			fork_process(cur, env, p);
+			last_pid = fork_process(cur, env, p);
 			p->prev_fd = p->fds[0];
 			p->child_num++;
 		}
@@ -149,10 +150,10 @@ void	exec_with_pipe(t_block *block, t_env_list *env, t_pipe *p)
 			p->pipe_prev = 1;
 		cur = cur->next;
 	}
-	wait_process(p, env);
+	wait_process(p, env, last_pid);
 }
 
-void	fork_process(t_block *block, t_env_list *env, t_pipe *p)
+pid_t	fork_process(t_block *block, t_env_list *env, t_pipe *p)
 {
 	pid_t	pid;
 	t_block	*cur;
@@ -184,31 +185,34 @@ void	fork_process(t_block *block, t_env_list *env, t_pipe *p)
 		if (p->prev_fd != -1)
 			close(p->prev_fd);
 	}
+	return (pid);
 }
 
-void	wait_process(t_pipe *p, t_env_list *env)
+void	wait_process(t_pipe *p, t_env_list *env, pid_t last_pid)
 {
 	int		i;
-	int		sig;
 	int		status;
 	int		exit_code;
+	pid_t	pid;
 
 	i = 0;
 	while (i < p->child_num)
 	{
-		waitpid(-1, &status, 0);
-		if (WIFEXITED(status))
+		pid = waitpid(-1, &status, 0);
+		if (pid == last_pid)
 		{
-			exit_code = WEXITSTATUS(status);
-			update_exit_code(exit_code, env);
-		}
-		else if (WIFSIGNALED(status))
-		{
-			sig = WTERMSIG(status);
-			exit_code = 128 + sig;
-			if (sig == SIGQUIT)
-				ft_putstr_fd("Quit: 3\n", STDERR_FILENO);
-			update_exit_code(exit_code, env);
+			if (WIFEXITED(status))
+			{
+				exit_code = WEXITSTATUS(status);
+				update_exit_code(exit_code, env);
+			}
+			else if (WIFSIGNALED(status))
+			{
+				exit_code = 128 + WTERMSIG(status);
+				if (WTERMSIG(status) == SIGQUIT)
+					ft_putstr_fd("Quit: 3\n", STDERR_FILENO);
+				update_exit_code(exit_code, env);
+			}
 		}
 		i++;
 	}

@@ -6,7 +6,7 @@
 /*   By: hyeonble <hyeonble@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/08 13:32:28 by seungryk          #+#    #+#             */
-/*   Updated: 2024/08/11 15:54:06 by hyeonble         ###   ########.fr       */
+/*   Updated: 2024/08/12 22:00:45 by hyeonble         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,13 +41,12 @@ void	exec_no_pipe(t_block *block, t_env_list *env, t_pipe *p);
 void	exec_with_pipe(t_block *block, t_env_list *env, t_pipe *p);
 void	init_pipe(t_pipe *p, t_block *block);
 void	restore_fd(int stdin_backup, int stdout_backup);
-void	fork_process(t_block *block, t_env_list *env, t_pipe *p);
-void	child_process(t_block *block, int *fds, t_env_list *env, int prev_fd);
-void	wait_process(t_pipe *p, t_env_list *env);
+pid_t	fork_process(t_block *block, t_env_list *env, t_pipe *p);
+void	wait_process(t_pipe *p, t_env_list *env, pid_t last_pid);
 void	update_exit_code(int exit_code, t_env_list *env);
 
-void	check_heredoc(t_block *block);
-void	exec_heredoc(t_redirect *redir);
+int		check_heredoc(t_block *block, t_env_list *env);
+void	exec_heredoc(t_redirect *redir, t_env_list *env);
 void	get_heredoc(t_redirect *redir, char *filename);
 char	*get_tmp_filename(void);
 void	unlink_tmpfile(t_block *block);

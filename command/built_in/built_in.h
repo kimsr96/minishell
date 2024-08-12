@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   built_in.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hyeonble <hyeonble@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/08 13:32:28 by seungryk          #+#    #+#             */
-/*   Updated: 2024/08/12 16:53:10 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/08/12 22:13:33 by hyeonble         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 
 /* ft_check_cmd */
 int		is_builtin(t_block *block);
-int		exec_builtin(t_block *block, t_env_list *env);
+int		exec_builtin(t_block *block, t_env_list *env, int has_pipe);
 
 /* ft_cd.c */
 int		ft_cd(t_block *block, t_env_list *env);
@@ -37,7 +37,7 @@ int		ft_echo(char **str, int fd);
 int		ft_env(t_env_list *env, int fd);
 
 /* ft_exit.c */
-int		ft_exit(char **target);
+int		ft_exit(char **target, int has_pipe);
 
 /* ft_export.c */
 int     check_key_name(char *s);

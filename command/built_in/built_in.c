@@ -6,7 +6,7 @@
 /*   By: hyeonble <hyeonble@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/28 15:58:02 by hyeonble          #+#    #+#             */
-/*   Updated: 2024/08/12 16:42:28 by hyeonble         ###   ########.fr       */
+/*   Updated: 2024/08/12 22:13:37 by hyeonble         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	is_builtin(t_block *block)
 	return (0);
 }
 
-int	exec_builtin(t_block *block, t_env_list *env)
+int	exec_builtin(t_block *block, t_env_list *env, int has_pipe)
 {
 	int			status;
 	char		*cmd;
@@ -50,7 +50,7 @@ int	exec_builtin(t_block *block, t_env_list *env)
 	if (ft_strncmp(cmd, "pwd", 4) == 0)
 		status = ft_pwd();
 	if (ft_strncmp(cmd, "exit", 5) == 0)
-		status = ft_exit(block->command->target);
+		status = ft_exit(block->command->target, has_pipe);
 	if (ft_strncmp(cmd, "export", 7) == 0)
 		status = ft_export(env, block->command->target);
 	if (ft_strncmp(cmd, "unset", 6) == 0)

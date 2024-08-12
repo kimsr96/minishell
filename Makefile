@@ -2,7 +2,6 @@ CC = cc
 CFLAGS = -Wall -Wextra -Werror -fsanitize=address -g3
 LIBFT = -Llibft -lft
 SRCS =  main.c \
-		error/error.c \
 		error/parsing_error.c \
 		error/raise_cmd_error.c \
 		error/built_in_error.c \
