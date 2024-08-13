@@ -6,7 +6,7 @@
 /*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 14:47:14 by seungryk          #+#    #+#             */
-/*   Updated: 2024/08/13 15:09:57 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/08/13 18:51:21 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ static void	print_echo(char **str, int flag_num, int len, int fd)
 	while (str[i])
 	{
 		print_str(str[i], fd);
-		if (len - flag_num > 1)
+		if (len - flag_num > 1 && str[i + 1])
 			ft_putchar_fd(' ', fd);
 		i++;
 	}

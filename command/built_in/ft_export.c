@@ -6,7 +6,7 @@
 /*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 13:09:44 by seungryk          #+#    #+#             */
-/*   Updated: 2024/08/13 16:27:44 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/08/13 18:38:12 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,12 +32,20 @@ int	put_env(t_env_list *head, char *s)
 	key = get_key(s, key_len);
 	value = get_value(s, value_len);
 	if (check_key_name(s) || key_len == -1)
+	{
+		free(key);
+		free(value);
 		return (export_unset_error("export", s, NOT_VALID_IDENT));
+	}
 	if (ft_strnstr(s, "+=", ft_strlen(s)))
 		add_env_value(head, key, value);
 	else if (ft_strnstr(s, "=", ft_strlen(s)))
 		change_add_value(head, key, value);
-	free(key);
+	else
+	{
+		free(key);
+		free(value);
+	}
 	return (0);
 }
 

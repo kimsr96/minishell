@@ -6,7 +6,7 @@
 /*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/12 13:21:13 by seungryk          #+#    #+#             */
-/*   Updated: 2024/08/13 15:10:53 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/08/13 18:27:42 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,19 +18,23 @@ void	error_msg_prefix(char *cmd, char *path)
 	ft_putstr_fd(cmd, STDERR_FILENO);
 	ft_putstr_fd(": ", STDERR_FILENO);
 	ft_putstr_fd(path, STDERR_FILENO);
-	ft_putstr_fd(": ", STDERR_FILENO);
 }
 
 int	cd_error(char *cmd, char *path, int errno)
 {
-	error_msg_prefix(cmd, path);
+	ft_putstr_fd("minishell: ", STDERR_FILENO);
+	ft_putstr_fd(cmd, STDERR_FILENO);
+	ft_putstr_fd(": ", STDERR_FILENO);
+	ft_putstr_fd(path, STDERR_FILENO);
 	if (errno == NO_FILE_DIR)
 	{
+		ft_putstr_fd(": ", STDERR_FILENO);
 		ft_putendl_fd("No such file or directory", STDERR_FILENO);
 		return (1);
 	}
 	if (errno == NOT_SET)
-	{
+	{	
+		ft_putchar_fd(' ', STDERR_FILENO);
 		ft_putendl_fd("not set", STDERR_FILENO);
 		return (1);
 	}
@@ -39,15 +43,18 @@ int	cd_error(char *cmd, char *path, int errno)
 
 int	exit_error(char *cmd, char *path, int errno)
 {
-	error_msg_prefix(cmd, path);
+	ft_putstr_fd("minishell: ", STDERR_FILENO);
+	ft_putstr_fd(cmd, STDERR_FILENO);
 	if (errno == TOO_MANY_ARG)
 	{
-		ft_putendl_fd("too many arguments", STDERR_FILENO);
+		ft_putendl_fd(" too many arguments", STDERR_FILENO);
 		return (1);
 	}
 	if (errno == NUMERIC_ARG_REQUIRED)
 	{
-		ft_putendl_fd("numeric argument required", STDERR_FILENO);
+		ft_putstr_fd(": ", STDERR_FILENO);
+		ft_putstr_fd(path, STDERR_FILENO);
+		ft_putendl_fd(" numeric argument required", STDERR_FILENO);
 		return (255);
 	}
 	return (0);
