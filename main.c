@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyeonble <hyeonble@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 10:00:10 by seungryk          #+#    #+#             */
-/*   Updated: 2024/08/12 18:39:43 by hyeonble         ###   ########.fr       */
+/*   Updated: 2024/08/13 13:58:28 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	print_block(t_block *block)
 	while (block)
 	{
 		cmd = block->command;
-		if (cmd && (cmd->target || cmd->redirect))
+		if (cmd && (cmd->argv || cmd->redirect))
 		{
 			curr = cmd->redirect;
 			while (curr)
@@ -34,12 +34,12 @@ void	print_block(t_block *block)
 				curr = curr->next;
 			}
 			i = 0;
-			while (block->command->target[i])
+			while (block->command->argv[i])
 			{
 				if (i == 0)
-					printf("cmd: %s\n", block->command->target[i]);
+					printf("cmd: %s\n", block->command->argv[i]);
 				else
-					printf("target: %s\n", block->command->target[i]);
+					printf("argv: %s\n", block->command->argv[i]);
 				i++;
 			}
 		}

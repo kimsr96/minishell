@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyeonble <hyeonble@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 16:11:13 by seungryk          #+#    #+#             */
-/*   Updated: 2024/08/12 22:45:52 by hyeonble         ###   ########.fr       */
+/*   Updated: 2024/08/13 13:58:28 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,21 +70,21 @@ long long	ft_atol(const char *str, int *error)
 	return (num * sign);
 }
 
-unsigned long long	within_range(char *target)
+unsigned long long	within_range(char *argv)
 {
 	unsigned long long	num;
 	int					error;
 
 	error = 0;
-	num = ft_atol(target, &error);
+	num = ft_atol(argv, &error);
 	if (error)
-		exit_error("exit", target, NUMERIC_ARG_REQUIRED);
+		exit_error("exit", argv, NUMERIC_ARG_REQUIRED);
 	while (num % 256 >= 256)
 		num /= 256;
 	return (num % 256);
 }
 
-int	ft_exit(char **target, int has_pipe)
+int	ft_exit(char **argv, int has_pipe)
 {
 	int					i;
 	unsigned long long	exit_num;
@@ -93,16 +93,16 @@ int	ft_exit(char **target, int has_pipe)
 	exit_num = 0;
 	if (!has_pipe)
 		printf("exit\n");
-	while (target[i])
+	while (argv[i])
 		i++;
-	if (target[i])
+	if (argv[1])
 	{
-		if (check_digit(target[1]) == -1)
-			exit_error("exit", target[1], NUMERIC_ARG_REQUIRED);
+		if (check_digit(argv[1]) == -1)
+			exit_error("exit", argv[1], NUMERIC_ARG_REQUIRED);
 		else if (i > 2)
-			exit_error("exit", target[1], TOO_MANY_ARG);
+			exit_error("exit", argv[1], TOO_MANY_ARG);
 		else
-			exit_num = within_range(target[1]);
+			exit_num = within_range(argv[1]);
 	}
 	exit(exit_num);
 	return (exit_num);

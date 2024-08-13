@@ -6,7 +6,7 @@
 /*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 08:36:13 by seungryk          #+#    #+#             */
-/*   Updated: 2024/08/11 18:43:55 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/08/13 13:58:28 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ typedef struct s_command
 {
 	int				is_empty;
 	char			*cmd_path;
-	char			**target;
+	char			**argv;
 	t_redirect		*redirect;
 }t_command;
 

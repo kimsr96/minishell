@@ -6,27 +6,27 @@
 /*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 13:09:47 by seungryk          #+#    #+#             */
-/*   Updated: 2024/08/12 16:53:25 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/08/13 13:58:28 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "built_in.h"
 
-void	*free_node(t_env_list *target)
+void	*free_node(t_env_list *argv)
 {
-	free(target->key);
-	free(target->value);
-	free(target);
+	free(argv->key);
+	free(argv->value);
+	free(argv);
 	return (NULL);
 }
 
-void	connect_node(t_env_list *curr, t_env_list *target)
+void	connect_node(t_env_list *curr, t_env_list *argv)
 {
 	while (curr)
 	{
-		if (curr->next == target)
+		if (curr->next == argv)
 		{
-			curr->next = target->next;
+			curr->next = argv->next;
 			break ;
 		}
 		curr = curr->next;
@@ -37,7 +37,7 @@ int	ft_unset(t_env_list *head, char **str)
 {
 	int			i;
 	t_env_list	*curr;
-	t_env_list	*target;
+	t_env_list	*argv;
 
 	i = 0;
 	while (str[++i])
@@ -45,11 +45,11 @@ int	ft_unset(t_env_list *head, char **str)
 		curr = head;
 		if (check_key_name(str[i]))
 			return (export_unset_error("unset", str[i], NOT_VALID_IDENT));
-		target = find_key_node(head, str[i]);
-		if (target)
+		argv = find_key_node(head, str[i]);
+		if (argv)
 		{
-			connect_node(curr, target);
-			target = free_node(target);
+			connect_node(curr, argv);
+			argv = free_node(argv);
 		}
 	}
 	return (0);

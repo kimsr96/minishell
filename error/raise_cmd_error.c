@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raise_cmd_error.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyeonble <hyeonble@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/11 14:52:32 by hyeonble          #+#    #+#             */
-/*   Updated: 2024/08/11 16:39:01 by hyeonble         ###   ########.fr       */
+/*   Updated: 2024/08/13 13:58:28 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	raise_cmd_error(t_block *block, int errno)
 {
 	ft_putstr_fd("minishell: ", STDERR_FILENO);
-	ft_putstr_fd(block->command->target[0], STDERR_FILENO);
+	ft_putstr_fd(block->command->argv[0], STDERR_FILENO);
 	ft_putstr_fd(": ", STDERR_FILENO);
 	if (errno == COMMAND_NOT_FOUND)
 	{
