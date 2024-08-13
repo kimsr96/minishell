@@ -6,7 +6,7 @@
 /*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 10:00:10 by seungryk          #+#    #+#             */
-/*   Updated: 2024/08/13 16:25:45 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/08/13 17:08:03 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,7 @@ void	start_shell(char *str, t_block *block, t_token *token, t_env_list *env)
 			get_next_command_line(block, token, str);
 			continue ;
 		}
+		// printf("%s", block->command->redirect->file_name);
 		signal(SIGINT, SIG_IGN);
 		if (block)
 			exec(block, env);
