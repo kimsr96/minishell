@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_redirection.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hyeonble <hyeonble@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 14:51:51 by seungryk          #+#    #+#             */
-/*   Updated: 2024/08/13 15:10:26 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/08/13 16:33:39 by hyeonble         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,15 +23,6 @@ int	is_directory(char *filename)
 	return (1);
 }
 
-int	raise_file_error(char *filename, char *error)
-{
-	ft_putstr_fd("minishell: ", STDERR_FILENO);
-	ft_putstr_fd(filename, STDERR_FILENO);
-	ft_putstr_fd(": ", STDERR_FILENO);
-	ft_putstr_fd(error, STDERR_FILENO);
-	return (-1);
-}
-
 int check_file(t_redirect *redirect)
 // 경우의 수
 // 1. infile이 존재하지 않을때
@@ -46,18 +37,18 @@ int check_file(t_redirect *redirect)
 	filename = redirect->file_name;
 	type = redirect->io_type;
 	if (is_directory(filename))
-		raise_file_error(filename, "Is a directory\n");
+		raise_file_error(filename, IS_A_DIRECTORY);
 	if (type == IN_REDIRECT)
 	{
 		if (access(filename, F_OK) != 0)
-			return (raise_file_error(filename, "No such file or directory\n"));
+			return (raise_file_error(filename, NO_SUCH_FILE_OR_DIR));
 		if (access(filename, R_OK) != 0)
-			return (raise_file_error(filename, "Permission denied\n"));
+			return (raise_file_error(filename, PERMISSION_DENIED));
 	}
 	if (type == OUT_REDIRECT || type == APPEND_REDIRECT)
 	{
 		if (access(filename, F_OK) == 0 && access(filename, W_OK) != 0)
-			return (raise_file_error(filename, "Permission denied\n"));
+			return (raise_file_error(filename, PERMISSION_DENIED));
 	}
 	return (0);
 }
@@ -83,10 +74,7 @@ int	open_file(t_redirect *redirect)
 			fd = open(filename, O_RDWR | O_CREAT | O_APPEND, 0644);
 	}
 	if (fd < 0)
-	{
-		ft_putstr_fd("file open error\n", 2);
 		return (-1);
-	}
 	return (fd);
 }
 

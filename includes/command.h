@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   command.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hyeonble <hyeonble@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/08 13:32:28 by seungryk          #+#    #+#             */
-/*   Updated: 2024/08/13 14:28:02 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/08/13 16:15:40 by hyeonble         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ typedef struct s_pipe
 }t_pipe;
 
 /* command.c */
-void	handle_redirection(t_command *cmd);
+int		handle_redirection(t_command *cmd);
 void	exec(t_block *block, t_env_list *env);
 void	execute_in_child(t_block *block, t_env_list *env);
 void	exec_no_pipe(t_block *block, t_env_list *env, t_pipe *p);

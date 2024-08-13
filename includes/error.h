@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hyeonble <hyeonble@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 13:08:35 by seungryk          #+#    #+#             */
-/*   Updated: 2024/08/13 14:42:01 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/08/13 16:35:00 by hyeonble         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,4 +39,5 @@ int		export_unset_error(char *cmd, char *path, int errno);
 void	*parsing_error_return_null(t_env_list *env, char *msg, int status);
 int		parsing_error(t_env_list *env, char *msg, int status);
 int		raise_cmd_error(t_block *block, int errno);
+int		raise_file_error(char *filename, int errno);
 #endif

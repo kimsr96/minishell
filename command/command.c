@@ -3,29 +3,32 @@
 /*                                                        :::      ::::::::   */
 /*   command.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hyeonble <hyeonble@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 17:25:17 by seungryk          #+#    #+#             */
-/*   Updated: 2024/08/13 15:10:24 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/08/13 17:05:30 by hyeonble         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "command.h"
 
-void	handle_redirection(t_command *cmd)
+int	handle_redirection(t_command *cmd)
 {
 	t_command	*cur;
+	t_redirect	*redir;
 
 	cur = cmd;
+	redir = cur->redirect;
 	if (cur != NULL)
 	{
-		while (cur->redirect != NULL)
+		while (redir != NULL)
 		{
-			if (redirect(cur->redirect) < 0)
-				exit (1);
-			cur->redirect = cur->redirect->next;
+			if (redirect(redir) < 0)
+				return (-1);
+			redir = redir->next;
 		}
 	}
+	return (1);
 }
 
 void	restore_fd(int stdin_backup, int stdout_backup)
@@ -77,6 +80,8 @@ void	execute_in_child(t_block *block, t_env_list *env)
 
 	signal(SIGINT, SIG_DFL);
 	signal(SIGQUIT, SIG_DFL);
+	if (handle_redirection(block->command) < 0)
+		exit (EXIT_FAILURE);
 	if (block->command->is_empty)
 		exit(EXIT_SUCCESS);
 	if (is_builtin(block))
@@ -104,11 +109,15 @@ void	exec_no_pipe(t_block *block, t_env_list *env, t_pipe *p)
 	cur = block;
 	while (cur != NULL)
 	{
-		handle_redirection(cur->command);
 		if (cur->type == CMD)
 		{
 			if (!cur->command->is_empty && is_builtin(cur))
-				update_exit_code(exec_builtin(cur, env, 0), env);
+			{
+				if (handle_redirection(cur->command) < 0)
+					update_exit_code(EXIT_FAILURE, env);
+				else
+					update_exit_code(exec_builtin(cur, env, 0), env);
+			}
 			else
 			{
 				p->child_num++;
@@ -116,7 +125,11 @@ void	exec_no_pipe(t_block *block, t_env_list *env, t_pipe *p)
 				if (pid < 0)
 					perror("fork error");
 				else if (pid == 0)
+				{
+					if (handle_redirection(cur->command) < 0)
+						exit(EXIT_FAILURE);
 					execute_in_child(cur, env);
+				}
 				else
 					wait_process(p, env, pid);
 			}
@@ -175,7 +188,7 @@ pid_t	fork_process(t_block *block, t_env_list *env, t_pipe *p)
 			close(p->prev_fd);
 		}
 		close(p->fds[0]);
-		handle_redirection(cur->command);
+		// handle_redirection(cur->command);
 		execute_in_child(cur, env);
 	}
 	else

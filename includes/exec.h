@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hyeonble <hyeonble@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/27 22:02:20 by hyeonble          #+#    #+#             */
-/*   Updated: 2024/08/13 14:26:34 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/08/13 16:36:38 by hyeonble         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@
 # include <unistd.h>
 
 int	is_directory(char *filename);
-int	raise_file_error(char *filename, char *error);
 int	check_file(t_redirect *redirection);
 int	redirect(t_redirect *redir);
 
