@@ -6,18 +6,17 @@
 /*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/08 13:32:28 by seungryk          #+#    #+#             */
-/*   Updated: 2024/08/13 13:58:28 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/08/13 15:09:40 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef BUILT_IN_H
 # define BUILT_IN_H
 
-# include "../../libft/libft.h"
-# include "../../parser/parser.h"
-# include "../../env/env.h"
-// # include "../../error/error.h"
-# include "../command.h"
+# include "../libft/libft.h"
+# include "parser.h"
+# include "env.h"
+# include "command.h"
 # include <unistd.h>
 # include <sys/wait.h>
 # include <stdio.h>

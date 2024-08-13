@@ -6,24 +6,11 @@
 /*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 09:24:40 by seungryk          #+#    #+#             */
-/*   Updated: 2024/08/04 14:35:23 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/08/13 15:11:29 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
-
-//static char	**join_str_first(char *s2)
-//{
-//	char	**ret;
-
-//	ret = ft_calloc(2, sizeof(char *));
-//	if (!ret)
-//		exit(1);
-//	ret[0] = ft_strdup(s2);
-//	ret[1] = NULL;
-//	s2 = NULL;
-//	return (ret);
-//}
 
 static char	**attach_data(char **s1, char *s2, int len)
 {

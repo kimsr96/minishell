@@ -6,7 +6,7 @@
 /*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 13:08:35 by seungryk          #+#    #+#             */
-/*   Updated: 2024/08/13 13:57:58 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/08/13 14:42:01 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 # define ERROR_H
 
 # include <stdio.h>
-# include "../parser/parser.h"
-# include "../env/env.h"
+# include "parser.h"
+# include "env.h"
 
 typedef struct s_block t_block;
 

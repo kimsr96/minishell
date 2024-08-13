@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyeonble <hyeonble@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/15 13:51:01 by seungryk          #+#    #+#             */
-/*   Updated: 2024/08/10 14:01:04 by hyeonble         ###   ########.fr       */
+/*   Updated: 2024/08/13 15:10:42 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
-#include <stdio.h>
 
 int	get_key_len(char *envp)
 {

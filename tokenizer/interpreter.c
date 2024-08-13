@@ -6,7 +6,7 @@
 /*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/05 11:12:22 by seungryk          #+#    #+#             */
-/*   Updated: 2024/08/13 14:06:25 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/08/13 15:09:09 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,10 @@ char	*interpreter(t_token *token, t_env_list *env, char *ret)
 			i += get_env_len(&token->data[i + 1]);
 		}
 		else if (expansion == -1)
+		{
+			free(ret);
 			return (NULL);
+		}
 		else if (type == token->quote_type)
 			ret[j++] = token->data[i];
 	}

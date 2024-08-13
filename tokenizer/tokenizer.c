@@ -6,7 +6,7 @@
 /*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 14:43:27 by seungryk          #+#    #+#             */
-/*   Updated: 2024/08/11 17:59:27 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/08/13 15:08:50 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ int	token_len(char *s)
 
 	i = 0;
 	len = 0;
+	quote = 0;
 	while (s[i])
 	{
 		quote = get_quote_type_c(s[i], quote);

@@ -3,20 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   command.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyeonble <hyeonble@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/08 13:32:28 by seungryk          #+#    #+#             */
-/*   Updated: 2024/08/12 22:00:45 by hyeonble         ###   ########.fr       */
+/*   Updated: 2024/08/13 14:28:02 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef COMMAND_H
 # define COMMAND_H
 
-// # include "../error/error.h"
-# include "./built_in/built_in.h"
-# include "./exec/exec.h"
-# include "../env/env.h"
+# include "built_in.h"
+# include "exec.h"
+# include "env.h"
 # include <readline/readline.h>
 # include <fcntl.h>
 

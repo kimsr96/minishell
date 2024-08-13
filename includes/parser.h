@@ -6,16 +6,16 @@
 /*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 08:36:13 by seungryk          #+#    #+#             */
-/*   Updated: 2024/08/13 13:58:28 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/08/13 14:22:48 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PARSER_H
 # define PARSER_H
 
-# include "../error/error.h"
-# include "../tokenizer/tokenizer.h"
-# include "../env/env.h"
+# include "error.h"
+# include "tokenizer.h"
+# include "env.h"
 
 typedef enum e_tokentype	t_tokentype;
 typedef struct s_token		t_token;

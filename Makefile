@@ -1,5 +1,5 @@
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -fsanitize=address -g3
+CFLAGS = -Wall -Wextra -Werror -g
 LIBFT = -Llibft -lft
 SRCS =  main.c \
 		error/parsing_error.c \
@@ -36,16 +36,17 @@ SRCS =  main.c \
 		command/built_in/ft_export.c \
 		command/built_in/ft_export_no_option.c \
 		command/built_in/built_in.c \
-		command/exec/exec_redirection.c
-INC = 	minishell.h \
-		command/built_in/built_in.h \
-		command/exec/exec.h \
-		command/command.h \
-		env/env.h \
-		error/error.h \
-		parser/parser.h \
-		signal/ft_signal.h \
-		tokenizer/tokenizer.h 
+		command/exec_redirection.c
+#INCS = 	includes/minishell.h \
+#		includes/built_in.h \
+#		includes/exec.h \
+#		includes/command.h \
+#		includes/env.h \
+#		includes/error.h \
+#		includes/parser.h \
+#		includes/ft_signal.h \
+#		includes/tokenizer.h 
+INCS =	./includes
 OBJ_DIR = obj
 OBJECTS = $(addprefix $(OBJ_DIR)/, $(SRCS:.c=.o))
 NAME = minishell
@@ -54,15 +55,14 @@ OBJ_FLAGS = -I/opt/homebrew/opt/readline/include
 
 all : $(NAME)
 
-$(NAME) : $(OBJECTS) $(INC)
+$(NAME) : $(OBJECTS) $(INCS)
 	make -C ./libft
-	$(CC) $(CFLAGS) $(COMPILE_FLAGS) $(OBJECTS) $(LIBFT) -o $(NAME)
+	$(CC) $(CFLAGS) $(COMPILE_FLAGS) $(OBJECTS) -I $(INCS) $(LIBFT) -o $(NAME) 
 #$(CC) $(CFLAGS) -lreadline $(OBJECTS) $(LIBFT) -o $(NAME)
 
 $(OBJ_DIR) :
 	mkdir -p $(OBJ_DIR)
 	mkdir -p $(OBJ_DIR)/command
-	mkdir -p $(OBJ_DIR)/command/exec
 	mkdir -p $(OBJ_DIR)/command/built_in
 	mkdir -p $(OBJ_DIR)/env
 	mkdir -p $(OBJ_DIR)/error
@@ -71,7 +71,7 @@ $(OBJ_DIR) :
 	mkdir -p $(OBJ_DIR)/parser
 
 $(OBJ_DIR)/%.o : %.c | $(OBJ_DIR)
-	$(CC) $(CFLAGS) $(OBJ_FLAGS) -c $< -o $@
+	$(CC) $(CFLAGS) $(OBJ_FLAGS) -I $(INCS) -c $< -o $@
 
 clean :
 	make -C ./libft clean
@@ -85,7 +85,7 @@ re :
 	make fclean
 	make all
 
-debug : $(OBJECTS) $(INC)
+debug : $(OBJECTS) $(INCS)
 	make -C ./libft
 	$(CC) $(CFLAGS) $(COMPILE_FLAGS) -g -O0 -DDEBUG $(OBJECTS) $(LIBFT) -o $(NAME)_debug
 
