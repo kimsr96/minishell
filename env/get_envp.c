@@ -3,20 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   get_envp.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hyeonble <hyeonble@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 16:19:11 by hyeonble          #+#    #+#             */
-/*   Updated: 2024/08/13 15:10:49 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/08/13 17:40:40 by hyeonble         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
+#include <stdio.h>
 
 static int	get_env_list_size(t_env_list *env)
 {
 	int	size;
 
 	size = 0;
+	env = env->next;
 	while (env)
 	{
 		size++;
@@ -49,9 +51,11 @@ char	**get_envp(t_env_list *env)
 
 	envp = ft_calloc(get_env_list_size(env) + 1, sizeof(char *));
 	idx = 0;
+	env = env->next;
 	while (env)
 	{
 		envp[idx] = join_env(env);
+		idx++;
 		env = env->next;
 	}
 	return (envp);
