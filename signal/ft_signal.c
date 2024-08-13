@@ -3,19 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   ft_signal.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hyeonble <hyeonble@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/09 10:24:17 by seungryk          #+#    #+#             */
-/*   Updated: 2024/08/13 15:09:25 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/08/13 21:19:02 by hyeonble         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_signal.h"
+#include "command.h"
 
 void	signal_handler(int signal)
 {
 	if (signal == SIGINT)
 	{
+		g_sigint = 1;
 		rl_replace_line("", 0);
 		rl_on_new_line();
 		ft_putstr_fd("\n", 1);

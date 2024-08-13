@@ -6,7 +6,7 @@
 /*   By: hyeonble <hyeonble@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 17:25:17 by seungryk          #+#    #+#             */
-/*   Updated: 2024/08/13 17:41:23 by hyeonble         ###   ########.fr       */
+/*   Updated: 2024/08/13 22:13:27 by hyeonble         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -188,7 +188,6 @@ pid_t	fork_process(t_block *block, t_env_list *env, t_pipe *p)
 			close(p->prev_fd);
 		}
 		close(p->fds[0]);
-		// handle_redirection(cur->command);
 		execute_in_child(cur, env);
 	}
 	else
@@ -205,7 +204,6 @@ void	wait_process(t_pipe *p, t_env_list *env, pid_t last_pid)
 {
 	int		i;
 	int		status;
-	int		exit_code;
 	pid_t	pid;
 
 	i = 0;
@@ -216,15 +214,13 @@ void	wait_process(t_pipe *p, t_env_list *env, pid_t last_pid)
 		{
 			if (WIFEXITED(status))
 			{
-				exit_code = WEXITSTATUS(status);
-				update_exit_code(exit_code, env);
+				update_exit_code(WEXITSTATUS(status), env);
 			}
 			else if (WIFSIGNALED(status))
 			{
-				exit_code = 128 + WTERMSIG(status);
 				if (WTERMSIG(status) == SIGQUIT)
 					ft_putstr_fd("Quit: 3\n", STDERR_FILENO);
-				update_exit_code(exit_code, env);
+				update_exit_code(128 + WTERMSIG(status), env);
 			}
 		}
 		i++;

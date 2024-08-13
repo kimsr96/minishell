@@ -3,14 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hyeonble <hyeonble@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 10:00:10 by seungryk          #+#    #+#             */
-/*   Updated: 2024/08/13 17:47:43 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/08/13 21:30:32 by hyeonble         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+int	g_sigint;
 
 void	print_block(t_block *block)
 {
@@ -57,6 +59,7 @@ void	get_next_command_line(t_block *block, t_token *token, char *str)
 		free_all_token(token);
 	add_history(str);
 	free(str);
+	g_sigint = 0;
 }
 
 void	start_shell(char *str, t_block *block, t_token *token, t_env_list *env)
@@ -64,6 +67,8 @@ void	start_shell(char *str, t_block *block, t_token *token, t_env_list *env)
 	while (1)
 	{
 		str = readline("minishell$ ");
+		if (g_sigint)
+			update_exit_code(1, env);
 		if (!str)
 		{
 			printf("\e7\e[A\e[11Cexit\n");
@@ -93,10 +98,10 @@ void	start_shell(char *str, t_block *block, t_token *token, t_env_list *env)
 	}
 }
 
-void check_leaks(void)
-{
-	system("leaks --list -- minishell");
-}
+// void check_leaks(void)
+// {
+// 	system("leaks --list -- minishell");
+// }
 
 int	main(int argc, char **argv, char **envp)
 {
@@ -113,10 +118,11 @@ int	main(int argc, char **argv, char **envp)
 	block = NULL;
 	token = NULL;
 	env = NULL;
+	g_sigint = 0;
 	set_signal();
 	env = get_env(&env, envp);
 	start_shell(str, block, token, env);
 	free_env(env);
-	check_leaks();
+	// check_leaks();
 	return (0);
 }

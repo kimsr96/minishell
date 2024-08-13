@@ -6,7 +6,7 @@
 /*   By: hyeonble <hyeonble@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/09 10:24:14 by seungryk          #+#    #+#             */
-/*   Updated: 2024/08/12 17:43:23 by hyeonble         ###   ########.fr       */
+/*   Updated: 2024/08/13 21:03:27 by hyeonble         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include <readline/readline.h>
 # include "../libft/libft.h"
 
+extern int	g_sigint;
 /* ft_signal.h */
 void	set_signal(void);
 void	signal_handler(int signal);

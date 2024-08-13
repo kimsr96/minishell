@@ -6,7 +6,7 @@
 /*   By: hyeonble <hyeonble@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/08 13:32:28 by seungryk          #+#    #+#             */
-/*   Updated: 2024/08/13 16:15:40 by hyeonble         ###   ########.fr       */
+/*   Updated: 2024/08/13 20:51:05 by hyeonble         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,5 +54,4 @@ int		check_cmd_error(t_block *block);
 int		is_exist_file(char *path);
 int		is_executable(char *path);
 
-int     g_status;
 #endif
