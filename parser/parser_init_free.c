@@ -41,8 +41,8 @@ void	free_block(t_block *block)
 		}
 		if (block->command->cmd_path)
 			free(block->command->cmd_path);
-		if (block->command->target)
-			free_2darr(block->command->target);
+		if (block->command->argv)
+			free_2darr(block->command->argv);
 		free(block->command);
 	}
 	free(block);

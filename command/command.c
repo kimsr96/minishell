@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   command.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyeonble <hyeonble@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/12 17:25:17 by seungryk          #+#    #+#             */
-/*   Updated: 2024/08/12 22:13:37 by hyeonble         ###   ########.fr       */
+/*   Updated: 2024/08/13 14:09:17 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ void	execute_in_child(t_block *block, t_env_list *env)
 	else
 	{
 		envp = get_envp(env);
-		if (execve(block->command->cmd_path, block->command->target, envp) < 0)
+		if (execve(block->command->cmd_path, block->command->argv, envp) < 0)
 			exit(EXIT_FAILURE);
 		exit(EXIT_SUCCESS);
 	}

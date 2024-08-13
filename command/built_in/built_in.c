@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   built_in.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyeonble <hyeonble@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/28 15:58:02 by hyeonble          #+#    #+#             */
-/*   Updated: 2024/08/12 22:13:37 by hyeonble         ###   ########.fr       */
+/*   Updated: 2024/08/13 14:10:37 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,9 @@ int	is_builtin(t_block *block)
 {
 	char	*cmd;
 
-	if (*block->command->target == NULL)
+	if (*block->command->argv == NULL)
 		return (0);
-	cmd = *block->command->target;
+	cmd = *block->command->argv;
 	if (ft_strncmp(cmd, "echo", 5) == 0)
 		return (1);
 	if (ft_strncmp(cmd, "cd", 3) == 0)
@@ -42,19 +42,19 @@ int	exec_builtin(t_block *block, t_env_list *env, int has_pipe)
 	char		*cmd;
 
 	status = 0;
-	cmd = *block->command->target;
+	cmd = *block->command->argv;
 	if (ft_strncmp(cmd, "echo", 5) == 0)
-		status = ft_echo(block->command->target, STDOUT_FILENO);
+		status = ft_echo(block->command->argv, STDOUT_FILENO);
 	if (ft_strncmp(cmd, "cd", 3) == 0)
 		status = ft_cd(block, env);
 	if (ft_strncmp(cmd, "pwd", 4) == 0)
 		status = ft_pwd();
 	if (ft_strncmp(cmd, "exit", 5) == 0)
-		status = ft_exit(block->command->target, has_pipe);
+		status = ft_exit(block->command->argv, has_pipe);
 	if (ft_strncmp(cmd, "export", 7) == 0)
-		status = ft_export(env, block->command->target);
+		status = ft_export(env, block->command->argv);
 	if (ft_strncmp(cmd, "unset", 6) == 0)
-		status = ft_unset(env, block->command->target);
+		status = ft_unset(env, block->command->argv);
 	if (ft_strncmp(cmd, "env", 4) == 0)
 		status = ft_env(env, STDOUT_FILENO);
 	return (status);

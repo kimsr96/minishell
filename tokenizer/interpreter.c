@@ -6,7 +6,7 @@
 /*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/05 11:12:22 by seungryk          #+#    #+#             */
-/*   Updated: 2024/08/13 13:58:28 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/08/13 14:06:25 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static int	interprete_str_len(t_token *token, char *s, t_env_list *env)
 	int			i;
 	int			len;
 	int			expansion;
-	t_env_list	*argv;
+	t_env_list	*target;
 
 	i = 0;
 	len = 0;
@@ -26,8 +26,8 @@ static int	interprete_str_len(t_token *token, char *s, t_env_list *env)
 		expansion = is_expansion(token, env, &(token->data[i]), 1);
 		if (expansion == 1)
 		{
-			argv = get_argv(env, &s[i + 1]);
-			len += ft_strlen(argv->value);
+			target = get_target(env, &s[i + 1]);
+			len += ft_strlen(target->value);
 			if (token->is_split == -1)
 				len -= 1;
 			i += get_env_len(&s[i + 1]);
@@ -41,11 +41,11 @@ static int	interprete_str_len(t_token *token, char *s, t_env_list *env)
 	return (len);
 }
 
-int	get_value_set(t_token *token, char *ret, int len, t_env_list *argv)
+int	get_value_set(t_token *token, char *ret, int len, t_env_list *target)
 {
 	char		**value_set;
 
-	value_set = ft_split2(argv->value, "\x20\t\v\n\r\f");
+	value_set = ft_split2(target->value, "\x20\t\v\n\r\f");
 	if (token->is_split == -1)
 	{
 		*ret = ' ';
@@ -59,20 +59,20 @@ int	get_value_set(t_token *token, char *ret, int len, t_env_list *argv)
 int	env_expansion(t_token *token, t_env_list *env, char *s, char *ret)
 {
 	int			len;
-	t_env_list	*argv;
+	t_env_list	*target;
 
 	len = 0;
-	argv = get_argv(env, s);
-	if (argv)
+	target = get_target(env, s);
+	if (target)
 	{
-		token->quote_in_env = include_quote(argv->value);
-		split_data(token, argv->value);
+		token->quote_in_env = include_quote(target->value);
+		split_data(token, target->value);
 		if (token->is_split)
-			len += get_value_set(token, ret, len, argv);
+			len += get_value_set(token, ret, len, target);
 		else
 		{
-			ft_strlcat(ret, argv->value, ft_strlen(argv->value) + 1);
-			len += ft_strlen(argv->value);
+			ft_strlcat(ret, target->value, ft_strlen(target->value) + 1);
+			len += ft_strlen(target->value);
 		}
 	}
 	return (len);

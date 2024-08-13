@@ -6,7 +6,7 @@
 /*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 09:05:12 by seungryk          #+#    #+#             */
-/*   Updated: 2024/08/11 18:15:01 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/08/13 14:08:19 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static t_command	*new_command(t_token *token, t_env_list *env)
 	if (!cmd)
 		exit(1);
 	cmd->is_empty = 1;
-	cmd->target = NULL;
+	cmd->argv = NULL;
 	cmd->redirect = NULL;
 	if (token->type == CMD)
 	{
@@ -62,8 +62,8 @@ static t_token	*command_parser(t_block **head, t_token *curr, t_env_list *env)
 			curr = curr->next;
 		}
 		else
-			block->command->target = join_str \
-									(block->command->target, curr->data);
+			block->command->argv = join_str \
+									(block->command->argv, curr->data);
 		if (curr->next)
 			if (curr->next->type == PIPE)
 				break ;

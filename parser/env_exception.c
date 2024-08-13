@@ -6,7 +6,7 @@
 /*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 14:25:39 by seungryk          #+#    #+#             */
-/*   Updated: 2024/08/03 16:54:10 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/08/13 14:09:00 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,16 +31,16 @@ void	env_exception(t_command *cmd)
 	int	i;
 
 	i = 0;
-	if (!cmd->target)
+	if (!cmd->argv)
 		return ;
-	while (cmd->target[i + 1])
+	while (cmd->argv[i + 1])
 	{
-		if (!ft_strncmp(cmd->target[i], "env", 3))
+		if (!ft_strncmp(cmd->argv[i], "env", 3))
 		{
-			if (cmd->target[i + 1] == NULL)
+			if (cmd->argv[i + 1] == NULL)
 				return ;
 			else
-				shift_left(cmd->target);
+				shift_left(cmd->argv);
 		}
 		else
 			return ;

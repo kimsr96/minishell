@@ -6,23 +6,23 @@
 /*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 15:00:37 by seungryk          #+#    #+#             */
-/*   Updated: 2024/08/13 14:01:42 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/08/13 14:05:37 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "tokenizer.h"
 
-t_env_list	*get_argv(t_env_list *env, char *s)
+t_env_list	*get_target(t_env_list *env, char *s)
 {
 	int			env_len;
 	char		*find_key;
-	t_env_list	*target;
+	t_env_list	*target_node;
 
 	env_len = get_env_len(s);
 	find_key = get_env_var_name(s, env_len);
-	target = find_key_node(env, find_key);
+	target_node = find_key_node(env, find_key);
 	free(find_key);
-	return (target);
+	return (target_node);
 }
 
 int	include_quote(char *s)
@@ -45,7 +45,7 @@ int	is_expansion(t_token *token, t_env_list *env, char *s, int j)
 	if (get_quote_type(token, *s) != S_QUOTE && \
 			*s == '$' && *(s + 1) != '=' && *(s + 1))
 	{
-		if (get_argv(env, s + 1))
+		if (get_target(env, s + 1))
 			return (1);
 		else
 			return (-1);
