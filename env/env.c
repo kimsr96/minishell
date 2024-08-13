@@ -6,7 +6,7 @@
 /*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/15 13:51:01 by seungryk          #+#    #+#             */
-/*   Updated: 2024/08/13 15:10:42 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/08/13 17:46:45 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,11 @@ char	*get_value(char *envp, int len)
 	return (value);
 }
 
+void	increase_shlvl(t_env_list **head)
+{
+	t_env_list	*target;
+}
+
 t_env_list	*get_env(t_env_list **head, char **envp)
 {
 	int			key_len;
@@ -85,5 +90,6 @@ t_env_list	*get_env(t_env_list **head, char **envp)
 		add_back_env(head, new_env);
 		envp++;
 	}
+	increase_shlvl(head);
 	return (*head);
 }

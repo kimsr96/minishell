@@ -12,6 +12,35 @@
 
 #include "parser.h"
 
+void	free_block(t_block *block)
+{
+	t_command	*cmd;
+	t_redirect	*redir;
+	t_redirect	*temp;
+
+	cmd = block->command;
+	if (cmd)
+	{
+		redir = cmd->redirect;
+		while (redir)
+		{
+			temp = redir;
+			if (redir->delimiter)
+				free(redir->delimiter);
+			if (redir->file_name)
+				free(redir->file_name);
+			redir = redir->next;
+			free(temp);
+		}
+		if (block->command->cmd_path)
+			free(block->command->cmd_path);
+		if (block->command->argv)
+			free_2darr(block->command->argv);
+		free(block->command);
+	}
+	free(block);
+}
+
 void	free_block_all(t_block *block)
 {
 	t_block	*next;
@@ -22,28 +51,4 @@ void	free_block_all(t_block *block)
 		free_block(block);
 		block = next;
 	}
-}
-
-void	free_block(t_block *block)
-{
-	t_command	*cmd;
-
-	cmd = block->command;
-	if (cmd)
-	{
-		if (cmd->redirect)
-		{
-			if (cmd->redirect->delimiter)
-				free(cmd->redirect->delimiter);
-			if (cmd->redirect->file_name)
-				free(cmd->redirect->file_name);
-			free(cmd->redirect);
-		}
-		if (block->command->cmd_path)
-			free(block->command->cmd_path);
-		if (block->command->argv)
-			free_2darr(block->command->argv);
-		free(block->command);
-	}
-	free(block);
 }

@@ -1,5 +1,5 @@
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -g
+CFLAGS = -Wall -Wextra -Werror -g -fsanitize=address
 LIBFT = -Llibft -lft
 SRCS =  main.c \
 		error/parsing_error.c \
