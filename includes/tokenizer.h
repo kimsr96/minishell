@@ -6,7 +6,7 @@
 /*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 15:00:19 by seungryk          #+#    #+#             */
-/*   Updated: 2024/08/13 14:23:02 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/08/13 16:03:45 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ t_token		*new_token(char *s, int len);
 
 /* interpreter.c */
 int			token_interpreter(t_token **head, t_env_list *env);
-char		*interpreter(t_token *token, t_env_list *env, char *ret);
+char		*interpreter(t_token *token, t_env_list *env, char *ret, int len);
 
 /* interpreter_utils.c */
 t_env_list	*get_target(t_env_list *env, char *s);

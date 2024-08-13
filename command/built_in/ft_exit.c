@@ -6,7 +6,7 @@
 /*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 16:11:13 by seungryk          #+#    #+#             */
-/*   Updated: 2024/08/13 15:10:05 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/08/13 17:04:33 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,9 +98,9 @@ int	ft_exit(char **argv, int has_pipe)
 	if (argv[1])
 	{
 		if (check_digit(argv[1]) == -1)
-			exit_error("exit", argv[1], NUMERIC_ARG_REQUIRED);
+			exit_num = exit_error("exit", argv[1], NUMERIC_ARG_REQUIRED);
 		else if (i > 2)
-			exit_error("exit", argv[1], TOO_MANY_ARG);
+			exit_num = exit_error("exit", argv[1], TOO_MANY_ARG);
 		else
 			exit_num = within_range(argv[1]);
 	}

@@ -6,7 +6,7 @@
 /*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/05 11:12:22 by seungryk          #+#    #+#             */
-/*   Updated: 2024/08/13 15:09:09 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/08/13 16:03:00 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,35 +78,30 @@ int	env_expansion(t_token *token, t_env_list *env, char *s, char *ret)
 	return (len);
 }
 
-char	*interpreter(t_token *token, t_env_list *env, char *ret)
+char	*interpreter(t_token *token, t_env_list *env, char *ret, int len)
 {
 	int			i;
 	int			j;
 	int			type;
-	int			expansion;
 
 	i = -1;
 	j = 0;
+	ret = ft_calloc(len + 1, sizeof(char));
+	if (!ret)
+		perror("malloc error");
 	while (token->data[++i])
 	{
 		type = token->quote_type;
-		expansion = is_expansion(token, env, &(token->data[i]), j);
-		if (expansion == 1)
+		if (is_expansion(token, env, &(token->data[i]), j))
 		{			
 			if (j != 0)
 				token->space = 1;
 			j += env_expansion(token, env, &token->data[i + 1], &ret[j]);
 			i += get_env_len(&token->data[i + 1]);
 		}
-		else if (expansion == -1)
-		{
-			free(ret);
-			return (NULL);
-		}
 		else if (type == token->quote_type)
 			ret[j++] = token->data[i];
 	}
-	free(token->data);
 	return (ret);
 }
 
@@ -123,10 +118,12 @@ int	token_interpreter(t_token **head, t_env_list *env)
 		if (valid_quote(curr, env))
 			return (1);
 		len = interprete_str_len(curr, curr->data, env);
-		ret = ft_calloc(len + 1, sizeof(char));
-		if (!ret)
-			perror("malloc error");
-		curr->data = interpreter(curr, env, ret);
+		if (len)
+			ret = interpreter(curr, env, ret, len);
+		else
+			ret = NULL;
+		free(curr->data);
+		curr->data = ret;
 		curr = curr->next;
 	}
 	if (!(*head) || del_token(head))
