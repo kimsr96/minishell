@@ -6,7 +6,7 @@
 /*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/15 13:51:01 by seungryk          #+#    #+#             */
-/*   Updated: 2024/08/13 17:48:29 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/08/13 17:53:12 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,13 @@ char	*get_value(char *envp, int len)
 
 void	increase_shlvl(t_env_list **head)
 {
+	int			level;
 	t_env_list	*target;
+
+	level = 0;
+	target = find_key_node(*head, "SHLVL");
+	level = ft_atoi(target->value) + 1;
+	change_value(*head, "SHLVL", ft_itoa(level));
 }
 
 t_env_list	*get_env(t_env_list **head, char **envp)
