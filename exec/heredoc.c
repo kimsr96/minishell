@@ -6,7 +6,7 @@
 /*   By: hyeonble <hyeonble@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/05 15:38:57 by hyeonble          #+#    #+#             */
-/*   Updated: 2024/08/14 16:59:27 by hyeonble         ###   ########.fr       */
+/*   Updated: 2024/08/14 23:18:56 by hyeonble         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ void	exec_heredoc(t_redirect *redir, t_env_list *env)
 			unlink(filename);
 			free(filename);
 			redir->file_name = NULL;
+			ft_putendl_fd("", 1);
 			update_exit_code(1, env);
 			return ;
 		}

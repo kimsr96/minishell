@@ -15,6 +15,7 @@
 
 # include "built_in.h"
 # include "env.h"
+# include "ft_signal.h"
 # include <readline/readline.h>
 # include <fcntl.h>
 

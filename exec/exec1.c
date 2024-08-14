@@ -6,7 +6,7 @@
 /*   By: hyeonble <hyeonble@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 15:56:40 by hyeonble          #+#    #+#             */
-/*   Updated: 2024/08/14 16:59:27 by hyeonble         ###   ########.fr       */
+/*   Updated: 2024/08/14 22:41:29 by hyeonble         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ void	execute_in_child(t_block *block, t_env_list *env)
 	int		status;
 	char	**envp;
 
+	set_terminal_print(ON);
 	signal(SIGINT, SIG_DFL);
 	signal(SIGQUIT, SIG_DFL);
 	if (handle_redirection(block->command) < 0)
