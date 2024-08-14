@@ -6,7 +6,7 @@
 /*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 09:24:40 by seungryk          #+#    #+#             */
-/*   Updated: 2024/08/13 15:11:29 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/08/14 14:35:05 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,27 +30,25 @@ static char	**attach_data(char **s1, char *s2, int len)
 			exit(1);
 		i++;
 	}
+	free_2darr(s1);
 	return (ret);
 }
 
-char	**join_str(char **s1, char *s2)
+void	join_str(t_command *cmd, char *s2)
 {
 	int		len;
-	char	**ret;
 
 	len = 0;
 	if (s2 == NULL)
-		return (s1);
-	if (s1 == NULL)
-		ret = attach_data(s1, s2, len);
+		return ;
+	if (cmd->argv == NULL)
+		cmd->argv = attach_data(cmd->argv, s2, len);
 	else
 	{
-		while (s1[len])
+		while (cmd->argv[len])
 			len++;
-		ret = attach_data(s1, s2, len);
-		s1 = free_str(s1);
+		cmd->argv = attach_data(cmd->argv, s2, len);
 	}
-	return (ret);
 }
 
 t_block	*new_block(t_tokentype type)

@@ -6,7 +6,7 @@
 /*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 17:36:58 by seungryk          #+#    #+#             */
-/*   Updated: 2024/08/13 15:11:17 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/08/14 14:24:56 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,11 @@ int	block_err(t_block **b_head, t_token **t_head, t_env_list *env)
 	if (!b_curr)
 		return (0);
 	while (b_curr->next)
+	{
+		if (b_curr->type == PIPE && b_curr->next->type == PIPE)
+			return (parsing_error(env, ERR_SYNTAX, 258));
 		b_curr = b_curr->next;
+	}
 	if (b_curr->type == PIPE)
 		return (parsing_error(env, ERR_SYNTAX, 258));
 	else
@@ -30,7 +34,7 @@ int	block_err(t_block **b_head, t_token **t_head, t_env_list *env)
 	while (t_curr)
 	{
 		if (t_curr->err)
-			return (1);
+			return (parsing_error(env, ERR_SYNTAX, 258));
 		t_curr = t_curr->next;
 	}
 	return (0);

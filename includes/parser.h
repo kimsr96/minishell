@@ -6,7 +6,7 @@
 /*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 08:36:13 by seungryk          #+#    #+#             */
-/*   Updated: 2024/08/13 14:22:48 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/08/14 14:34:25 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ typedef struct s_block
 int				parsing_token(t_block **b_h, t_token **t_h, t_env_list *env);
 
 /* parser_utils.c */
-char			**join_str(char **s1, char *s2);
+void			join_str(t_command *cmd, char *s2);
 t_block			*new_block(t_tokentype type);
 void			add_back_block(t_block **head, t_block *new_block);
 

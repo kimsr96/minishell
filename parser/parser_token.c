@@ -6,7 +6,7 @@
 /*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 09:05:12 by seungryk          #+#    #+#             */
-/*   Updated: 2024/08/13 15:11:25 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/08/14 15:17:53 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,12 +30,15 @@ static t_command	*new_command(t_token *token, t_env_list *env)
 	return (cmd);
 }
 
-static int	redirect_parser(t_block *block, t_token *token, t_env_list *env)
+static int	redirect_parser(t_block *block, t_token *token)
 {
 	t_redirect	*redir;
 
 	if (!token->next || token->next->type == PIPE)
-		return (parsing_error(env, ERR_SYNTAX, 258));
+	{
+		token->err = 1;
+		return (1);
+	}
 	token->type = set_redirect_type(token->data);
 	redir = get_redir(token, token->type);
 	if (!redir)
@@ -57,13 +60,11 @@ static t_token	*command_parser(t_block **head, t_token *curr, t_env_list *env)
 	{
 		if (is_redirect(curr->type))
 		{
-			if (redirect_parser(block, curr, env))
-				return (NULL);
-			curr = curr->next;
+			if (!redirect_parser(block, curr))
+				curr = curr->next;
 		}
 		else
-			block->command->argv = join_str \
-									(block->command->argv, curr->data);
+			join_str(block->command, curr->data); 
 		if (curr->next)
 			if (curr->next->type == PIPE)
 				break ;

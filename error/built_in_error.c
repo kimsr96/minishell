@@ -6,7 +6,7 @@
 /*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/12 13:21:13 by seungryk          #+#    #+#             */
-/*   Updated: 2024/08/13 18:27:42 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/08/14 12:48:20 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ int	exit_error(char *cmd, char *path, int errno)
 	{
 		ft_putstr_fd(": ", STDERR_FILENO);
 		ft_putstr_fd(path, STDERR_FILENO);
-		ft_putendl_fd(" numeric argument required", STDERR_FILENO);
+		ft_putendl_fd(": numeric argument required", STDERR_FILENO);
 		return (255);
 	}
 	return (0);

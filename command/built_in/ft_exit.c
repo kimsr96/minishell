@@ -6,7 +6,7 @@
 /*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 16:11:13 by seungryk          #+#    #+#             */
-/*   Updated: 2024/08/13 17:04:33 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/08/14 12:50:44 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ unsigned long long	within_range(char *argv)
 	error = 0;
 	num = ft_atol(argv, &error);
 	if (error)
-		exit_error("exit", argv, NUMERIC_ARG_REQUIRED);
+		return (exit_error("exit", argv, NUMERIC_ARG_REQUIRED));
 	while (num % 256 >= 256)
 		num /= 256;
 	return (num % 256);
