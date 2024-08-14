@@ -1,31 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   wait.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hyeonble <hyeonble@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/03 10:00:06 by seungryk          #+#    #+#             */
+/*   Created: 2024/08/14 16:22:24 by hyeonble          #+#    #+#             */
 /*   Updated: 2024/08/14 16:59:27 by hyeonble         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#include "exec.h"
 
-# include "../libft/libft.h"
-# include "env.h"
-# include "error.h"
-# include "exec.h"
-# include "tokenizer.h"
-# include "parser.h"
-# include "ft_signal.h"
-# include <stdio.h>
-# include <unistd.h>
-# include <stdlib.h>
-# include <readline/readline.h>
-# include <readline/history.h>
+void	wait_process(t_pipe *p, t_env_list *env, pid_t last_pid)
+{
+	int		i;
+	int		status;
+	pid_t	pid;
 
-void	get_next_command_line(t_block *block, t_token *token, char *str);
-
-#endif
+	i = 0;
+	while (i < p->child_num)
+	{
+		pid = waitpid(-1, &status, 0);
+		if (pid == last_pid)
+		{
+			if (WIFEXITED(status))
+			{
+				update_exit_code(WEXITSTATUS(status), env);
+			}
+			else if (WIFSIGNALED(status))
+			{
+				if (WTERMSIG(status) == SIGQUIT)
+					ft_putstr_fd("Quit: 3\n", STDERR_FILENO);
+				update_exit_code(128 + WTERMSIG(status), env);
+			}
+		}
+		i++;
+	}
+}

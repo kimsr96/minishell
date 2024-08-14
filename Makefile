@@ -16,7 +16,6 @@ SRCS =  main.c \
 		parser/parser_utils.c \
 		parser/command_path.c \
 		parser/env_exception.c \
-		parser/remove_block.c \
 		parser/redirect_block.c \
 		signal/ft_signal.c \
 		tokenizer/tokenizer.c \
@@ -25,24 +24,28 @@ SRCS =  main.c \
 		tokenizer/interpreter.c \
 		tokenizer/interpreter_utils.c \
 		tokenizer/free_utils.c \
-		command/command.c \
-		command/heredoc.c \
-		command/heredoc_env.c \
-		command/check_cmd_error.c \
-		command/built_in/ft_cd.c \
-		command/built_in/ft_pwd.c \
-		command/built_in/ft_env.c \
-		command/built_in/ft_echo.c \
-		command/built_in/ft_exit.c \
-		command/built_in/ft_unset.c \
-		command/built_in/ft_export.c \
-		command/built_in/ft_export_no_option.c \
-		command/built_in/built_in.c \
-		command/exec_redirection.c
+		exec/heredoc.c \
+		exec/heredoc_env.c \
+		exec/check_cmd_error.c \
+		exec/built_in/ft_cd.c \
+		exec/built_in/ft_pwd.c \
+		exec/built_in/ft_env.c \
+		exec/built_in/ft_echo.c \
+		exec/built_in/ft_exit.c \
+		exec/built_in/ft_unset.c \
+		exec/built_in/ft_export.c \
+		exec/built_in/ft_export_no_option.c \
+		exec/built_in/built_in.c \
+		exec/exec_redirection.c \
+		exec/exec_utils.c \
+		exec/exec1.c \
+		exec/exec2.c \
+		exec/wait.c
+# 		exec/command.c
 #INCS = 	includes/minishell.h \
 #		includes/built_in.h \
 #		includes/exec.h \
-#		includes/command.h \
+#		includes/exec.h \
 #		includes/env.h \
 #		includes/error.h \
 #		includes/parser.h \
@@ -64,8 +67,8 @@ $(NAME) : $(OBJECTS) $(INCS)
 
 $(OBJ_DIR) :
 	mkdir -p $(OBJ_DIR)
-	mkdir -p $(OBJ_DIR)/command
-	mkdir -p $(OBJ_DIR)/command/built_in
+	mkdir -p $(OBJ_DIR)/exec
+	mkdir -p $(OBJ_DIR)/exec/built_in
 	mkdir -p $(OBJ_DIR)/env
 	mkdir -p $(OBJ_DIR)/error
 	mkdir -p $(OBJ_DIR)/tokenizer
