@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   command.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyeonble <hyeonble@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/08 13:32:28 by seungryk          #+#    #+#             */
-/*   Updated: 2024/08/13 20:51:05 by hyeonble         ###   ########.fr       */
+/*   Updated: 2024/08/14 16:13:10 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	update_exit_code(int exit_code, t_env_list *env);
 
 int		check_heredoc(t_block *block, t_env_list *env);
 void	exec_heredoc(t_redirect *redir, t_env_list *env);
-void	get_heredoc(t_redirect *redir, char *filename);
+void	get_heredoc(t_redirect *redir, t_env_list *env, char *filename);
 char	*get_tmp_filename(void);
 void	unlink_tmpfile(t_block *block);
 
@@ -54,4 +54,6 @@ int		check_cmd_error(t_block *block);
 int		is_exist_file(char *path);
 int		is_executable(char *path);
 
+/* heredoc_env.c */
+char	*heredoc_env_expansion(t_env_list *env, char *line);
 #endif

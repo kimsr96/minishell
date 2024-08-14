@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyeonble <hyeonble@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/05 15:38:57 by hyeonble          #+#    #+#             */
-/*   Updated: 2024/08/13 21:42:55 by hyeonble         ###   ########.fr       */
+/*   Updated: 2024/08/14 16:10:08 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	exec_heredoc(t_redirect *redir, t_env_list *env)
 		exit(1);
 	else if (pid == 0)
 	{
-		get_heredoc(redir, filename);
+		get_heredoc(redir, env, filename);
 		exit(0);
 	}
 	else
@@ -67,10 +67,11 @@ void	exec_heredoc(t_redirect *redir, t_env_list *env)
 	}
 }
 
-void	get_heredoc(t_redirect *redir, char *filename)
+void	get_heredoc(t_redirect *redir, t_env_list *env, char *filename)
 {
 	char	*line;
 	char	*delimiter;
+	char	*ret;
 	int		fd;
 
 	signal(SIGINT, SIG_DFL);
@@ -87,8 +88,10 @@ void	get_heredoc(t_redirect *redir, char *filename)
 			free(line);
 			break ;
 		}
-		ft_putendl_fd(line, fd);
+		ret = heredoc_env_expansion(env, line);
+		ft_putendl_fd(ret, fd);
 		free(line);
+		free(ret);
 	}
 	close(fd);
 }

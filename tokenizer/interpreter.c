@@ -6,7 +6,7 @@
 /*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/05 11:12:22 by seungryk          #+#    #+#             */
-/*   Updated: 2024/08/13 16:03:00 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/08/14 16:12:01 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static int	interprete_str_len(t_token *token, char *s, t_env_list *env)
 	len = 0;
 	while (s[i])
 	{
-		expansion = is_expansion(token, env, &(token->data[i]), 1);
+		expansion = is_expansion(token, env, &(token->data[i]));
 		if (expansion == 1)
 		{
 			target = get_target(env, &s[i + 1]);
@@ -92,7 +92,7 @@ char	*interpreter(t_token *token, t_env_list *env, char *ret, int len)
 	while (token->data[++i])
 	{
 		type = token->quote_type;
-		if (is_expansion(token, env, &(token->data[i]), j))
+		if (is_expansion(token, env, &(token->data[i])))
 		{			
 			if (j != 0)
 				token->space = 1;

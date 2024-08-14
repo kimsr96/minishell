@@ -6,7 +6,7 @@
 /*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 15:00:19 by seungryk          #+#    #+#             */
-/*   Updated: 2024/08/13 16:03:45 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/08/14 16:04:25 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ char		*interpreter(t_token *token, t_env_list *env, char *ret, int len);
 
 /* interpreter_utils.c */
 t_env_list	*get_target(t_env_list *env, char *s);
-int			is_expansion(t_token *token, t_env_list *env, char *s, int j);
+int			is_expansion(t_token *token, t_env_list *env, char *s);
 int			include_quote(char *s);
 void		split_data(t_token *token, char *s);
 int			join_env_str(t_token *token, char *ret, int j, char **value_set);

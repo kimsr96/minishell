@@ -27,6 +27,7 @@ SRCS =  main.c \
 		tokenizer/free_utils.c \
 		command/command.c \
 		command/heredoc.c \
+		command/heredoc_env.c \
 		command/check_cmd_error.c \
 		command/built_in/ft_cd.c \
 		command/built_in/ft_pwd.c \
