@@ -6,7 +6,7 @@
 /*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 10:00:10 by seungryk          #+#    #+#             */
-/*   Updated: 2024/08/14 15:21:53 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/08/14 17:02:06 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,7 +120,8 @@ int	main(int argc, char **argv, char **envp)
 	token = NULL;
 	env = NULL;
 	g_sigint = 0;
-	set_signal();
+	//set_signal();
+	signal(SIGINT, signal_handler);
 	env = get_env(&env, envp);
 	start_shell(str, block, token, env);
 	free_env(env);

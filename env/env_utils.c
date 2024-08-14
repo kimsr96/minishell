@@ -6,7 +6,7 @@
 /*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/15 15:18:35 by seungryk          #+#    #+#             */
-/*   Updated: 2024/08/14 16:09:20 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/08/14 16:54:57 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	get_env_len(char *s)
 	int	i;
 
 	i = 0;
-	if (s[i] == '?')
+	if (s[i] == '?' || ft_isdigit(s[i]))
 		return (1);
 	while (s[i])
 	{
