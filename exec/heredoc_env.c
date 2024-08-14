@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc_env.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hyeonble <hyeonble@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 15:46:30 by seungryk          #+#    #+#             */
-/*   Updated: 2024/08/14 16:15:25 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/08/14 16:59:27 by hyeonble         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "command.h"
+#include "exec.h"
 
 int	line_to_env(t_env_list *env, char *s, char *ret)
 {

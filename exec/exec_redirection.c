@@ -6,11 +6,11 @@
 /*   By: hyeonble <hyeonble@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 14:51:51 by seungryk          #+#    #+#             */
-/*   Updated: 2024/08/13 22:19:08 by hyeonble         ###   ########.fr       */
+/*   Updated: 2024/08/14 16:59:27 by hyeonble         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "command.h"
+#include "exec.h"
 
 int	is_directory(char *filename)
 {
@@ -90,5 +90,24 @@ int	redirect(t_redirect *redir)
 	else
 		dup2(fd, STDOUT_FILENO);
 	close(fd);
+	return (1);
+}
+
+int	handle_redirection(t_command *cmd)
+{
+	t_command	*cur;
+	t_redirect	*redir;
+
+	cur = cmd;
+	redir = cur->redirect;
+	if (cur != NULL)
+	{
+		while (redir != NULL)
+		{
+			if (redirect(redir) < 0)
+				return (-1);
+			redir = redir->next;
+		}
+	}
 	return (1);
 }

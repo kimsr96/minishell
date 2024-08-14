@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   check_cmd_error.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hyeonble <hyeonble@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/10 17:36:17 by hyeonble          #+#    #+#             */
-/*   Updated: 2024/08/13 15:10:21 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/08/14 16:59:27 by hyeonble         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "command.h"
+# include "exec.h"
 
 int	check_cmd_error(t_block *block)
 {

@@ -6,12 +6,12 @@
 /*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/09 10:24:17 by seungryk          #+#    #+#             */
-/*   Updated: 2024/08/14 17:06:07 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/08/14 17:09:36 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_signal.h"
-#include "command.h"
+#include "exec.h"
 
 void	signal_handler(int signal)
 {
