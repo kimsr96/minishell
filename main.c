@@ -6,7 +6,7 @@
 /*   By: hyeonble <hyeonble@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 10:00:10 by seungryk          #+#    #+#             */
-/*   Updated: 2024/08/14 23:20:26 by hyeonble         ###   ########.fr       */
+/*   Updated: 2024/08/15 16:00:11 by hyeonble         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,10 +101,10 @@ void	start_shell(char *str, t_block *block, t_token *token, t_env_list *env)
 	}
 }
 
- void check_leaks(void)
- {
- 	system("leaks --list -- minishell");
- }
+//  void check_leaks(void)
+//  {
+//  	system("leaks --list -- minishell");
+//  }
 
 int	main(int argc, char **argv, char **envp)
 {
@@ -126,6 +126,6 @@ int	main(int argc, char **argv, char **envp)
 	env = get_env(&env, envp);
 	start_shell(str, block, token, env);
 	free_env(env);
-	check_leaks();
+	// check_leaks();
 	return (0);
 }

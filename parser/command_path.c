@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   command_path.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hyeonble <hyeonble@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/08 09:25:07 by seungryk          #+#    #+#             */
-/*   Updated: 2024/08/13 15:11:10 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/08/15 16:06:39 by hyeonble         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,12 @@ char	**get_path(t_env_list *env)
 
 	path = find_key_node(env, "PATH");
 	if (!path)
-		perror("path");
+		return (0);
 	if (path)
 	{
 		ret = ft_split(path->value, ':');
 		if (!ret)
-			perror("error\n");
+			exit(1);
 		return (ret);
 	}
 	return (0);
@@ -37,13 +37,7 @@ char	*get_cmd(t_env_list *env, char *cmd)
 	if (!cmd)
 		return (0);
 	if (ft_strchr(cmd, '/'))
-	{
-		return(ft_strdup(cmd));
-		// if (access(cmd, X_OK) == 0)
-		// 	return (ft_strdup(cmd));
-		// else
-		// 	perror("command not found");
-	}
+		return (ft_strdup(cmd));
 	path = get_path(env->next);
 	if (!path)
 		return (0);
@@ -58,7 +52,7 @@ char	*case_only_cmd(char **path, char *cmd)
 
 	tmp = ft_strjoin("/", cmd);
 	if (!tmp)
-		perror("malloc error\n");
+		exit(1);
 	i = 0;
 	while (path[i])
 	{
