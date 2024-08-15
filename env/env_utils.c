@@ -6,23 +6,26 @@
 /*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/15 15:18:35 by seungryk          #+#    #+#             */
-/*   Updated: 2024/08/14 16:54:57 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/08/14 18:03:41 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
 
-void	free_env(t_env_list	*env)
+void	free_env(t_env_list	**head)
 {
+	t_env_list	*curr;
 	t_env_list	*env_next;
 
-	while (env)
+	curr = *head;
+	while (curr)
 	{
-		env_next = env->next;
-		free(env->key);
-		free(env->value);
-		env = env_next;
-	}
+		env_next = curr->next;
+		free(curr->key);
+		free(curr->value);
+		free(curr);
+		curr = env_next;
+	}	
 }
 
 int	get_env_len(char *s)

@@ -6,12 +6,11 @@
 /*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/09 10:24:17 by seungryk          #+#    #+#             */
-/*   Updated: 2024/08/14 17:09:36 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/08/14 17:12:09 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_signal.h"
-#include "exec.h"
 
 void	signal_handler(int signal)
 {
@@ -20,7 +19,7 @@ void	signal_handler(int signal)
 		g_sigint = 1;
 		rl_replace_line("", 0);
 		rl_on_new_line();
-		ft_putstr_fd("minishell$   \n", 1);
+		ft_putstr_fd("\n", 1);
 		rl_redisplay();
 	}
 }
