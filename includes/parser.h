@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyeonble <hyeonble@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 08:36:13 by seungryk          #+#    #+#             */
-/*   Updated: 2024/08/14 17:06:05 by hyeonble         ###   ########.fr       */
+/*   Updated: 2024/08/15 14:16:08 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ typedef struct s_block
 }t_block;
 
 /* parse_token.c */
-int				parsing_token(t_block **b_h, t_token **t_h, t_env_list *env);
+int				parsing_token(t_block **b_head, t_env_list *env, char *str);
 
 /* parser_utils.c */
 void			join_str(t_command *cmd, char *s2);

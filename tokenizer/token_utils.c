@@ -6,7 +6,7 @@
 /*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 11:02:39 by seungryk          #+#    #+#             */
-/*   Updated: 2024/08/13 15:33:27 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/08/15 14:07:18 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	del_token(t_token **head)
 {
 	t_token	*curr;
 	t_token	*next_token;
-	t_token *target_token;
+	t_token	*target_token;
 
 	curr = *head;
 	if (curr->data == NULL)

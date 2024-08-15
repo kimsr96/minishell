@@ -6,7 +6,7 @@
 /*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 16:11:13 by seungryk          #+#    #+#             */
-/*   Updated: 2024/08/14 12:50:44 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/08/15 14:06:51 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ unsigned long long	within_range(char *argv)
 	return (num % 256);
 }
 
-int	ft_exit(char **argv, int has_pipe)
+int	ft_exit(t_env_list *env, char **argv, int has_pipe)
 {
 	int					i;
 	unsigned long long	exit_num;
@@ -98,12 +98,13 @@ int	ft_exit(char **argv, int has_pipe)
 	if (argv[1])
 	{
 		if (check_digit(argv[1]) == -1)
-			exit_num = exit_error("exit", argv[1], NUMERIC_ARG_REQUIRED);
+			exit(exit_error("exit", argv[1], NUMERIC_ARG_REQUIRED));
 		else if (i > 2)
 			exit_num = exit_error("exit", argv[1], TOO_MANY_ARG);
 		else
-			exit_num = within_range(argv[1]);
+			exit(within_range(argv[1]));
 	}
-	exit(exit_num);
+	else
+		exit(ft_atoi(env->value));
 	return (exit_num);
 }

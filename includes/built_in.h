@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   built_in.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyeonble <hyeonble@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/08 13:32:28 by seungryk          #+#    #+#             */
-/*   Updated: 2024/08/14 16:59:27 by hyeonble         ###   ########.fr       */
+/*   Updated: 2024/08/15 14:06:52 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int		ft_echo(char **str, int fd);
 int		ft_env(t_env_list *env, int fd);
 
 /* ft_exit.c */
-int		ft_exit(char **argv, int has_pipe);
+int		ft_exit(t_env_list *env, char **argv, int has_pipe);
 
 /* ft_export.c */
 int     check_key_name(char *s);
@@ -44,7 +44,7 @@ int		ft_export(t_env_list *head, char **str);
 
 /* ft_export_no_option.c */
 size_t	get_min_len(char *s1, char *s2);
-void	sort_env(t_env_list *head);
+void	sort_env(t_env_list **head);
 void	sort_print_env(t_env_list *head);
 
 /* ft_unset.c */

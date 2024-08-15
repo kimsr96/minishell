@@ -6,7 +6,7 @@
 /*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 09:05:12 by seungryk          #+#    #+#             */
-/*   Updated: 2024/08/14 15:17:53 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/08/15 16:19:46 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ static t_token	*command_parser(t_block **head, t_token *curr, t_env_list *env)
 				curr = curr->next;
 		}
 		else
-			join_str(block->command, curr->data); 
+			join_str(block->command, curr->data);
 		if (curr->next)
 			if (curr->next->type == PIPE)
 				break ;
@@ -75,13 +75,17 @@ static t_token	*command_parser(t_block **head, t_token *curr, t_env_list *env)
 	return (curr);
 }
 
-int	parsing_token(t_block **b_head, t_token **t_head, t_env_list *env)
+int	parsing_token(t_block **b_head, t_env_list *env, char *str)
 {
+	t_token		*t_head;
 	t_token		*curr;
 	t_block		*block;
 
-	curr = *t_head;
+	t_head = NULL;
 	*b_head = NULL;
+	if (tokenizer(&t_head, str, env))
+		return (free_all_token(t_head));
+	curr = t_head;
 	while (curr)
 	{
 		if (curr->type == PIPE)
@@ -94,7 +98,8 @@ int	parsing_token(t_block **b_head, t_token **t_head, t_env_list *env)
 		if (curr)
 			curr = curr->next;
 	}
-	if (block_err(b_head, t_head, env))
-		return (1);
+	if (block_err(b_head, &t_head, env))
+		return (free_all_token(t_head));
+	free_all_token(t_head);
 	return (0);
 }

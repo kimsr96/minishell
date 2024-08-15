@@ -6,7 +6,7 @@
 /*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/08 09:25:07 by seungryk          #+#    #+#             */
-/*   Updated: 2024/08/13 15:11:10 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/08/15 14:07:53 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ char	*get_cmd(t_env_list *env, char *cmd)
 		return (0);
 	if (ft_strchr(cmd, '/'))
 	{
-		return(ft_strdup(cmd));
+		return (ft_strdup(cmd));
 		// if (access(cmd, X_OK) == 0)
 		// 	return (ft_strdup(cmd));
 		// else

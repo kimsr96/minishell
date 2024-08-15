@@ -6,7 +6,7 @@
 /*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 16:53:38 by seungryk          #+#    #+#             */
-/*   Updated: 2024/08/14 18:04:35 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/08/15 16:06:27 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,14 +25,14 @@ size_t	get_min_len(char *s1, char *s2)
 		return (len_s2);
 }
 
-void	sort_env(t_env_list *head)
+void	sort_env(t_env_list **head)
 {
 	size_t		min_len;
 	t_env_list	*curr;
 	t_env_list	*next_node;
 	char		*temp[2];
 
-	curr = head;
+	curr = *head;
 	while (curr->next)
 	{
 		next_node = curr->next;
@@ -57,14 +57,13 @@ void	sort_env(t_env_list *head)
 t_env_list	*copy_env(t_env_list *head)
 {
 	t_env_list	*curr;
-	t_env_list	*new_head;
 	t_env_list	*new_node;
+	t_env_list	*new_head;
 
 	if (!head)
 		return (NULL);
 	curr = head;
 	new_head = NULL;
-	new_node = NULL;
 	while (curr)
 	{
 		new_node = new_env_list(curr->key, curr->value);
@@ -80,13 +79,20 @@ t_env_list	*copy_env(t_env_list *head)
 void	sort_print_env(t_env_list *head)
 {
 	t_env_list	*new_head;
+	t_env_list	*curr;
+	t_env_list	*next;
 
 	new_head = copy_env(head);
-	sort_env(new_head);
-	while (new_head)
+	sort_env(&new_head);
+	curr = new_head;
+	while (curr)
 	{
-		printf("declare -x %s=\"%s\"\n", new_head->key, new_head->value);
-		new_head = new_head->next;
+		next = curr->next;
+		if (curr->value == NULL)
+			printf("declare -x %s\n", curr->key);
+		else
+			printf("declare -x %s=\"%s\"\n", curr->key, curr->value);
+		free(curr);
+		curr = next;
 	}
-	free_env(new_head);
 }

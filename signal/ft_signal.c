@@ -6,7 +6,7 @@
 /*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/09 10:24:17 by seungryk          #+#    #+#             */
-/*   Updated: 2024/08/15 13:20:09 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/08/15 14:07:29 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ void	handle_sigint_heredoc(int signal)
 	ft_putstr_fd("\n", STDERR_FILENO);
 	exit(1);
 }
-
 
 // void	set_signal(void)
 // {
