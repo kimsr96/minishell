@@ -6,7 +6,7 @@
 /*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 15:00:19 by seungryk          #+#    #+#             */
-/*   Updated: 2024/08/15 16:14:44 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/08/15 17:08:57 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ typedef struct s_token
 	int					space;
 	int					quote_in_env;
 	int					is_split;
+	int					cnt_heredoc;
 	char				*data;
 	struct s_token		*next;
 }						t_token;
@@ -53,12 +54,12 @@ int			tokenizer(t_token **head, char *s, t_env_list *env);
 int			free_all_token(t_token	*token);
 char		**free_str(char **s);
 int			get_env_len(char *s);
-int			del_token(t_token **head);
+int			del_token(t_token **head, t_env_list *env);
 void		add_back_token(t_token **head, t_token *new);
 t_token		*new_token(char *s, int len);
 
 /* interpreter.c */
-int			token_interpreter(t_token **head, t_env_list *env);
+int			token_interpreter(t_token **head, t_env_list *env, int env_len);
 char		*interpreter(t_token *token, t_env_list *env, char *ret, int len);
 
 /* interpreter_utils.c */
@@ -67,6 +68,11 @@ int			is_expansion(t_token *token, t_env_list *env, char *s);
 int			include_quote(char *s);
 void		split_data(t_token *token, char *s);
 int			join_env_str(t_token *token, char *ret, int j, char **value_set);
+
+
+/* heredoc_interpreter.c */
+int			check_heredoc_expansion(t_token *token);
+int			check_max_heredoc(t_token *curr, t_env_list *env);
 
 /* quote_token.c */
 int			get_quote_type(t_token *token, char c);

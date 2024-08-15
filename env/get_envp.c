@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_envp.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyeonble <hyeonble@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 16:19:11 by hyeonble          #+#    #+#             */
-/*   Updated: 2024/08/13 17:40:40 by hyeonble         ###   ########.fr       */
+/*   Updated: 2024/08/15 17:14:16 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,10 @@ static char	*join_env(t_env_list *env)
 	char	*ret;
 
 	key_len = ft_strlen(env->key);
-	value_len = ft_strlen(env->value);
+	if (env->value)
+		value_len = ft_strlen(env->value);
+	else
+		value_len = 0;
 	str_len = key_len + value_len + 2;
 	ret = ft_calloc(str_len, sizeof(char));
 	ft_strlcpy(ret, env->key, str_len);

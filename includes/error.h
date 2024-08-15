@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyeonble <hyeonble@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 13:08:35 by seungryk          #+#    #+#             */
-/*   Updated: 2024/08/13 16:35:00 by hyeonble         ###   ########.fr       */
+/*   Updated: 2024/08/15 17:06:00 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,9 @@ typedef struct s_block t_block;
 int		cd_error(char *cmd, char *path, int errno);
 int		exit_error(char *cmd, char *path, int errno);
 int		export_unset_error(char *cmd, char *path, int errno);
+
+/* heredoc_error.c */
+void    max_heredoc_error(void);
 
 void	*parsing_error_return_null(t_env_list *env, char *msg, int status);
 int		parsing_error(t_env_list *env, char *msg, int status);

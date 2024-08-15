@@ -2,6 +2,7 @@ CC = cc
 CFLAGS = -Wall -Wextra -Werror -g
 LIBFT = -Llibft -lft
 SRCS =  main.c \
+		error/heredoc_error.c \
 		error/parsing_error.c \
 		error/raise_cmd_error.c \
 		error/raise_file_error.c \
@@ -21,6 +22,7 @@ SRCS =  main.c \
 		tokenizer/tokenizer.c \
 		tokenizer/token_utils.c \
 		tokenizer/quote_token.c \
+		tokenizer/heredoc_interpreter.c \
 		tokenizer/interpreter.c \
 		tokenizer/interpreter_utils.c \
 		tokenizer/free_utils.c \

@@ -6,7 +6,7 @@
 /*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 11:02:39 by seungryk          #+#    #+#             */
-/*   Updated: 2024/08/15 14:07:18 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/08/15 17:03:40 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,14 +27,14 @@ void	add_back_token(t_token **head, t_token *new)
 	}
 }
 
-int	del_token(t_token **head)
+int	del_token(t_token **head, t_env_list *env)
 {
 	t_token	*curr;
 	t_token	*next_token;
 	t_token	*target_token;
 
 	curr = *head;
-	if (curr->data == NULL)
+	if (curr->data == NULL || check_max_heredoc(curr, env))
 		return (1);
 	while (curr->next)
 	{

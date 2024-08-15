@@ -6,7 +6,7 @@
 /*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/05 11:12:22 by seungryk          #+#    #+#             */
-/*   Updated: 2024/08/15 16:39:31 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/08/15 17:03:22 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,28 +105,32 @@ char	*interpreter(t_token *token, t_env_list *env, char *ret, int len)
 	return (ret);
 }
 
-int	token_interpreter(t_token **head, t_env_list *env)
+int	token_interpreter(t_token **head, t_env_list *env, int env_len)
 {
-	int		len;
 	char	*ret;
 	t_token	*curr;
 
 	curr = *head;
 	while (curr)
 	{
-		curr->quote_type = DEFAULT;
-		if (valid_quote(curr, env))
-			return (1);
-		len = interprete_str_len(curr, curr->data, env);
-		if (len)
-			ret = interpreter(curr, env, ret, len);
+		if (check_heredoc_expansion(curr) && curr->next)
+			curr = curr->next;
 		else
-			ret = NULL;
-		free(curr->data);
-		curr->data = ret;
+		{
+			curr->quote_type = DEFAULT;
+			if (valid_quote(curr, env))
+				return (1);
+			env_len = interprete_str_len(curr, curr->data, env);
+			if (env_len)
+				ret = interpreter(curr, env, ret, env_len);
+			else
+				ret = NULL;
+			free(curr->data);
+			curr->data = ret;
+		}
 		curr = curr->next;
 	}
-	if (!(*head) || del_token(head))
+	if (!(*head) || del_token(head, env))
 		return (1);
 	return (0);
 }
