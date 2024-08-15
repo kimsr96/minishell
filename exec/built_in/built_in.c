@@ -6,7 +6,7 @@
 /*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/28 15:58:02 by hyeonble          #+#    #+#             */
-/*   Updated: 2024/08/13 15:09:50 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/08/15 14:04:21 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int	exec_builtin(t_block *block, t_env_list *env, int has_pipe)
 	if (ft_strncmp(cmd, "pwd", 4) == 0)
 		status = ft_pwd();
 	if (ft_strncmp(cmd, "exit", 5) == 0)
-		status = ft_exit(block->command->argv, has_pipe);
+		status = ft_exit(env, block->command->argv, has_pipe);
 	if (ft_strncmp(cmd, "export", 7) == 0)
 		status = ft_export(env, block->command->argv);
 	if (ft_strncmp(cmd, "unset", 6) == 0)

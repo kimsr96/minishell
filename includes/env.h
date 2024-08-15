@@ -6,7 +6,7 @@
 /*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/15 13:51:07 by seungryk          #+#    #+#             */
-/*   Updated: 2024/08/06 15:13:07 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/08/14 18:03:15 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ char		*get_value(char *envp, int len);
 t_env_list	*get_env(t_env_list **head, char **envp);
 
 /* env_utils.c */
-void		free_env(t_env_list	*env);
+void		free_env(t_env_list	**head);
 int			get_env_len(char *s);
 char		*get_env_var_name(char *s, int len);
 void		add_back_env(t_env_list **head, t_env_list *new);

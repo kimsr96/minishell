@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_signal.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyeonble <hyeonble@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/09 10:24:17 by seungryk          #+#    #+#             */
-/*   Updated: 2024/08/14 22:53:34 by hyeonble         ###   ########.fr       */
+/*   Updated: 2024/08/15 14:07:29 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_signal.h"
-#include "exec.h"
 
 void	handle_sigint(int signal)
 {
@@ -40,7 +39,6 @@ void	handle_sigint_heredoc(int signal)
 	ft_putstr_fd("\n", STDERR_FILENO);
 	exit(1);
 }
-
 
 // void	set_signal(void)
 // {

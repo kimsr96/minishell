@@ -6,23 +6,26 @@
 /*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/15 15:18:35 by seungryk          #+#    #+#             */
-/*   Updated: 2024/08/14 16:09:20 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/08/15 13:33:49 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
 
-void	free_env(t_env_list	*env)
+void	free_env(t_env_list	**head)
 {
+	t_env_list	*curr;
 	t_env_list	*env_next;
 
-	while (env)
+	curr = *head;
+	while (curr)
 	{
-		env_next = env->next;
-		free(env->key);
-		free(env->value);
-		env = env_next;
-	}
+		env_next = curr->next;
+		free(curr->key);
+		free(curr->value);
+		free(curr);
+		curr = env_next;
+	}	
 }
 
 int	get_env_len(char *s)
@@ -30,7 +33,7 @@ int	get_env_len(char *s)
 	int	i;
 
 	i = 0;
-	if (s[i] == '?')
+	if (s[i] == '?' || ft_isdigit(s[i]))
 		return (1);
 	while (s[i])
 	{

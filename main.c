@@ -6,7 +6,7 @@
 /*   By: hyeonble <hyeonble@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 10:00:10 by seungryk          #+#    #+#             */
-/*   Updated: 2024/08/15 16:00:11 by hyeonble         ###   ########.fr       */
+/*   Updated: 2024/08/15 16:42:03 by hyeonble         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,20 +50,20 @@ void	print_block(t_block *block)
 	}
 }
 
-void	get_next_command_line(t_block *block, t_token *token, char *str)
+void	get_next_command_line(t_block *block, char *str)
 {
 	unlink_tmpfile(block);
 	if (block)
 		free_block_all(block);
-	if (token)
-		free_all_token(token);
+	//if (token)
+	//	free_all_token(token);
 	add_history(str);
 	free(str);
 	g_sigint = 0;
 	set_terminal_print(OFF);
 }
 
-void	start_shell(char *str, t_block *block, t_token *token, t_env_list *env)
+void	start_shell(char *str, t_block *block, t_env_list *env)
 {
 	while (1)
 	{
@@ -71,46 +71,36 @@ void	start_shell(char *str, t_block *block, t_token *token, t_env_list *env)
 		if (g_sigint)
 			update_exit_code(1, env);
 		if (!str)
-		{
-			set_terminal_print(ON);
-			printf("\e7\e[A\e[11Cexit\n");
 			break ;
-		}
-		if (tokenizer(&token, str, env))
+		if (parsing_token(&block, env, str))
 		{
-			get_next_command_line(NULL, token, str);
-			continue ;
-		}
-		if (parsing_token(&block, &token, env))
-		{
-			get_next_command_line(block, token, str);
+			get_next_command_line(block, str);
 			continue ;
 		}
 		signal(SIGINT, SIG_IGN);
 		if (check_heredoc(block, env))
 		{
-			get_next_command_line(block, token, str);
+			get_next_command_line(block, str);
 			continue ;
 		}
-		//print_block(block);
 		signal(SIGINT, SIG_IGN);
-		if (block)
-			exec(block, env);
+		exec(block, env);
 		signal(SIGINT, handle_sigint);
-		get_next_command_line(block, token, str);
+		get_next_command_line(block, str);
 	}
+	set_terminal_print(ON);
+	printf("\e7\e[A\e[11Cexit\n");
 }
 
-//  void check_leaks(void)
-//  {
-//  	system("leaks --list -- minishell");
-//  }
+void	check_leaks(void)
+ {
+ 	system("leaks --list -- minishell");
+ }
 
 int	main(int argc, char **argv, char **envp)
 {
 	char		*str;
 	t_block		*block;
-	t_token		*token;
 	t_env_list	*env;
 
 	if (argc != 1)
@@ -119,13 +109,12 @@ int	main(int argc, char **argv, char **envp)
 		argv = NULL;
 	str = NULL;
 	block = NULL;
-	token = NULL;
 	env = NULL;
 	g_sigint = 0;
 	set_signal();
 	env = get_env(&env, envp);
-	start_shell(str, block, token, env);
-	free_env(env);
-	// check_leaks();
+	start_shell(str, block, env);
+	free_env(&env);
+	check_leaks();
 	return (0);
 }
