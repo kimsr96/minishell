@@ -6,7 +6,7 @@
 /*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 10:00:10 by seungryk          #+#    #+#             */
-/*   Updated: 2024/08/14 17:02:06 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/08/15 13:19:38 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ void	get_next_command_line(t_block *block, t_token *token, char *str)
 	add_history(str);
 	free(str);
 	g_sigint = 0;
+	set_terminal_print(OFF);
 }
 
 void	start_shell(char *str, t_block *block, t_token *token, t_env_list *env)
@@ -71,6 +72,7 @@ void	start_shell(char *str, t_block *block, t_token *token, t_env_list *env)
 			update_exit_code(1, env);
 		if (!str)
 		{
+			set_terminal_print(ON);
 			printf("\e7\e[A\e[11Cexit\n");
 			break ;
 		}
@@ -94,7 +96,7 @@ void	start_shell(char *str, t_block *block, t_token *token, t_env_list *env)
 		signal(SIGINT, SIG_IGN);
 		if (block)
 			exec(block, env);
-		signal(SIGINT, signal_handler);
+		signal(SIGINT, handle_sigint);
 		get_next_command_line(block, token, str);
 	}
 }

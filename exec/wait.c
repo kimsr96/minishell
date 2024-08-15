@@ -6,7 +6,7 @@
 /*   By: hyeonble <hyeonble@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 16:22:24 by hyeonble          #+#    #+#             */
-/*   Updated: 2024/08/14 16:59:27 by hyeonble         ###   ########.fr       */
+/*   Updated: 2024/08/14 23:19:43 by hyeonble         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@ void	wait_process(t_pipe *p, t_env_list *env, pid_t last_pid)
 			{
 				if (WTERMSIG(status) == SIGQUIT)
 					ft_putstr_fd("Quit: 3\n", STDERR_FILENO);
+				if (WTERMSIG(status) == SIGINT)
+					ft_putstr_fd("\n", STDERR_FILENO);
 				update_exit_code(128 + WTERMSIG(status), env);
 			}
 		}
