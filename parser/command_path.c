@@ -6,7 +6,7 @@
 /*   By: hyeonble <hyeonble@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/08 09:25:07 by seungryk          #+#    #+#             */
-/*   Updated: 2024/08/15 16:43:23 by hyeonble         ###   ########.fr       */
+/*   Updated: 2024/08/17 00:04:00 by hyeonble         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ char	*get_cmd(t_env_list *env, char *cmd)
 		return (ft_strdup(cmd));
 	path = get_path(env->next);
 	if (!path)
-		return (0);
+		return (ft_strjoin("./", cmd));
 	return (case_only_cmd(path, cmd));
 }
 

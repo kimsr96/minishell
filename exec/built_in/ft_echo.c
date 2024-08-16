@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_echo.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hyeonble <hyeonble@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 14:47:14 by seungryk          #+#    #+#             */
-/*   Updated: 2024/08/13 18:51:21 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/08/15 19:21:19 by hyeonble         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,8 @@ static void	print_str(char *str, int fd)
 static void	print_echo(char **str, int flag_num, int len, int fd)
 {
 	int	i;
-	int	j;
 
 	i = flag_num + 1;
-	j = 0;
 	if (str == NULL)
 		ft_putchar_fd('\n', fd);
 	while (str[i])

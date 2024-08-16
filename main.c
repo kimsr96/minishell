@@ -6,7 +6,7 @@
 /*   By: hyeonble <hyeonble@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 10:00:10 by seungryk          #+#    #+#             */
-/*   Updated: 2024/08/15 16:42:03 by hyeonble         ###   ########.fr       */
+/*   Updated: 2024/08/17 00:07:41 by hyeonble         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,6 +115,6 @@ int	main(int argc, char **argv, char **envp)
 	env = get_env(&env, envp);
 	start_shell(str, block, env);
 	free_env(&env);
-	check_leaks();
+	// check_leaks();
 	return (0);
 }
