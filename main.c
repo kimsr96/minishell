@@ -6,7 +6,7 @@
 /*   By: hyeonble <hyeonble@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 10:00:10 by seungryk          #+#    #+#             */
-/*   Updated: 2024/08/17 18:14:40 by hyeonble         ###   ########.fr       */
+/*   Updated: 2024/08/17 21:38:06 by hyeonble         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,7 @@ void	start_shell(char *str, t_block *block, t_env_list *env)
 		signal(SIGINT, SIG_IGN);
 		exec(block, env);
 		signal(SIGINT, handle_sigint);
+		// print_block(block);
 		get_next_command_line(block, str);
 	}
 	set_terminal_print(ON);

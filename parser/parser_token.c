@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   parser_token.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hyeonble <hyeonble@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 09:05:12 by seungryk          #+#    #+#             */
-/*   Updated: 2024/08/15 16:19:46 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/08/17 21:37:30 by hyeonble         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
 
-static t_command	*new_command(t_token *token, t_env_list *env)
+static t_command	*new_command(void)
 {
 	t_command	*cmd;
 
@@ -22,11 +22,6 @@ static t_command	*new_command(t_token *token, t_env_list *env)
 	cmd->is_empty = 1;
 	cmd->argv = NULL;
 	cmd->redirect = NULL;
-	if (token->type == CMD)
-	{
-		cmd->is_empty = 0;
-		cmd->cmd_path = get_cmd(env, token->data);
-	}
 	return (cmd);
 }
 
@@ -55,7 +50,7 @@ static t_token	*command_parser(t_block **head, t_token *curr, t_env_list *env)
 	t_block		*block;
 
 	block = new_block(CMD);
-	block->command = new_command(curr, env);
+	block->command = new_command();
 	while (curr)
 	{
 		if (is_redirect(curr->type))
@@ -64,7 +59,10 @@ static t_token	*command_parser(t_block **head, t_token *curr, t_env_list *env)
 				curr = curr->next;
 		}
 		else
-			join_str(block->command, curr->data);
+		{
+			block->command->is_empty = 0;
+			join_str(block->command, env, curr->data);
+		}
 		if (curr->next)
 			if (curr->next->type == PIPE)
 				break ;

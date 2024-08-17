@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hyeonble <hyeonble@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 09:24:40 by seungryk          #+#    #+#             */
-/*   Updated: 2024/08/14 14:35:05 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/08/17 21:36:08 by hyeonble         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,20 +34,23 @@ static char	**attach_data(char **s1, char *s2, int len)
 	return (ret);
 }
 
-void	join_str(t_command *cmd, char *s2)
+void	join_str(t_command *cmd, t_env_list *env, char *data)
 {
 	int		len;
 
 	len = 0;
-	if (s2 == NULL)
+	if (data == NULL)
 		return ;
 	if (cmd->argv == NULL)
-		cmd->argv = attach_data(cmd->argv, s2, len);
+	{
+		cmd->cmd_path = get_cmd(env, data);
+		cmd->argv = attach_data(cmd->argv, data, len);
+	}
 	else
 	{
 		while (cmd->argv[len])
 			len++;
-		cmd->argv = attach_data(cmd->argv, s2, len);
+		cmd->argv = attach_data(cmd->argv, data, len);
 	}
 }
 
