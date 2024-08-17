@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raise_built_in_error.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyeonble <hyeonble@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/12 13:21:13 by seungryk          #+#    #+#             */
-/*   Updated: 2024/08/17 17:04:25 by hyeonble         ###   ########.fr       */
+/*   Updated: 2024/08/17 18:44:06 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	error_msg_prefix(char *cmd, char *path)
 	ft_putstr_fd(path, STDERR_FILENO);
 }
 
-int	cd_error(char *cmd, char *path, int errno)
+void	cd_error(char *cmd, char *path, int errno)
 {
 	ft_putstr_fd("minishell: ", STDERR_FILENO);
 	ft_putstr_fd(cmd, STDERR_FILENO);
@@ -30,15 +30,12 @@ int	cd_error(char *cmd, char *path, int errno)
 	{
 		ft_putstr_fd(": ", STDERR_FILENO);
 		ft_putendl_fd("No such file or directory", STDERR_FILENO);
-		return (1);
 	}
 	if (errno == NOT_SET)
 	{	
 		ft_putchar_fd(' ', STDERR_FILENO);
 		ft_putendl_fd("not set", STDERR_FILENO);
-		return (1);
 	}
-	return (0);
 }
 
 int	exit_error(char *cmd, char *path, int errno)

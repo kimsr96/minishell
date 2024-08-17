@@ -6,7 +6,7 @@
 /*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 13:08:35 by seungryk          #+#    #+#             */
-/*   Updated: 2024/08/15 17:06:00 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/08/17 18:45:05 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ typedef struct s_block t_block;
 # define ERR_SYNTAX "SyntaxError : invalid syntax"
 
 /* built_in_error.c */
-int		cd_error(char *cmd, char *path, int errno);
+void	cd_error(char *cmd, char *path, int errno);
 int		exit_error(char *cmd, char *path, int errno);
 int		export_unset_error(char *cmd, char *path, int errno);
 
