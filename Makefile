@@ -2,11 +2,11 @@ CC = cc
 CFLAGS = -Wall -Wextra -Werror -g
 LIBFT = -Llibft -lft
 SRCS =  main.c \
-		error/heredoc_error.c \
-		error/parsing_error.c \
+		error/raise_heredoc_error.c \
+		error/raise_parsing_error.c \
 		error/raise_cmd_error.c \
 		error/raise_file_error.c \
-		error/built_in_error.c \
+		error/raise_built_in_error.c \
 		env/env.c \
 		env/env_utils.c \
 		env/find_env.c \
@@ -28,6 +28,7 @@ SRCS =  main.c \
 		tokenizer/free_utils.c \
 		exec/heredoc.c \
 		exec/heredoc_env.c \
+		exec/heredoc_utils.c \
 		exec/check_cmd_error.c \
 		exec/built_in/ft_cd.c \
 		exec/built_in/ft_pwd.c \

@@ -32,7 +32,6 @@ typedef struct s_pipe
 	int	child_num;
 }t_pipe;
 
-
 int		is_directory(char *filename);
 int		check_file(t_redirect *redirection);
 int		redirect(t_redirect *redir);
@@ -59,6 +58,7 @@ void	exec_heredoc(t_redirect *redir, t_env_list *env);
 void	get_heredoc(t_redirect *redir, t_env_list *env, char *filename);
 char	*get_tmp_filename(void);
 void	unlink_tmpfile(t_block *block);
+void	unlink_if_sigint(char *filename, t_redirect *redir, t_env_list *env);
 
 int		check_cmd_error(t_block *block);
 int		is_exist_file(char *path);

@@ -6,13 +6,13 @@
 /*   By: hyeonble <hyeonble@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 10:00:10 by seungryk          #+#    #+#             */
-/*   Updated: 2024/08/17 00:07:41 by hyeonble         ###   ########.fr       */
+/*   Updated: 2024/08/17 17:07:37 by hyeonble         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	g_sigint;
+int		g_sigint;
 
 void	print_block(t_block *block)
 {

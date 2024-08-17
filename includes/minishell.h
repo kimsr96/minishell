@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hyeonble <hyeonble@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 10:00:06 by seungryk          #+#    #+#             */
-/*   Updated: 2024/08/15 14:23:02 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/08/17 16:52:26 by hyeonble         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@
 # include <stdlib.h>
 # include <readline/readline.h>
 # include <readline/history.h>
+
+extern int	g_sigint;
 
 void	get_next_command_line(t_block *block, char *str);
 

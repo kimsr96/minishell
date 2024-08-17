@@ -6,7 +6,7 @@
 /*   By: hyeonble <hyeonble@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 14:51:51 by seungryk          #+#    #+#             */
-/*   Updated: 2024/08/14 16:59:27 by hyeonble         ###   ########.fr       */
+/*   Updated: 2024/08/17 16:13:32 by hyeonble         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,13 +23,7 @@ int	is_directory(char *filename)
 	return (1);
 }
 
-int check_file(t_redirect *redirect)
-// 경우의 수
-// 1. infile이 존재하지 않을때
-// 2. file이 directory일때
-// 3. infile이 존재하지만, 권한이 없을때
-// 4. outfile이 존재하지만, 권한이 없을때
-// 문제있으면 -1 return, 아니면 0 return.
+int	check_file(t_redirect *redirect)
 {
 	char	*filename;
 	int		type;
@@ -62,7 +56,8 @@ int	open_file(t_redirect *redirect)
 		return (-1);
 	fd = -1;
 	filename = redirect->file_name;
-	if (redirect->io_type >= IN_REDIRECT && redirect->io_type <= APPEND_REDIRECT)
+	if (redirect->io_type >= IN_REDIRECT \
+	&& redirect->io_type <= APPEND_REDIRECT)
 	{
 		if (redirect->io_type == IN_REDIRECT)
 			fd = open(filename, O_RDONLY);

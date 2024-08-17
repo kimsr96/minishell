@@ -1,19 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   heredoc_error.c                                    :+:      :+:    :+:   */
+/*   raise_parsing_error.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hyeonble <hyeonble@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/15 16:59:52 by seungryk          #+#    #+#             */
-/*   Updated: 2024/08/15 17:13:55 by seungryk         ###   ########.fr       */
+/*   Created: 2024/08/11 18:04:45 by seungryk          #+#    #+#             */
+/*   Updated: 2024/08/17 17:04:20 by hyeonble         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "error.h"
 
-void	max_heredoc_error(void)
+int	parsing_error(t_env_list *env, char *msg, int status)
 {
-	ft_putstr_fd("minishell: ", STDERR_FILENO);
-	ft_putstr_fd("maximum here-document count exceeded\n", STDERR_FILENO);
+	printf("minishell: %s\n", msg);
+	free(env->value);
+	env->value = ft_itoa(status);
+	return (status);
 }
