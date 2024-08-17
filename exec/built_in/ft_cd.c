@@ -6,11 +6,37 @@
 /*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 14:16:09 by seungryk          #+#    #+#             */
-/*   Updated: 2024/08/17 19:21:53 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/08/17 22:47:16 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "built_in.h"
+
+static t_env_list	*get_home_key(t_env_list *head)
+{
+	t_env_list	*env;
+
+	env = find_key_node(head, "HOME");
+	if (!env)
+	{
+		cd_error("cd", "HOME", NOT_SET);
+		return (NULL);
+	}
+	return (env);
+}
+
+static t_env_list	*get_oldpwd_key(t_env_list *head)
+{
+	t_env_list	*env;
+
+	env = find_key_node(head, "OLDPWD");
+	if (!env)
+	{
+		cd_error("cd", "OLDPWD", NOT_SET);
+		return (NULL);
+	}
+	return (env);
+}
 
 static char	*cd_to_path(t_env_list *head,char *path)
 {
@@ -18,16 +44,13 @@ static char	*cd_to_path(t_env_list *head,char *path)
 	t_env_list	*env;
 
 	if (path == NULL || !ft_strncmp(path, "~", 2))
-		env = find_key_node(head, "HOME");
+		env = get_home_key(head);
 	else if (!ft_strncmp(path, "-", 2))
-		env = find_key_node(head, "OLDPWD");
+		env = get_oldpwd_key(head);
 	else
 		env = NULL;
 	if (!env)
-	{
-		cd_error("cd", path, NOT_SET);
 		return (NULL);
-	}
 	ret = env->value;
 	if (path != NULL && ft_strncmp(path, "-", 2) == 0)
 		ft_putendl_fd(ret, STDOUT_FILENO);

@@ -6,7 +6,7 @@
 /*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/15 16:00:44 by seungryk          #+#    #+#             */
-/*   Updated: 2024/08/13 17:55:38 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/08/17 22:23:31 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,10 @@ void	change_value(t_env_list *head, char *key, char *value)
 
 	node = find_key_node(head, key);
 	if (!node)
+	{
+		free(value);
 		return ;
+	}
 	else
 	{
 		free(node->value);
