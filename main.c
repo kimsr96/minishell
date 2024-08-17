@@ -6,7 +6,7 @@
 /*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 10:00:10 by seungryk          #+#    #+#             */
-/*   Updated: 2024/08/17 21:26:32 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/08/17 21:43:42 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,7 @@ void	start_shell(char *str, t_block *block, t_env_list *env)
 		signal(SIGINT, SIG_IGN);
 		exec(block, env);
 		signal(SIGINT, handle_sigint);
+		// print_block(block);
 		get_next_command_line(block, str);
 	}
 	set_terminal_print(ON);
