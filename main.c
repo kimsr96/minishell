@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyeonble <hyeonble@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 10:00:10 by seungryk          #+#    #+#             */
-/*   Updated: 2024/08/17 18:14:40 by hyeonble         ###   ########.fr       */
+/*   Updated: 2024/08/17 21:26:32 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,6 +115,6 @@ int	main(int argc, char **argv, char **envp)
 	env = get_env(&env, envp);
 	start_shell(str, block, env);
 	free_env(&env);
-	// check_leaks();
+	check_leaks();
 	return (0);
 }

@@ -6,12 +6,11 @@
 /*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 16:19:11 by hyeonble          #+#    #+#             */
-/*   Updated: 2024/08/15 17:14:16 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/08/17 21:28:53 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
-#include <stdio.h>
 
 static int	get_env_list_size(t_env_list *env)
 {
@@ -42,8 +41,11 @@ static char	*join_env(t_env_list *env)
 	str_len = key_len + value_len + 2;
 	ret = ft_calloc(str_len, sizeof(char));
 	ft_strlcpy(ret, env->key, str_len);
-	ft_strlcat(ret, "=", str_len);
-	ft_strlcat(ret, env->value, str_len);
+	if (env->value)
+	{
+		ft_strlcat(ret, "=", str_len);
+		ft_strlcat(ret, env->value, str_len);
+	}
 	return (ret);
 }
 
