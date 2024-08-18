@@ -1,5 +1,5 @@
 CC = cc
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -g3 -fsanitize=address
 LIBFT = -Llibft -lft
 SRCS =  srcs/main.c \
 		srcs/error/raise_heredoc_error.c \
@@ -47,14 +47,11 @@ INCS =	./includes
 OBJ_DIR = obj
 OBJECTS = $(addprefix $(OBJ_DIR)/, $(SRCS:.c=.o))
 NAME = minishell
-COMPILE_FLAGS = -lreadline -L/opt/homebrew/opt/readline/lib
-OBJ_FLAGS = -I/opt/homebrew/opt/readline/include
 
 all : $(NAME)
 
 $(NAME) : $(OBJECTS) $(INCS)
 	make -C ./libft
-#$(CC) $(CFLAGS) $(COMPILE_FLAGS) $(OBJECTS) -I $(INCS) $(LIBFT) -o $(NAME) 
 	$(CC) $(CFLAGS) -lreadline $(OBJECTS) -I $(INCS) $(LIBFT) -o $(NAME)
 
 $(OBJ_DIR) :
@@ -82,9 +79,5 @@ fclean : clean
 re :
 	make fclean
 	make all
-
-debug : $(OBJECTS) $(INCS)
-	make -C ./libft
-	$(CC) $(CFLAGS) $(COMPILE_FLAGS) -g -O0 -DDEBUG $(OBJECTS) $(LIBFT) -o $(NAME)_debug
 
 .PHONY : all clean fclean re

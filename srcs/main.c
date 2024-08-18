@@ -6,7 +6,7 @@
 /*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 10:00:10 by seungryk          #+#    #+#             */
-/*   Updated: 2024/08/18 17:16:47 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/08/18 17:18:40 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,49 +14,11 @@
 
 int		g_sigint;
 
-void	print_block(t_block *block)
-{
-	int			i;
-	t_command	*cmd;
-	t_redirect	*curr;
-
-	while (block)
-	{
-		cmd = block->command;
-		if (cmd && (cmd->argv || cmd->redirect))
-		{
-			curr = cmd->redirect;
-			while (curr)
-			{
-				printf("======REDIRECTION======\n");
-				printf("type: %d\n", curr->io_type);
-				printf("file_name: %s\n", curr->file_name);
-				printf("delimiter: %s\n", curr->delimiter);
-				printf("========================\n");
-				curr = curr->next;
-			}
-			i = 0;
-			while (block->command->argv[i])
-			{
-				if (i == 0)
-					printf("cmd: %s\n", block->command->argv[i]);
-				else
-					printf("argv: %s\n", block->command->argv[i]);
-				i++;
-			}
-		}
-		printf("****************************\n");
-		block = block->next;
-	}
-}
-
 void	get_next_command_line(t_block *block, char *str)
 {
 	unlink_tmpfile(block);
 	if (block)
 		free_block_all(block);
-	//if (token)
-	//	free_all_token(token);
 	add_history(str);
 	free(str);
 	g_sigint = 0;
@@ -86,7 +48,6 @@ void	start_shell(char *str, t_block *block, t_env_list *env)
 		signal(SIGINT, SIG_IGN);
 		exec(block, env);
 		signal(SIGINT, handle_sigint);
-		// print_block(block);
 		get_next_command_line(block, str);
 	}
 	set_terminal_print(ON);
@@ -94,9 +55,9 @@ void	start_shell(char *str, t_block *block, t_env_list *env)
 }
 
 void	check_leaks(void)
- {
- 	system("leaks --list -- minishell");
- }
+{
+	system("leaks --list -- minishell");
+}
 
 int	main(int argc, char **argv, char **envp)
 {
