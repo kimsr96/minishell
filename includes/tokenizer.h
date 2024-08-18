@@ -6,7 +6,7 @@
 /*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 15:00:19 by seungryk          #+#    #+#             */
-/*   Updated: 2024/08/18 16:32:43 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/08/18 20:07:42 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,6 @@ int			tokenizer(t_token **head, char *s, t_env_list *env);
 /* token_utils.c */
 int			free_all_token(t_token	*token);
 char		**free_str(char **s);
-int			get_env_len(char *s);
 int			del_token(t_token **head, t_env_list *env);
 void		add_back_token(t_token **head, t_token *new);
 t_token		*new_token(char *s, int len);

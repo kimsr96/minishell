@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_signal.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyeonble <hyeonble@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/09 10:24:17 by seungryk          #+#    #+#             */
-/*   Updated: 2024/08/18 17:14:09 by hyeonble         ###   ########.fr       */
+/*   Updated: 2024/08/18 20:05:18 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,22 +22,6 @@ void	handle_sigint(int signal)
 		ft_putstr_fd("\n", 1);
 		rl_redisplay();
 	}
-}
-
-void	handle_sigint_exec(int signal)
-{
-	(void)signal;
-	set_terminal_print(ON);
-	rl_replace_line("", 0);
-	rl_on_new_line();
-	ft_putstr_fd("\n", 1);
-}
-
-void	handle_sigint_heredoc(int signal)
-{
-	(void)signal;
-	ft_putstr_fd("\n", STDERR_FILENO);
-	exit(1);
 }
 
 void	set_signal(void)

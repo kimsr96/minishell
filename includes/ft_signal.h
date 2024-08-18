@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_signal.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyeonble <hyeonble@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/09 10:24:14 by seungryk          #+#    #+#             */
-/*   Updated: 2024/08/18 17:33:26 by hyeonble         ###   ########.fr       */
+/*   Updated: 2024/08/18 20:05:15 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,5 @@
 
 void	set_signal(void);
 void	handle_sigint(int signal);
-void	set_signal(void);
 void	set_terminal_print(int mode);
 #endif
