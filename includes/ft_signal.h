@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_signal.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hyeonble <hyeonble@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/09 10:24:14 by seungryk          #+#    #+#             */
-/*   Updated: 2024/08/17 22:53:47 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/08/18 17:33:26 by hyeonble         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,10 @@
 # include <termios.h>
 # include <readline/readline.h>
 # include "libft.h"
+# include "minishell.h"
 
 # define OFF 0
 # define ON 1
-
-extern int	g_sigint;
 
 void	set_signal(void);
 void	handle_sigint(int signal);
