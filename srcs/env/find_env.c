@@ -6,11 +6,12 @@
 /*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/15 16:00:44 by seungryk          #+#    #+#             */
-/*   Updated: 2024/08/17 22:23:31 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/08/18 17:33:14 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
+#include <stdio.h>
 
 void	add_env_value(t_env_list *head, char *key, char *value)
 {
@@ -44,6 +45,7 @@ void	change_add_value(t_env_list *head, char *key, char *value)
 	}
 	else
 	{
+		free(key);
 		free(node->value);
 		node->value = value;
 	}
@@ -78,7 +80,7 @@ t_env_list	*find_key_node(t_env_list *head, char *find_key)
 	while (env)
 	{
 		if (env->key && key_len == ft_strlen(env->key))
-			if (!ft_strncmp(env->key, find_key, key_len))
+			if (!ft_strncmp(env->key, find_key, key_len + 1))
 				return (env);
 		env = env->next;
 	}

@@ -6,7 +6,7 @@
 /*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 17:36:58 by seungryk          #+#    #+#             */
-/*   Updated: 2024/08/18 17:02:56 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/08/18 17:37:05 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,16 @@ int	env_err(t_block **b_head, t_env_list *env)
 	b_curr = *b_head;
 	while (b_curr)
 	{
-		i = 0;
-		if (b_curr->command && !ft_strncmp(b_curr->command->argv[i], "env", 4))
+		if (b_curr->command && b_curr->command->argv)
 		{
-			while (b_curr->command->argv[i])
-				i++;
-			if (i > 1)
-				return (parsing_error(env, ERR_ENV, 1));
+			i = 0;
+			if (!ft_strncmp(b_curr->command->argv[i], "env", 4))
+			{
+				while (b_curr->command->argv[i])
+					i++;
+				if (i > 1)
+					return (parsing_error(env, ERR_ENV, 1));
+			}
 		}
 		b_curr = b_curr->next;
 	}

@@ -6,7 +6,7 @@
 /*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 08:36:13 by seungryk          #+#    #+#             */
-/*   Updated: 2024/08/18 16:34:22 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/08/18 17:13:25 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,5 +82,5 @@ int				env_exception(t_command *cmd);
 /* block_exception */
 int				block_err(t_block **b_head, t_env_list *env);
 int				token_err(t_token **t_head, t_env_list *env);
-		
+
 #endif
