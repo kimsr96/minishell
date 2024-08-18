@@ -6,7 +6,7 @@
 /*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/15 16:00:44 by seungryk          #+#    #+#             */
-/*   Updated: 2024/08/18 18:17:57 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/08/18 18:29:18 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,11 @@ void	change_add_value(t_env_list *head, char *key, char *value)
 	}
 	else
 	{
+		if ((key && value == NULL) && node->value)
+		{
+			free(key);
+			return ;
+		}
 		free(key);
 		free(node->value);
 		node->value = value;

@@ -6,7 +6,7 @@
 /*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 13:09:44 by seungryk          #+#    #+#             */
-/*   Updated: 2024/08/18 18:20:22 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/08/18 18:38:38 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,18 @@
 
 int	check_key_name(char *s)
 {
-	if ((s[0] >= 'a' && s[0] <= 'z') || (s[0] >= 'A' && s[0] <= 'Z'))
-		return (0);
-	else
-		return (1);
+	int	i;
+
+	i = 0;
+	while (s[i])
+	{
+		if (i == 0 && !ft_isalpha(s[i]))
+			return (1);
+		if (!ft_isalnum(s[i]))
+			return (1);
+		i++;
+	}
+	return (0);
 }
 
 int	put_env(t_env_list *head, char *s)
@@ -31,7 +39,7 @@ int	put_env(t_env_list *head, char *s)
 	value_len = ft_strlen(s) - (key_len + 1);
 	key = get_key(s, key_len);
 	value = get_value(s, value_len);
-	if (check_key_name(s) || key_len == -1)
+	if (check_key_name(key) || key_len == -1)
 	{
 		free(key);
 		free(value);
