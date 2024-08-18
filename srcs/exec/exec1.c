@@ -6,7 +6,7 @@
 /*   By: hyeonble <hyeonble@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 15:56:40 by hyeonble          #+#    #+#             */
-/*   Updated: 2024/08/17 21:00:01 by hyeonble         ###   ########.fr       */
+/*   Updated: 2024/08/18 16:07:53 by hyeonble         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ void	exec_has_pipe(t_block *block, t_env_list *env, t_pipe *p)
 			if (cur->next != NULL && cur->next->type == PIPE)
 			{
 				if (pipe(p->fds) < 0)
-					perror("pipe error\n");
+					exit(1);
 			}
 			else
 				p->pipe_after = 0;

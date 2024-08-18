@@ -6,7 +6,7 @@
 /*   By: hyeonble <hyeonble@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 16:41:00 by hyeonble          #+#    #+#             */
-/*   Updated: 2024/08/17 21:16:13 by hyeonble         ###   ########.fr       */
+/*   Updated: 2024/08/18 16:08:09 by hyeonble         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	fork_no_pipe(t_block *cur, t_env_list *env, t_pipe *p)
 	pid = fork();
 	p->child_num++;
 	if (pid < 0)
-		perror("fork error");
+		exit(1);
 	else if (pid == 0)
 		execute_in_child(cur, env);
 	else
@@ -34,7 +34,7 @@ pid_t	fork_process(t_block *block, t_env_list *env, t_pipe *p)
 	cur = block;
 	pid = fork();
 	if (pid < 0)
-		perror("fork error");
+		exit(1);
 	else if (pid == 0)
 	{
 		set_pipe_stream(p);

@@ -6,7 +6,7 @@
 /*   By: hyeonble <hyeonble@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/08 09:25:07 by seungryk          #+#    #+#             */
-/*   Updated: 2024/08/17 21:40:23 by hyeonble         ###   ########.fr       */
+/*   Updated: 2024/08/18 16:08:29 by hyeonble         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ char	*get_cmd(t_env_list *env, char *cmd)
 {
 	char	**path;
 
-	if (!cmd)
+	if (!cmd || ft_strlen(cmd) == 0)
 		return (0);
 	if (ft_strchr(cmd, '/'))
 		return (ft_strdup(cmd));
@@ -58,7 +58,7 @@ char	*case_only_cmd(char **path, char *cmd)
 	{
 		cmd_path = ft_strjoin(path[i], tmp);
 		if (!cmd_path)
-			perror("malloc error\n");
+			exit(1);
 		if (access(cmd_path, X_OK) == 0)
 		{
 			free_2darr(path);

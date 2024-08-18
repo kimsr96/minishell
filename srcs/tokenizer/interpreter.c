@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   interpreter.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hyeonble <hyeonble@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/05 11:12:22 by seungryk          #+#    #+#             */
-/*   Updated: 2024/08/18 15:47:40 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/08/18 16:08:18 by hyeonble         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ char	*interpreter(t_token *token, t_env_list *env, char *ret, int len)
 	j = 0;
 	ret = ft_calloc(len + 1, sizeof(char));
 	if (!ret)
-		perror("malloc error");
+		exit(1);
 	while (token->data[++i])
 	{
 		type = token->quote_type;
