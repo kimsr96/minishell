@@ -1,5 +1,5 @@
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -g3 -fsanitize=address
+CFLAGS = -Wall -Wextra -Werror
 LIBFT = -Llibft -lft
 SRCS =  srcs/main.c \
 		srcs/error/raise_heredoc_error.c \

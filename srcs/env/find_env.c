@@ -6,7 +6,7 @@
 /*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/15 16:00:44 by seungryk          #+#    #+#             */
-/*   Updated: 2024/08/18 17:33:14 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/08/18 18:10:30 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	add_env_value(t_env_list *head, char *key, char *value)
 	char		*new_value;
 
 	node = find_key_node(head, key);
-	if (!node)
+	if (!node || (node && node->value == NULL))
 	{
 		node = new_env_list(key, value);
 		add_back_env(&head, node);
@@ -28,6 +28,7 @@ void	add_env_value(t_env_list *head, char *key, char *value)
 	{
 		new_value = ft_strjoin(node->value, value);
 		free(node->value);
+		free(key);
 		free(value);
 		node->value = new_value;
 	}

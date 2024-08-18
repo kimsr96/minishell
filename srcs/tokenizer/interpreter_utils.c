@@ -6,7 +6,7 @@
 /*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 15:00:37 by seungryk          #+#    #+#             */
-/*   Updated: 2024/08/14 16:04:07 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/08/18 17:46:52 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,10 +41,13 @@ int	include_quote(char *s)
 
 int	is_expansion(t_token *token, t_env_list *env, char *s)
 {
+	t_env_list	*target;
+
 	if (get_quote_type(token, *s) != S_QUOTE && \
 			*s == '$' && *(s + 1) != '=' && *(s + 1))
 	{
-		if (get_target(env, s + 1))
+		target = get_target(env, s + 1);
+		if (target && target->value)
 			return (1);
 		else
 			return (-1);

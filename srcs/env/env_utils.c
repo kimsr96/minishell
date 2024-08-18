@@ -6,11 +6,12 @@
 /*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/15 15:18:35 by seungryk          #+#    #+#             */
-/*   Updated: 2024/08/15 13:33:49 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/08/18 18:07:19 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
+#include <stdio.h>
 
 void	free_env(t_env_list	**head)
 {
