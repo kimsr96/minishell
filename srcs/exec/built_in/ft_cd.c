@@ -6,7 +6,7 @@
 /*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 14:16:09 by seungryk          #+#    #+#             */
-/*   Updated: 2024/08/18 15:49:28 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/08/18 16:15:54 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ static char	*cd_to_path(t_env_list *head, char *path)
 	char		*ret;
 	t_env_list	*env;
 
-	if (path == NULL || !ft_strncmp(path, "~", 2))
+	if (path == NULL || !ft_strlen(path) || !ft_strncmp(path, "~", 2))
 		env = get_home_key(head);
 	else if (!ft_strncmp(path, "-", 2))
 		env = get_oldpwd_key(head);
@@ -65,7 +65,8 @@ int	ft_cd(t_block *block, t_env_list *head)
 
 	ret = 0;
 	path = block->command->argv[1];
-	if (path == NULL || !ft_strncmp(path, "~", 2) || !ft_strncmp(path, "-", 2))
+	if (path == NULL || !ft_strlen(path) || \
+		!ft_strncmp(path, "~", 2) || !ft_strncmp(path, "-", 2))
 		path = cd_to_path(head, path);
 	if (!path)
 		return (1);
