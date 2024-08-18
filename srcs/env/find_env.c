@@ -6,12 +6,11 @@
 /*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/15 16:00:44 by seungryk          #+#    #+#             */
-/*   Updated: 2024/08/18 18:29:18 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/08/18 18:41:58 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "env.h"
-#include <stdio.h>
 
 void	add_env_value(t_env_list *head, char *key, char *value)
 {

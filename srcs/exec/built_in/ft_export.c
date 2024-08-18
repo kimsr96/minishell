@@ -6,7 +6,7 @@
 /*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 13:09:44 by seungryk          #+#    #+#             */
-/*   Updated: 2024/08/18 18:38:38 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/08/18 19:35:23 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int	put_env(t_env_list *head, char *s)
 	value_len = ft_strlen(s) - (key_len + 1);
 	key = get_key(s, key_len);
 	value = get_value(s, value_len);
-	if (check_key_name(key) || key_len == -1)
+	if (check_key_name(key) || key_len == -1 || key_len == 0)
 	{
 		free(key);
 		free(value);
