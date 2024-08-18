@@ -1,59 +1,49 @@
 CC = cc
 CFLAGS = -Wall -Wextra -Werror
 LIBFT = -Llibft -lft
-SRCS =  main.c \
-		error/raise_heredoc_error.c \
-		error/raise_parsing_error.c \
-		error/raise_cmd_error.c \
-		error/raise_file_error.c \
-		error/raise_built_in_error.c \
-		env/env.c \
-		env/env_utils.c \
-		env/find_env.c \
-		env/get_envp.c \
-		parser/parser_token.c \
-		parser/parser_err_exception.c \
-		parser/parser_init_free.c \
-		parser/parser_utils.c \
-		parser/command_path.c \
-		parser/env_exception.c \
-		parser/redirect_block.c \
-		signal/ft_signal.c \
-		tokenizer/tokenizer.c \
-		tokenizer/token_utils.c \
-		tokenizer/quote_token.c \
-		tokenizer/heredoc_interpreter.c \
-		tokenizer/interpreter.c \
-		tokenizer/interpreter_utils.c \
-		tokenizer/free_utils.c \
-		exec/heredoc.c \
-		exec/heredoc_env.c \
-		exec/heredoc_utils.c \
-		exec/check_cmd_error.c \
-		exec/built_in/ft_cd.c \
-		exec/built_in/ft_pwd.c \
-		exec/built_in/ft_env.c \
-		exec/built_in/ft_echo.c \
-		exec/built_in/ft_exit.c \
-		exec/built_in/ft_unset.c \
-		exec/built_in/ft_export.c \
-		exec/built_in/ft_export_no_option.c \
-		exec/built_in/built_in.c \
-		exec/exec_redirection.c \
-		exec/exec_utils.c \
-		exec/exec1.c \
-		exec/exec2.c \
-		exec/wait.c
-# 		exec/command.c
-#INCS = 	includes/minishell.h \
-#		includes/built_in.h \
-#		includes/exec.h \
-#		includes/exec.h \
-#		includes/env.h \
-#		includes/error.h \
-#		includes/parser.h \
-#		includes/ft_signal.h \
-#		includes/tokenizer.h 
+SRCS =  srcs/main.c \
+		srcs/error/raise_heredoc_error.c \
+		srcs/error/raise_parsing_error.c \
+		srcs/error/raise_cmd_error.c \
+		srcs/error/raise_file_error.c \
+		srcs/error/raise_built_in_error.c \
+		srcs/env/env.c \
+		srcs/env/env_utils.c \
+		srcs/env/find_env.c \
+		srcs/env/get_envp.c \
+		srcs/parser/parser_token.c \
+		srcs/parser/parser_err_exception.c \
+		srcs/parser/parser_init_free.c \
+		srcs/parser/parser_utils.c \
+		srcs/parser/command_path.c \
+		srcs/parser/env_exception.c \
+		srcs/parser/redirect_block.c \
+		srcs/signal/ft_signal.c \
+		srcs/tokenizer/tokenizer.c \
+		srcs/tokenizer/token_utils.c \
+		srcs/tokenizer/quote_token.c \
+		srcs/tokenizer/heredoc_interpreter.c \
+		srcs/tokenizer/interpreter.c \
+		srcs/tokenizer/interpreter_utils.c \
+		srcs/tokenizer/free_utils.c \
+		srcs/exec/heredoc.c \
+		srcs/exec/heredoc_env.c \
+		srcs/exec/heredoc_utils.c \
+		srcs/exec/check_cmd_error.c \
+		srcs/exec/built_in/ft_cd.c \
+		srcs/exec/built_in/ft_pwd.c \
+		srcs/exec/built_in/ft_env.c \
+		srcs/exec/built_in/ft_echo.c \
+		srcs/exec/built_in/ft_exit.c \
+		srcs/exec/built_in/ft_unset.c \
+		srcs/exec/built_in/ft_export.c \
+		srcs/exec/built_in/ft_export_no_option.c \
+		srcs/exec/built_in/built_in.c \
+		srcs/exec/exec_redirection.c \
+		srcs/exec/exec_utils.c \
+		srcs/exec/exec1.c \
+		srcs/exec/exec2.c \
+		srcs/exec/wait.c
 INCS =	./includes
 OBJ_DIR = obj
 OBJECTS = $(addprefix $(OBJ_DIR)/, $(SRCS:.c=.o))
@@ -65,18 +55,19 @@ all : $(NAME)
 
 $(NAME) : $(OBJECTS) $(INCS)
 	make -C ./libft
-	$(CC) $(CFLAGS) $(COMPILE_FLAGS) $(OBJECTS) -I $(INCS) $(LIBFT) -o $(NAME) 
-#$(CC) $(CFLAGS) -lreadline $(OBJECTS) $(LIBFT) -o $(NAME)
+#$(CC) $(CFLAGS) $(COMPILE_FLAGS) $(OBJECTS) -I $(INCS) $(LIBFT) -o $(NAME) 
+	$(CC) $(CFLAGS) -lreadline $(OBJECTS) -I $(INCS) $(LIBFT) -o $(NAME)
 
 $(OBJ_DIR) :
 	mkdir -p $(OBJ_DIR)
-	mkdir -p $(OBJ_DIR)/exec
-	mkdir -p $(OBJ_DIR)/exec/built_in
-	mkdir -p $(OBJ_DIR)/env
-	mkdir -p $(OBJ_DIR)/error
-	mkdir -p $(OBJ_DIR)/tokenizer
-	mkdir -p $(OBJ_DIR)/signal
-	mkdir -p $(OBJ_DIR)/parser
+	mkdir -p $(OBJ_DIR)/srcs
+	mkdir -p $(OBJ_DIR)/srcs/exec
+	mkdir -p $(OBJ_DIR)/srcs/exec/built_in
+	mkdir -p $(OBJ_DIR)/srcs/env
+	mkdir -p $(OBJ_DIR)/srcs/error
+	mkdir -p $(OBJ_DIR)/srcs/tokenizer
+	mkdir -p $(OBJ_DIR)/srcs/signal
+	mkdir -p $(OBJ_DIR)/srcs/parser
 
 $(OBJ_DIR)/%.o : %.c | $(OBJ_DIR)
 	$(CC) $(CFLAGS) $(OBJ_FLAGS) -I $(INCS) -c $< -o $@

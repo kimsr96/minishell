@@ -6,7 +6,7 @@
 /*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/05 11:12:22 by seungryk          #+#    #+#             */
-/*   Updated: 2024/08/15 17:03:22 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/08/18 15:47:40 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,6 +111,7 @@ int	token_interpreter(t_token **head, t_env_list *env, int env_len)
 	t_token	*curr;
 
 	curr = *head;
+	ret = NULL;
 	while (curr)
 	{
 		if (check_heredoc_expansion(curr) && curr->next)
@@ -123,8 +124,6 @@ int	token_interpreter(t_token **head, t_env_list *env, int env_len)
 			env_len = interprete_str_len(curr, curr->data, env);
 			if (env_len)
 				ret = interpreter(curr, env, ret, env_len);
-			else
-				ret = NULL;
 			free(curr->data);
 			curr->data = ret;
 		}

@@ -6,14 +6,14 @@
 /*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/08 13:32:28 by seungryk          #+#    #+#             */
-/*   Updated: 2024/08/15 14:06:52 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/08/17 22:53:47 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef BUILT_IN_H
 # define BUILT_IN_H
 
-# include "../libft/libft.h"
+# include "libft.h"
 # include "parser.h"
 # include "env.h"
 # include "exec.h"
