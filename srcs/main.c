@@ -6,7 +6,7 @@
 /*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 10:00:10 by seungryk          #+#    #+#             */
-/*   Updated: 2024/08/18 17:40:42 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/08/18 18:15:36 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ int		g_sigint;
 
 void	get_next_command_line(t_block *block, char *str)
 {
+	signal(SIGINT, handle_sigint);
 	unlink_tmpfile(block);
 	if (block)
 		free_block_all(block);
@@ -47,7 +48,6 @@ void	start_shell(char *str, t_block *block, t_env_list *env)
 		}
 		signal(SIGINT, SIG_IGN);
 		exec(block, env);
-		signal(SIGINT, handle_sigint);
 		get_next_command_line(block, str);
 	}
 	set_terminal_print(ON);
