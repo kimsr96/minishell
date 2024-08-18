@@ -6,7 +6,7 @@
 /*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 15:00:19 by seungryk          #+#    #+#             */
-/*   Updated: 2024/08/18 16:08:03 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/08/18 16:32:43 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,6 @@ int			is_expansion(t_token *token, t_env_list *env, char *s);
 int			include_quote(char *s);
 void		split_data(t_token *token, char *s);
 int			join_env_str(t_token *token, char *ret, int j, char **value_set);
-
 
 /* heredoc_interpreter.c */
 int			check_heredoc_expansion(t_token *token);

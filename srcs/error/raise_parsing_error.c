@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raise_parsing_error.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyeonble <hyeonble@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/11 18:04:45 by seungryk          #+#    #+#             */
-/*   Updated: 2024/08/17 17:04:20 by hyeonble         ###   ########.fr       */
+/*   Updated: 2024/08/18 17:00:25 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

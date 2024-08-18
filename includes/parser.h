@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyeonble <hyeonble@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 08:36:13 by seungryk          #+#    #+#             */
-/*   Updated: 2024/08/17 21:36:25 by hyeonble         ###   ########.fr       */
+/*   Updated: 2024/08/18 16:34:22 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,8 +77,10 @@ t_redirect		*get_redir(t_token *token, t_redir_type type);
 t_redir_type	set_redirect_type(char *s);
 
 /* env_exception.c */
-void			env_exception(t_command *cmd);
+int				env_exception(t_command *cmd);
 
 /* block_exception */
-int				block_err(t_block **b_head, t_token **t_head, t_env_list *env);
+int				block_err(t_block **b_head, t_env_list *env);
+int				token_err(t_token **t_head, t_env_list *env);
+		
 #endif

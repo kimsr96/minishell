@@ -6,7 +6,7 @@
 /*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 13:08:35 by seungryk          #+#    #+#             */
-/*   Updated: 2024/08/17 18:45:05 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/08/18 17:01:25 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ typedef struct s_block t_block;
 # define NUMERIC_ARG_REQUIRED 14
 # define NOT_VALID_IDENT 15
 # define ERR_SYNTAX "SyntaxError : invalid syntax"
+# define ERR_ENV "env : with no options or arguments"
 
 /* built_in_error.c */
 void	cd_error(char *cmd, char *path, int errno);
