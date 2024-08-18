@@ -16,7 +16,6 @@ SRCS =  srcs/main.c \
 		srcs/parser/parser_init_free.c \
 		srcs/parser/parser_utils.c \
 		srcs/parser/command_path.c \
-		srcs/parser/env_exception.c \
 		srcs/parser/redirect_block.c \
 		srcs/signal/ft_signal.c \
 		srcs/tokenizer/tokenizer.c \

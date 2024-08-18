@@ -6,7 +6,7 @@
 /*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/08 13:32:28 by seungryk          #+#    #+#             */
-/*   Updated: 2024/08/17 22:53:47 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/08/18 17:14:33 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int		ft_env(t_env_list *env, int fd);
 int		ft_exit(t_env_list *env, char **argv, int has_pipe);
 
 /* ft_export.c */
-int     check_key_name(char *s);
+int		check_key_name(char *s);
 int		ft_export(t_env_list *head, char **str);
 
 /* ft_export_no_option.c */
