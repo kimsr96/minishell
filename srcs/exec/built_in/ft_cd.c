@@ -6,7 +6,7 @@
 /*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 14:16:09 by seungryk          #+#    #+#             */
-/*   Updated: 2024/08/17 22:47:16 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/08/18 15:49:28 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static t_env_list	*get_oldpwd_key(t_env_list *head)
 	return (env);
 }
 
-static char	*cd_to_path(t_env_list *head,char *path)
+static char	*cd_to_path(t_env_list *head, char *path)
 {
 	char		*ret;
 	t_env_list	*env;

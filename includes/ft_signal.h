@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_signal.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyeonble <hyeonble@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/09 10:24:14 by seungryk          #+#    #+#             */
-/*   Updated: 2024/08/17 18:15:10 by hyeonble         ###   ########.fr       */
+/*   Updated: 2024/08/17 22:53:47 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 # include <stdlib.h>
 # include <termios.h>
 # include <readline/readline.h>
-# include "../libft/libft.h"
+# include "libft.h"
 
 # define OFF 0
 # define ON 1
