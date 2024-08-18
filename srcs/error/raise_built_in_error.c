@@ -6,7 +6,7 @@
 /*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/12 13:21:13 by seungryk          #+#    #+#             */
-/*   Updated: 2024/08/17 18:44:06 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/08/18 17:08:34 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,15 @@ void	error_msg_prefix(char *cmd, char *path)
 	ft_putstr_fd(cmd, STDERR_FILENO);
 	ft_putstr_fd(": ", STDERR_FILENO);
 	ft_putstr_fd(path, STDERR_FILENO);
+}
+
+int	pwd_error(char *cmd, int errno)
+{
+	ft_putstr_fd("minishell: ", STDERR_FILENO);
+	ft_putstr_fd(cmd, STDERR_FILENO);
+	ft_putstr_fd(": ", STDERR_FILENO);
+	ft_putstr_fd("cwd failed", STDERR_FILENO);
+	return (errno);
 }
 
 void	cd_error(char *cmd, char *path, int errno)

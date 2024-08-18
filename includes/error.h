@@ -6,7 +6,7 @@
 /*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 13:08:35 by seungryk          #+#    #+#             */
-/*   Updated: 2024/08/18 17:01:25 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/08/18 17:08:05 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ typedef struct s_block t_block;
 
 /* built_in_error.c */
 void	cd_error(char *cmd, char *path, int errno);
+int     pwd_error(char *cmd, int errno);
 int		exit_error(char *cmd, char *path, int errno);
 int		export_unset_error(char *cmd, char *path, int errno);
 
