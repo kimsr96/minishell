@@ -6,7 +6,7 @@
 /*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/05 11:12:22 by seungryk          #+#    #+#             */
-/*   Updated: 2024/08/18 15:47:40 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/08/18 16:07:22 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,8 @@ char	*interpreter(t_token *token, t_env_list *env, char *ret, int len)
 
 	i = -1;
 	j = 0;
+	if (len == 0)
+		return (NULL);
 	ret = ft_calloc(len + 1, sizeof(char));
 	if (!ret)
 		perror("malloc error");
@@ -105,13 +107,12 @@ char	*interpreter(t_token *token, t_env_list *env, char *ret, int len)
 	return (ret);
 }
 
-int	token_interpreter(t_token **head, t_env_list *env, int env_len)
+int	token_interpreter(t_token **head, t_env_list *env)
 {
 	char	*ret;
 	t_token	*curr;
 
 	curr = *head;
-	ret = NULL;
 	while (curr)
 	{
 		if (check_heredoc_expansion(curr) && curr->next)
@@ -121,9 +122,8 @@ int	token_interpreter(t_token **head, t_env_list *env, int env_len)
 			curr->quote_type = DEFAULT;
 			if (valid_quote(curr, env))
 				return (1);
-			env_len = interprete_str_len(curr, curr->data, env);
-			if (env_len)
-				ret = interpreter(curr, env, ret, env_len);
+			ret = interpreter(curr, env, ret, \
+						interprete_str_len(curr, curr->data, env));
 			free(curr->data);
 			curr->data = ret;
 		}

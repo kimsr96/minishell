@@ -6,7 +6,7 @@
 /*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 14:43:27 by seungryk          #+#    #+#             */
-/*   Updated: 2024/08/15 16:52:11 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/08/18 16:06:24 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,11 +86,9 @@ int	tokenizer(t_token **head, char *s, t_env_list *env)
 {
 	int		i;
 	int		len;
-	int		env_len;
 	t_token	*token;
 
 	i = 0;
-	env_len = 0;
 	*head = NULL;
 	while (s[i])
 	{
@@ -106,7 +104,7 @@ int	tokenizer(t_token **head, char *s, t_env_list *env)
 			i += len;
 		}
 	}
-	if (token_interpreter(head, env, env_len))
+	if (token_interpreter(head, env))
 		return (1);
 	return (0);
 }

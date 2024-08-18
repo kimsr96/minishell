@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_token.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyeonble <hyeonble@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 09:05:12 by seungryk          #+#    #+#             */
-/*   Updated: 2024/08/17 21:37:30 by hyeonble         ###   ########.fr       */
+/*   Updated: 2024/08/18 16:01:28 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,17 +73,12 @@ static t_token	*command_parser(t_block **head, t_token *curr, t_env_list *env)
 	return (curr);
 }
 
-int	parsing_token(t_block **b_head, t_env_list *env, char *str)
+void	make_block(t_block **b_head, t_token **t_head, t_env_list *env)
 {
-	t_token		*t_head;
-	t_token		*curr;
 	t_block		*block;
+	t_token		*curr;
 
-	t_head = NULL;
-	*b_head = NULL;
-	if (tokenizer(&t_head, str, env))
-		return (free_all_token(t_head));
-	curr = t_head;
+	curr = *t_head;
 	while (curr)
 	{
 		if (curr->type == PIPE)
@@ -96,6 +91,17 @@ int	parsing_token(t_block **b_head, t_env_list *env, char *str)
 		if (curr)
 			curr = curr->next;
 	}
+}
+
+int	parsing_token(t_block **b_head, t_env_list *env, char *str)
+{
+	t_token		*t_head;
+
+	t_head = NULL;
+	*b_head = NULL;
+	if (tokenizer(&t_head, str, env))
+		return (free_all_token(t_head));
+	make_block(b_head, &t_head, env);
 	if (block_err(b_head, &t_head, env))
 		return (free_all_token(t_head));
 	free_all_token(t_head);
