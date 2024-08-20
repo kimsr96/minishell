@@ -6,7 +6,7 @@
 /*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 08:36:13 by seungryk          #+#    #+#             */
-/*   Updated: 2024/08/18 17:13:25 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/08/20 14:59:37 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,9 @@ t_redir_type	set_redirect_type(char *s);
 /* env_exception.c */
 int				env_exception(t_command *cmd);
 
-/* block_exception */
+/* parser_err_exception.c */
+
+int				redir_err(t_token **t_head, t_env_list *env);
 int				block_err(t_block **b_head, t_env_list *env);
 int				token_err(t_token **t_head, t_env_list *env);
 

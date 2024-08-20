@@ -6,7 +6,7 @@
 /*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 09:05:12 by seungryk          #+#    #+#             */
-/*   Updated: 2024/08/20 12:01:17 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/08/20 14:39:27 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,8 @@ int	parsing_token(t_block **b_head, t_env_list *env, char *str)
 	t_head = NULL;
 	*b_head = NULL;
 	if (tokenizer(&t_head, str, env))
+		return (free_all_token(t_head));
+	if (redir_err(&t_head, env))
 		return (free_all_token(t_head));
 	make_block(b_head, &t_head, env);
 	if (block_err(b_head, env) || token_err(&t_head, env))

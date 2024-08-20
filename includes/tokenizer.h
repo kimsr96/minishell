@@ -6,7 +6,7 @@
 /*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 15:00:19 by seungryk          #+#    #+#             */
-/*   Updated: 2024/08/18 20:07:42 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/08/20 14:57:24 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include "env.h"
-# include "parser.h"
 # include "error.h"
+# include "parser.h"
 # include "libft.h"
 
 typedef enum e_quotetype

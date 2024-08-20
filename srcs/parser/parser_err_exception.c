@@ -6,7 +6,7 @@
 /*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 17:36:58 by seungryk          #+#    #+#             */
-/*   Updated: 2024/08/20 13:17:15 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/08/20 14:58:21 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,20 @@ int	env_err(t_block **b_head, t_env_list *env)
 	return (0);
 }
 
+int	redir_err(t_token **t_head, t_env_list *env)
+{
+	t_token	*t_curr;
+
+	t_curr = *t_head;
+	while (t_curr->next)
+	{
+		if (t_curr->type == REDIRECT && t_curr->next->type == REDIRECT)
+			return (parsing_error(env, ERR_SYNTAX, 258));
+		t_curr = t_curr->next;
+	}
+	return (0);
+}
+
 int	token_err(t_token **t_head, t_env_list *env)
 {
 	t_token	*t_curr;
@@ -43,11 +57,6 @@ int	token_err(t_token **t_head, t_env_list *env)
 	t_curr = *t_head;
 	while (t_curr)
 	{
-		if (t_curr->next)
-		{
-			if (t_curr->type == REDIRECT && t_curr->next->type == REDIRECT)
-				return (parsing_error(env, ERR_SYNTAX, 258));
-		}
 		if (t_curr->err)
 			return (parsing_error(env, ERR_SYNTAX, 258));
 		t_curr = t_curr->next;

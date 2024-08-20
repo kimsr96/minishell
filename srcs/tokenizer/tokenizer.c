@@ -6,18 +6,39 @@
 /*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 14:43:27 by seungryk          #+#    #+#             */
-/*   Updated: 2024/08/18 17:42:44 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/08/20 14:31:39 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "tokenizer.h"
 
-static int	is_metachar(char *s)
+static int	is_metachar(char c)
 {
-	if (!ft_strncmp(s, ">>", 2) || !ft_strncmp(s, "<<", 2))
-		return (2);
-	else if (*s == '|' || *s == '>' || *s == '<')
+	if (c == '|' || c == '>' || c == '<')
 		return (1);
+	else
+		return (0);
+}
+
+int	len_metachar(t_env_list *env, char *s)
+{
+	int	i;
+	int	len;
+
+	i = 0;
+	len = 0;
+	while (is_metachar(s[i]))
+	{
+		len++;
+		i++;
+	}
+	if (len > 2)
+	{
+		parsing_error(env, ERR_SYNTAX, 258);
+		return (-1);
+	}
+	else if (len)
+		return (len);
 	else
 		return (0);
 }
@@ -62,7 +83,7 @@ int	token_len(char *s)
 	while (s[i])
 	{
 		quote = get_quote_type_c(s[i], quote);
-		if (quote == 0 && (ft_isspace(s[i]) || is_metachar(&s[i])))
+		if (quote == 0 && (ft_isspace(s[i]) || is_metachar(s[i])))
 			break ;
 		len++;
 		i++;
@@ -84,7 +105,9 @@ int	tokenizer(t_token **head, char *s, t_env_list *env)
 			i++;
 		else
 		{
-			len = is_metachar(&s[i]);
+			len = len_metachar(env, &s[i]);
+			if (len == -1)
+				return (1);
 			if (!len)
 				len = token_len(&s[i]);
 			token = new_token(&s[i], len);
