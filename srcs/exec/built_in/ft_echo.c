@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_echo.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyeonble <hyeonble@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 14:47:14 by seungryk          #+#    #+#             */
-/*   Updated: 2024/08/15 19:21:19 by hyeonble         ###   ########.fr       */
+/*   Updated: 2024/08/20 11:53:17 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,12 +51,12 @@ static void	print_echo(char **str, int flag_num, int len, int fd)
 		ft_putchar_fd('\n', fd);
 }
 
-static int	check_flag(char *str)
+static int	without_newline(char *str)
 {
 	int	i;
 
 	i = 0;
-	if (str[i] == '-' && str[i + 1] == 'n')
+	if (str[i] == '-' && str[++i] == 'n')
 	{
 		while (str[++i])
 		{
@@ -65,26 +65,28 @@ static int	check_flag(char *str)
 		}
 		return (1);
 	}
-	else
-		return (0);
+	return (0);
 }
 
 static int	get_flag_num(char **str, int len)
 {
-	int		idx;
-	int		flag_num;
+	int	i;
+	int	first_flag;
 
-	idx = 1;
-	flag_num = 0;
 	if (len <= 1)
 		return (0);
-	while (str[idx])
+	i = 1;
+	first_flag = without_newline(str[i]);
+	if (!first_flag)
+		return (0);
+	while (str[++i])
 	{
-		if (check_flag(str[idx]))
-			flag_num++;
-		idx++;
+		if (without_newline(str[i]))
+			first_flag++;
+		else
+			return (first_flag);
 	}
-	return (flag_num);
+	return (first_flag);
 }
 
 int	ft_echo(char **str, int fd)

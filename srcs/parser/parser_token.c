@@ -6,7 +6,7 @@
 /*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 09:05:12 by seungryk          #+#    #+#             */
-/*   Updated: 2024/08/18 17:12:22 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/08/20 12:01:17 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,11 @@ static int	redirect_parser(t_block *block, t_token *token)
 		return (1);
 	}
 	token->type = set_redirect_type(token->data);
+	if (token->type == -1)
+	{
+		token->err = 1;
+		return (1);
+	}
 	redir = get_redir(token, token->type);
 	if (!redir)
 	{

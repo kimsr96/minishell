@@ -6,7 +6,7 @@
 /*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/23 16:45:27 by seungryk          #+#    #+#             */
-/*   Updated: 2024/08/13 17:26:07 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/08/20 12:00:33 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,13 @@
 
 t_redir_type	set_redirect_type(char *s)
 {
-	if (!ft_strncmp(s, "<<", 2))
+	if (!ft_strncmp(s, "<<", 3))
 		return (HEREDOC_REDIRECT);
-	else if (!ft_strncmp(s, "<", 1))
+	else if (!ft_strncmp(s, "<", 2))
 		return (IN_REDIRECT);
-	else if (!ft_strncmp(s, ">>", 2))
+	else if (!ft_strncmp(s, ">>", 3))
 		return (APPEND_REDIRECT);
-	else if (!ft_strncmp(s, ">", 1))
+	else if (!ft_strncmp(s, ">", 2))
 		return (OUT_REDIRECT);
 	else
 		return (-1);

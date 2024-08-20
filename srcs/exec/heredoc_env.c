@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc_env.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyeonble <hyeonble@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 15:46:30 by seungryk          #+#    #+#             */
-/*   Updated: 2024/08/14 16:59:27 by hyeonble         ###   ########.fr       */
+/*   Updated: 2024/08/20 13:31:22 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ static int	heredoc_env_len( t_env_list *env, char *s)
 	len = 0;
 	while (s[i])
 	{
-		expansion = heredoc_is_expansion(env, s);
+		expansion = heredoc_is_expansion(env, &s[i]);
 		if (expansion == 1)
 		{
 			target = get_target(env, &s[i + 1]);
