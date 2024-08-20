@@ -6,7 +6,7 @@
 /*   By: hyeonble <hyeonble@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/08 09:25:07 by seungryk          #+#    #+#             */
-/*   Updated: 2024/08/18 16:08:29 by hyeonble         ###   ########.fr       */
+/*   Updated: 2024/08/20 14:29:48 by hyeonble         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ char	**get_path(t_env_list *env)
 
 	path = find_key_node(env, "PATH");
 	if (!path)
+		return (0);
+	if (ft_strlen(path->value) == 0)
 		return (0);
 	if (path)
 	{
