@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyeonble <hyeonble@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/05 15:38:57 by hyeonble          #+#    #+#             */
-/*   Updated: 2024/08/17 17:33:18 by hyeonble         ###   ########.fr       */
+/*   Updated: 2024/08/24 14:50:14 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ void	get_heredoc(t_redirect *redir, t_env_list *env, char *filename)
 			free(line);
 			break ;
 		}
-		ret = heredoc_env_expansion(env, line);
+		ret = heredoc_env_expansion(env, line, redir->heredoc_expansion);
 		ft_putendl_fd(ret, fd);
 		free(line);
 		free(ret);

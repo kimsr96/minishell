@@ -65,5 +65,5 @@ int		is_exist_file(char *path);
 int		is_executable(char *path);
 
 /* heredoc_env.c */
-char	*heredoc_env_expansion(t_env_list *env, char *line);
+char	*heredoc_env_expansion(t_env_list *env, char *line, int expansion);
 #endif

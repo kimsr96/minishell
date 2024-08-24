@@ -6,7 +6,7 @@
 /*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/23 16:45:27 by seungryk          #+#    #+#             */
-/*   Updated: 2024/08/20 12:00:33 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/08/24 14:44:23 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,8 @@ t_redirect	*get_redir(t_token *token, t_redir_type type)
 	if (type == HEREDOC_REDIRECT)
 	{
 		redirect->delimiter = ft_strdup(token->next->data);
+		if (token->next->env_heredoc)
+			redirect->heredoc_expansion = 1;
 		redirect->file_name = NULL;
 	}
 	else

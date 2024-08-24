@@ -6,7 +6,7 @@
 /*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 08:36:13 by seungryk          #+#    #+#             */
-/*   Updated: 2024/08/20 14:59:37 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/08/24 14:42:37 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ typedef enum e_redir_type
 typedef struct s_redirect
 {
 	int					io_type;
+	int					heredoc_expansion;
 	char				*delimiter;
 	char				*file_name;
 	struct s_redirect	*next;

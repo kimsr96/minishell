@@ -6,7 +6,7 @@
 /*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 10:00:10 by seungryk          #+#    #+#             */
-/*   Updated: 2024/08/20 15:26:13 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/08/24 14:59:54 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ void	start_shell(char *str, t_block *block, t_env_list *env)
 
 int	main(int argc, char **argv, char **envp)
 {
+	int			value;
 	char		*str;
 	t_block		*block;
 	t_env_list	*env;
@@ -71,6 +72,7 @@ int	main(int argc, char **argv, char **envp)
 	set_signal();
 	env = get_env(&env, envp);
 	start_shell(str, block, env);
+	value = ft_atoi(env->value);
 	free_env(&env);
-	return (0);
+	return (value);
 }

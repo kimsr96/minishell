@@ -6,7 +6,7 @@
 /*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 15:08:01 by seungryk          #+#    #+#             */
-/*   Updated: 2024/08/13 15:09:05 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/08/24 14:54:13 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,41 +40,24 @@ int	get_quote_type(t_token *token, char c)
 	return (0);
 }
 
-int	valid_quote(t_token *token, t_env_list *env)
-{
-	int	i;
-
-	i = 0;
-	while (token->data[i])
-	{
-		get_quote_type(token, token->data[i]);
-		i++;
-	}
-	if (token->quote_type)
-		return (parsing_error(env, ERR_SYNTAX, 258));
-	return (0);
-}
-
-void	remove_quote(t_token *token, int len)
+int	valid_quote(t_token **t_head, t_env_list *env)
 {
 	int		i;
-	int		idx;
-	char	*ret;
+	t_token	*curr;
 
 	i = 0;
-	idx = 0;
-	if (token->quote_in_env)
-		return ;
-	ret = malloc(sizeof(char) * (len + 1));
-	if (!ret)
-		exit(1);
-	ret[len] = '\0';
-	while (token->data[i])
+	curr = *t_head;
+	while (curr)
 	{
-		if (get_quote_type(token, token->data[i]))
-			ret[idx++] = token->data[i];
-		i++;
+		i = 0;
+		while (curr->data[i])
+		{
+			get_quote_type(curr, curr->data[i]);
+			i++;
+		}
+		if (curr->quote_type)
+			return (parsing_error(env, ERR_SYNTAX, 258));
+		curr = curr->next;
 	}
-	free(token->data);
-	token->data = ret;
+	return (0);
 }

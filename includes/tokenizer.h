@@ -6,7 +6,7 @@
 /*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 15:00:19 by seungryk          #+#    #+#             */
-/*   Updated: 2024/08/20 14:57:24 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/08/24 14:40:05 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ typedef struct s_token
 	int					quote_in_env;
 	int					is_split;
 	int					cnt_heredoc;
+	int					env_heredoc;
 	char				*data;
 	struct s_token		*next;
 }						t_token;
@@ -74,6 +75,5 @@ int			check_max_heredoc(t_token *curr, t_env_list *env);
 
 /* quote_token.c */
 int			get_quote_type(t_token *token, char c);
-int			valid_quote(t_token *token, t_env_list *env);
-void		remove_quote(t_token *token, int len);
+int			valid_quote(t_token **t_head, t_env_list *env);
 #endif

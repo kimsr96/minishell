@@ -6,7 +6,7 @@
 /*   By: seungryk <seungryk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 13:09:44 by seungryk          #+#    #+#             */
-/*   Updated: 2024/08/18 19:35:23 by seungryk         ###   ########.fr       */
+/*   Updated: 2024/08/22 18:11:20 by seungryk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@ int	check_key_name(char *s)
 	i = 0;
 	while (s[i])
 	{
-		if (i == 0 && !ft_isalpha(s[i]))
+		if (i == 0 && !ft_isalpha(s[i]) && s[i] != '_')
 			return (1);
-		if (!ft_isalnum(s[i]))
+		if (!ft_isalnum(s[i]) && s[i] != '_')
 			return (1);
 		i++;
 	}
